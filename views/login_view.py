@@ -6,7 +6,10 @@ class LoginView(tk.Frame):
         tk.Frame.__init__(self, master, width=1200, height=800)
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
+        self.__render_view(master)
 
+    def __render_view(self, master):
+        # TODO: Include styling
         # declare variables
         __email_address = tk.StringVar()
         __password = tk.StringVar()
@@ -29,5 +32,3 @@ class LoginView(tk.Frame):
 
         # sign up button
         tk.Button(self, text = "Sign Up", width=10, height=1, command = master.main_controller.registration).pack()
-
-    
