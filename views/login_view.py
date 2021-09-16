@@ -2,10 +2,9 @@ import tkinter as tk
 import csv
 
 class LoginView(tk.Frame):
-    def __init__(self, parent, controller):
+    def __init__(self, master):
         # initialise frame and set controller
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
+        tk.Frame.__init__(self, master, width=1200, height=800)
 
         # declare variables
         username = tk.StringVar()
