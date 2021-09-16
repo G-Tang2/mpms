@@ -7,9 +7,8 @@ from controllers.login_controller import LoginController
 class App(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
-        self.main_frame = LoginView(self)
-        self.main_frame.pack_propagate(False)
-        self.main_frame.pack(side="top", fill="both", expand=True)
+        self.main_frame = tk.Frame(self, width=1200, height=800)
+        self.main_controller = LoginController(self)
 
 if __name__ == "__main__":
     app = App()
