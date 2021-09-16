@@ -1,7 +1,5 @@
 from controllers.login_controller import LoginController
 import tkinter as tk
-import tkinter.font as tkFont
-from views.login_view import LoginView
 from controllers.login_controller import LoginController
 
 class App(tk.Tk):
