@@ -23,15 +23,22 @@ class LoginController():
         master.main_frame.pack(side="top", fill="both", expand=True)
 
     def login(self, email_address, password):
-        with open("./app_data/accounts.csv", "r", encoding='utf-8') as f:
+        with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
             f_reader = csv.reader(f)
-            # skip header
             header = next(f_reader, None)
-            # iterate through each account details in format - email address | password | type
+            # find index of email address and password in header
+            email_address_index = header.index("email_address")
+            password_index = header.index("password")
             for account_details in f_reader:
-                if account_details[:2] == [email_address.get(), password.get()]:
+                # extract account email address and password
+                account_email_address = account_details[email_address_index]
+                account_password = account_details[password_index]
+                # check if account details matches user login input
+                if account_email_address == email_address.get() and account_password == password.get():
                     print("login successfully")
+                    # TODO: Implement going to home page
                     return
+        # TODO: Implement error feedback in view
         print("Incorrect email and password")
 
     def registration(self):
