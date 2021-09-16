@@ -4,14 +4,14 @@ import csv
 class LoginController():
     def __init__(self, master):
         # master is an tk instance
-        self._set_controller(master)
-        self._load_view(master)
+        self.__set_controller(master)
+        self.__load_view(master)
 
-    def _set_controller(self, master):
+    def __set_controller(self, master):
         # set controller in tk instance
         master.main_controller = self
 
-    def _load_view(self, master):
+    def __load_view(self, master):
         # create new view
         new_frame = LoginView(master)
         # remove frame if tk instance has a frame
