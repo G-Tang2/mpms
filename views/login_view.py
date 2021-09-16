@@ -8,7 +8,7 @@ class LoginView(tk.Frame):
         self.pack(side="top", fill="both", expand=True)
 
         # declare variables
-        username = tk.StringVar()
+        email_address = tk.StringVar()
         password = tk.StringVar()
 
         # page title
@@ -17,7 +17,7 @@ class LoginView(tk.Frame):
 
         # email detail
         tk.Label(self, text = "Email").pack()
-        tk.Entry(self, textvariable = username).pack()
+        tk.Entry(self, textvariable = email_address).pack()
 
         # password detail
         tk.Label(self, text = "Password").pack()
@@ -25,7 +25,7 @@ class LoginView(tk.Frame):
         tk.Label(self, text = "").pack()
         
         # login button
-        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(username, password)).pack()
+        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(email_address, password)).pack()
 
         # sign up button
         tk.Button(self, text = "Sign Up", width=10, height=1, command = master.main_controller.registration).pack()
