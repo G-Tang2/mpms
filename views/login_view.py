@@ -23,6 +23,7 @@ class LoginView(tk.Frame):
         tk.Label(self, text = "Password").pack()
         tk.Entry(self, textvariable = password).pack()
         tk.Label(self, text = "").pack()
+        
         # login button
         tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(username, password)).pack()
 
