@@ -1,6 +1,6 @@
 import tkinter as tk
 
-class AdminHomeView(tk.Frame):
+class PatientHomeView(tk.Frame):
     def __init__(self, master):
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, width=1200, height=800)
