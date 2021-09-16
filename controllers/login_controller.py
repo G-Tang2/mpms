@@ -22,14 +22,14 @@ class LoginController():
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def login(self, username, password):
+    def login(self, email_address, password):
         with open("./app_data/accounts.csv", "r", encoding='utf-8') as f:
             f_reader = csv.reader(f)
             # skip header
             header = next(f_reader, None)
             # iterate through each account details in format - email address | password | type
             for account_details in f_reader:
-                if account_details[:2] == [username.get(), password.get()]:
+                if account_details[:2] == [email_address.get(), password.get()]:
                     print("login successfully")
                     return
         print("Incorrect email and password")
