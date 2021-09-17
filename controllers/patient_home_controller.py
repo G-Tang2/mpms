@@ -1,4 +1,4 @@
-from views.view_home import PatientHomeView
+from views.patient_home_view import PatientHomeView
 
 class PatientHomeController():
     def __init__(self, master):
