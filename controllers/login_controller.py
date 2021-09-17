@@ -1,11 +1,14 @@
+from controllers.patient_home_controller import PatientHomeController
 from views.login_view import LoginView
 import csv
+from controllers.patient_home_controller import PatientHomeController
 
 class LoginController():
     def __init__(self, master):
         # master is an tk instance
         self.__set_controller(master)
         self.__load_view(master)
+        self.__master = master
 
     def __set_controller(self, master):
         # set controller in tk instance
@@ -22,6 +25,9 @@ class LoginController():
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
+    def __load_controller(self,controller):
+        controller(self.__master)
+
     def login(self, email_address, password):
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
             f_reader = csv.reader(f)
@@ -36,7 +42,7 @@ class LoginController():
                 # check if account details matches user login input
                 if account_email_address == email_address.get() and account_password == password.get():
                     print("login successfully")
-                    # TODO: Implement going to home page
+                    self.__load_controller(PatientHomeController)
                     return
         # TODO: Implement error feedback in view
         print("Incorrect email and password")

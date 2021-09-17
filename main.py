@@ -10,6 +10,9 @@ class App(tk.Tk):
         # default controller
         self.main_controller = LoginController(self)
 
+    def load_controller():
+        pass
+
 if __name__ == "__main__":
     app = App()
     app.mainloop()
