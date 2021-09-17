@@ -1,6 +1,6 @@
-from views.patient_home_view import PatientHomeView
+from views.admin_home_view import AdminHomeView
 
-class PatientHomeController():
+class AdminHomeController():
     def __init__(self, master):
         # master is an tk instance
         self.__set_controller(master)
@@ -12,7 +12,7 @@ class PatientHomeController():
 
     def __load_view(self, master):
         # create new view
-        new_frame = PatientHomeView(master)
+        new_frame = AdminHomeView(master)
         # remove frame if tk instance has a frame
         if master.main_frame is not None:
             master.main_frame.destroy()
