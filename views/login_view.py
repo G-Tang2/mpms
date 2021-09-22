@@ -1,14 +1,14 @@
 import tkinter as tk
 
 class LoginView(tk.Frame):
-    def __init__(self, master):
+    def __init__(self, master: tk.Tk) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master, width=1200, height=800)
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
 
-    def __render_view(self, master):
+    def __render_view(self, master: tk.Tk) -> None:
         # TODO: Include styling
         # declare variables
         __email_address = tk.StringVar()

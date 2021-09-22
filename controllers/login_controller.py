@@ -1,20 +1,21 @@
+import tkinter as tk
 from controllers.patient_home_controller import PatientHomeController
 from views.login_view import LoginView
 import csv
 from controllers.patient_home_controller import PatientHomeController
 
 class LoginController():
-    def __init__(self, master):
+    def __init__(self, master: tk.Tk) -> None:
         # master is an tk instance
         self.__set_controller(master)
         self.__load_view(master)
         self.__master = master
 
-    def __set_controller(self, master):
+    def __set_controller(self, master: tk.Tk) -> None:
         # set controller in tk instance
         master.main_controller = self
 
-    def __load_view(self, master):
+    def __load_view(self, master: tk.Tk) -> None:
         # create new view
         new_frame = LoginView(master)
         # remove frame if tk instance has a frame
@@ -25,10 +26,10 @@ class LoginController():
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def __load_controller(self,controller):
+    def __load_controller(self, controller):
         controller(self.__master)
 
-    def login(self, email_address, password):
+    def login(self, email_address: str, password: str):
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
             f_reader = csv.reader(f)
             header = next(f_reader, None)
