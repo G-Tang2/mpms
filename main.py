@@ -11,8 +11,9 @@ class App(tk.Tk):
         self.main_controller = LoginController(self)
 
     def load_controller(self, controller: Controller) -> None:
-        controller(self)
+        self.main_controller = controller(self)
 
 if __name__ == "__main__":
     app = App()
     app.mainloop()
+    
