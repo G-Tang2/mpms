@@ -1,7 +1,8 @@
 import tkinter as tk
+from controllers.controller import Controller
 from views.admin_home_view import AdminHomeView
 
-class AdminHomeController():
+class AdminHomeController(Controller):
     def __init__(self, master: tk.Tk) -> None:
         # master is an tk instance
         self.__set_controller(master)

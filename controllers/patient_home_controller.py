@@ -1,7 +1,8 @@
 import tkinter as tk
+from controllers.controller import Controller
 from views.patient_home_view import PatientHomeView
 
-class PatientHomeController():
+class PatientHomeController(Controller):
     def __init__(self, master: tk.Tk) -> None:
         # master is an tk instance
         self.__set_controller(master)

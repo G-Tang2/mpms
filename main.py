@@ -1,6 +1,6 @@
-from controllers.login_controller import LoginController
 import tkinter as tk
 from controllers.login_controller import LoginController
+from controllers.controller import Controller
 
 class App(tk.Tk):
     def __init__(self):
@@ -10,8 +10,8 @@ class App(tk.Tk):
         # default controller
         self.main_controller = LoginController(self)
 
-    def load_controller():
-        pass
+    def load_controller(self, controller: Controller) -> None:
+        controller(self)
 
 if __name__ == "__main__":
     app = App()

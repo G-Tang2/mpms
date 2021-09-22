@@ -1,10 +1,10 @@
 import tkinter as tk
 from controllers.patient_home_controller import PatientHomeController
+from controllers.controller import Controller
 from views.login_view import LoginView
 import csv
-from controllers.patient_home_controller import PatientHomeController
 
-class LoginController():
+class LoginController(Controller):
     def __init__(self, master: tk.Tk) -> None:
         # master is an tk instance
         self.__set_controller(master)
@@ -26,9 +26,6 @@ class LoginController():
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def __load_controller(self, controller):
-        controller(self.__master)
-
     def login(self, email_address: str, password: str):
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
             f_reader = csv.reader(f)
@@ -43,7 +40,7 @@ class LoginController():
                 # check if account details matches user login input
                 if account_email_address == email_address.get() and account_password == password.get():
                     print("login successfully")
-                    self.__load_controller(PatientHomeController)
+                    self.__master.load_controller(PatientHomeController)
                     return
         # TODO: Implement error feedback in view
         print("Incorrect email and password")
