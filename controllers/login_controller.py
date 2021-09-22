@@ -7,7 +7,7 @@ import csv
 
 class LoginController(Controller):
     def __init__(self,master):
-        Controller.__init__(self,master,LoginView)
+        Controller.__init__(self,master)
 
     def login(self, email_address: str, password: str):
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
