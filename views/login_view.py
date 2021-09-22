@@ -28,7 +28,7 @@ class LoginView(tk.Frame):
         tk.Label(self, text = "").pack()
         
         # login button
-        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(__email_address, __password)).pack()
+        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(__email_address.get(), __password.get())).pack()
 
         # sign up button
         tk.Button(self, text = "Sign Up", width=10, height=1, command = master.main_controller.registration).pack()

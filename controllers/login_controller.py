@@ -38,7 +38,7 @@ class LoginController(Controller):
                 account_email_address = account_details[email_address_index]
                 account_password = account_details[password_index]
                 # check if account details matches user login input
-                if account_email_address == email_address.get() and account_password == password.get():
+                if account_email_address == email_address and account_password == password:
                     print("login successfully")
                     self.__master.load_controller(PatientHomeController)
                     return
