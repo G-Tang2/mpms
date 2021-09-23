@@ -14,6 +14,6 @@ class AdminHomeView(tk.Frame):
         tk.Label(self, text = "").pack()
 
         # 'Status Report' Button
-        tk.Button(self, text = "Status Report", width=18, height=5).pack()
+        tk.Button(self, text = "Status Report", width=18, height=5, command = master.main_controller.status_report ).pack()
         tk.Label(self, text = "").pack()
 
