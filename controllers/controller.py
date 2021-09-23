@@ -4,10 +4,10 @@ from views.login_view import LoginView
 from views.patient_home_view import PatientHomeView
 
 class Controller():
-    def __init__(self, master: tk.Tk, view = None) -> None:
+    def __init__(self, master: tk.Tk, view) -> None:
         # master is an tk instance
-        self.__view = view
         self.__master = master
+        self.__view = view
         self.__set_controller(master)
         self.__load_view(master)
         
