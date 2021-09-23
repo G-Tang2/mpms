@@ -14,6 +14,10 @@ class LoginView(tk.Frame):
         __email_address = tk.StringVar()
         __password = tk.StringVar()
 
+        # header
+        tk.Label(self, text="Monash Clinic", font=('Roboto',44), bg = '#67b9e6',width=500).pack()
+        tk.Label(self, text = "").pack()
+
         # page title
         tk.Label(self, text="Log In").pack()
         tk.Label(self, text = "").pack()
