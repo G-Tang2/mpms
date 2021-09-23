@@ -1,9 +1,9 @@
 import tkinter as tk
-from controllers.controller import Controller
+from controllers.MPMS import MPMS
 from views.status_report_view import StatusReportView
 
-class StatusReportController(Controller):
+class StatusReportController(MPMS):
     def __init__(self,master,view = StatusReportView):
-        Controller.__init__(self,master,view)
+        MPMS.__init__(self,master,view)
 
     #def status_report():

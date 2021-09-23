@@ -1,13 +1,13 @@
 import tkinter as tk
 from controllers.patient_home_controller import PatientHomeController
 from controllers.admin_home_controller import AdminHomeController
-from controllers.controller import Controller
+from controllers.MPMS import MPMS
 from views.login_view import LoginView
 import csv
 
-class LoginController(Controller):
+class LoginController(MPMS):
     def __init__(self,master,view = LoginView):
-        Controller.__init__(self,master,view)
+        MPMS.__init__(self,master,view)
 
     def login(self, email_address: str, password: str):
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:

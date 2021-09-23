@@ -3,7 +3,7 @@ import tkinter as tk
 from views.login_view import LoginView
 from views.patient_home_view import PatientHomeView
 
-class Controller():
+class MPMS():
     def __init__(self, master: tk.Tk, view) -> None:
         # master is an tk instance
         self._master = master
