@@ -23,7 +23,7 @@ class LoginController(Controller):
                 # check if account details matches user login input
                 if account_email_address == email_address and account_password == password:
                     print("login successfully")
-                    self.__master.load_controller(PatientHomeController)
+                    self._master.load_controller(PatientHomeController)
                     return
         # TODO: Implement error feedback in view
         print("Incorrect email and password")

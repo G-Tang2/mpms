@@ -6,14 +6,14 @@ from views.patient_home_view import PatientHomeView
 class Controller():
     def __init__(self, master: tk.Tk, view) -> None:
         # master is an tk instance
-        self.__master = master
+        self._master = master
         self.__view = view
         self.__set_controller(master)
         self.__load_view(master)
         
     def __set_controller(self, master: tk.Tk) -> None:
         # set controller in tk instance
-        self.__master.main_controller = self
+        master.main_controller = self
 
     def __load_view(self, master: tk.Tk) -> None:
         # create new view
