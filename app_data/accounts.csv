@@ -1,4 +1,4 @@
-﻿email_address,password,type
-admin@monash.edu,Monash1234,administrator
-patient@monash.edu,Monash1234,patient
-1,1,administrator
+﻿id,email_address,password,type
+1,admin@monash.edu,Monash1234,administrator
+2,patient@monash.edu,Monash1234,patient
+3,1,1,administrator

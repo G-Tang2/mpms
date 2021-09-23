@@ -1,0 +1,4 @@
+﻿id,name,address,open_hour,close_hour,phone_number,unavailable_days,appointments
+1,test_name,test_address,test_open,test_close,test_phone,test_un,
+2,,,,,,,
+3,,,,,,,
