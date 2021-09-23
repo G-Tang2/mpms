@@ -7,7 +7,7 @@ import csv
 
 class LoginController(Controller):
     def __init__(self,master):
-        Controller.__init__(self,master)
+        Controller.__init__(self,master,LoginView)
 
     def login(self, email_address: str, password: str):
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
@@ -23,7 +23,7 @@ class LoginController(Controller):
                 # check if account details matches user login input
                 if account_email_address == email_address and account_password == password:
                     print("login successfully")
-                    #self.__master.load_controller(PatientHomeController)
+                    self.__master.load_controller(PatientHomeController)
                     return
         # TODO: Implement error feedback in view
         print("Incorrect email and password")
