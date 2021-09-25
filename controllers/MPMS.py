@@ -1,4 +1,5 @@
 # Parent controller stub
+from models.apppointment_list import AppointmentList
 import tkinter as tk
 # from views.login_view import LoginView
 # from views.patient_home_view import PatientHomeView
@@ -13,6 +14,7 @@ class MPMS():
         self.__set_controller(master)
         self.__load_view(master)
         list_of_branches = self.__fetch_branch_list()
+        list_of_appointments = self.__fetch_appointment_list()
 
         
     def __set_controller(self, master: tk.Tk) -> None:
@@ -32,4 +34,7 @@ class MPMS():
 
     def __fetch_branch_list(self):
         return BranchList()
+
+    def __fetch_appointment_list(self):
+        return AppointmentList()
     
