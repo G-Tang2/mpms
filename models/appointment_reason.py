@@ -1,7 +1,10 @@
 
 class AppointmentReason():
     def __init__(self, info):
-        self.appointment_reason = info["appointment_reason"]
+        self.reason = info["reason"]
         self.duration = info["duration"]
+
+    def get_reason(self):
+        return self.reason
 
     

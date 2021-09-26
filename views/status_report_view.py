@@ -7,6 +7,8 @@ class StatusReportView(tk.Frame):
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
+        # for testing
+        self.show_appointment_reasons(master.main_controller.get_appointment_reasons())
 
     def __render_view(self, master: tk.Tk) -> None:
         # 'Monash Clinic' Header
@@ -31,3 +33,8 @@ class StatusReportView(tk.Frame):
         tk.Label(self, text = "Report Type", width=18, height=5).pack()
         tk.OptionMenu(self,report_type,*options).pack()
         tk.Label(self, text = "").pack()
+
+    # for testing
+    def show_appointment_reasons(self, appointment_reasons):
+        for reason in appointment_reasons:
+            tk.Label(self, text = reason).pack()

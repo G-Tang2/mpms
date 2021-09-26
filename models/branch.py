@@ -15,3 +15,6 @@ class Branch():
     
     def get_name(self):
         return self.name
+
+    def get_appointments(self):
+        return self.appointments

@@ -11,6 +11,6 @@ class Appointment():
         self.appointment_reason = AppointmentReason(info["appointment_reason"])
         # self.questionnaire = Questionnaire(info["questionnaire"])
 
-    def get_reason(self):
-        return self.reason
+    def get_appointment_reason(self):
+        return self.appointment_reason
     

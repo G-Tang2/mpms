@@ -12,8 +12,8 @@ class MPMS():
         self._master = master
         self.__view = view
         self.__set_controller(master)
-        self.__load_view(master)
         self.list_of_branches = self.__fetch_branch_list()
+        self.__load_view(master)
         # list_of_appointments = self.__fetch_appointment_list()
 
         
@@ -37,4 +37,7 @@ class MPMS():
 
     def __fetch_appointment_list(self):
         return AppointmentList()
+
+    def get_list_of_branches(self):
+        return self.list_of_branches
     
