@@ -1,3 +1,4 @@
+from models.apppointment_list import AppointmentList
 import tkinter as tk
 from controllers.MPMS import MPMS
 from views.status_report_view import StatusReportView
@@ -6,6 +7,8 @@ from models.report import Report
 class StatusReportController(MPMS):
     def __init__(self,master,view = StatusReportView):
         MPMS.__init__(self,master,view)
+        self.load_appointment_reasons()
+        
 
     #def status_report():
 
@@ -26,3 +29,7 @@ class StatusReportController(MPMS):
         for appointment in self.get_appointments():
             appointment_reason_list.append(appointment.get_appointment_reason().get_reason())
         return appointment_reason_list
+
+    def load_appointment_reasons(self):
+        appointment_reason = self.get_appointment_reasons()
+        self._view.display_appointment_reasons(appointment_reason)
