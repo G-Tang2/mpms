@@ -13,8 +13,8 @@ class MPMS():
         self.__view = view
         self.__set_controller(master)
         self.__load_view(master)
-        list_of_branches = self.__fetch_branch_list()
-        list_of_appointments = self.__fetch_appointment_list()
+        self.list_of_branches = self.__fetch_branch_list()
+        # list_of_appointments = self.__fetch_appointment_list()
 
         
     def __set_controller(self, master: tk.Tk) -> None:
