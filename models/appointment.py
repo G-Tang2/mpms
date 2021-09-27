@@ -13,4 +13,7 @@ class Appointment():
 
     def get_appointment_reason(self):
         return self.appointment_reason
+
+    def get_appointment_datetime(self):
+        return self.date_time
     
