@@ -10,8 +10,6 @@ class BookView(tk.Frame):
         self.__render_view(master)
 
     def __render_view(self, master: tk.Tk) -> None:
-        __email_address = tk.StringVar()
-        __password = tk.StringVar()
 
         # page content
         tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
