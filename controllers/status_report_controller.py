@@ -9,9 +9,9 @@ class StatusReportController(MPMS):
         MPMS.__init__(self,master,view)
         #self.load_appointment_reasons()
         
-    def get_report_statistic(self, start_date = None, end_date = None, info=None):
+    def get_report_statistic(self, start_date, end_date,report_type,  info=None):
         report = Report("reason")
-        return report.get_statistic()
+        return report.get_statistic(start_date, end_date, report_type)
 
     
     def get_appointments(self):
