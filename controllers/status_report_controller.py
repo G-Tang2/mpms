@@ -7,15 +7,13 @@ from models.report import Report
 class StatusReportController(MPMS):
     def __init__(self,master,view = StatusReportView):
         MPMS.__init__(self,master,view)
-        self.load_appointment_reasons()
+        #self.load_appointment_reasons()
         
-
-    #def status_report():
-
-    def get_statistic(self, start_date, end_date, info=None):
-        report = Report("reason", start_date, end_date)
+    def get_report_statistic(self, start_date = None, end_date = None, info=None):
+        report = Report("reason")
         return report.get_statistic()
 
+    
     def get_appointments(self):
         appointment_list = []
         for branch in self.get_list_of_branches().get_branch_list():
@@ -32,4 +30,4 @@ class StatusReportController(MPMS):
 
     def load_appointment_reasons(self):
         appointment_reason = self.get_appointment_reasons()
-        self._view.display_appointment_reasons(appointment_reason)
+        self.__view.display_appointment_reasons(appointment_reason)
