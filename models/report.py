@@ -9,14 +9,19 @@ class Report():
         self.statistic = {}
         #self.list_of_appointments = self.__fetch_appointment_list()
 
-    def calculate_statistic(self, start_date= None, end_date=None, info = None):
+    def calculate_statistic(self, start_date, end_date, report_type, info = None):
         self.statistic = {}
 
         branch_list = BranchList()
         self.list_of_branches = branch_list.get_branch_list()
 
-        start_date = datetime.strptime('2005-2-1', '%Y-%m-%d')
-        end_date = datetime.strptime('2015-2-1', '%Y-%m-%d')
+       
+        start_date = datetime.strptime(str(start_date), '%Y-%m-%d')
+        end_date = datetime.strptime(str(end_date), '%Y-%m-%d')
+       
+
+        if report_type == "Reason":
+            print("reason report")
         
         for branch in self.list_of_branches:
             appointment_list = branch.get_appointments()
@@ -35,8 +40,8 @@ class Report():
         
         print(self.statistic)
  
-    def get_statistic(self):
-        self.calculate_statistic()
+    def get_statistic(self,start_date, end_date, report_type):
+        self.calculate_statistic(start_date, end_date, report_type)
         return self.statistic
     
     #def __fetch_appointment_list(self):
