@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from tkinter.constants import E, NO, W
 
 class StatusReportView(tk.Frame):
     def __init__(self, master: tk.Tk) -> None:
@@ -21,7 +23,7 @@ class StatusReportView(tk.Frame):
         end_date = tk.StringVar()
         report_type = tk.StringVar()
 
-        # 'Book Appointment' Button
+        # 'Report' Button
         tk.Label(self, text = "Start Date", width=18, height=5).pack()
         tk.OptionMenu(self,start_date,*options).pack()
         tk.Label(self, text = "").pack()
@@ -33,6 +35,30 @@ class StatusReportView(tk.Frame):
         tk.Label(self, text = "Report Type", width=18, height=5).pack()
         tk.OptionMenu(self,report_type,*options).pack()
         tk.Label(self, text = "").pack()
+
+        tk.Button(self,text="Generate Report", command = lambda: self.display_reason_report()).pack()
+
+    def display_reason_report(self):
+        #Create table
+        reason_dict = self.master.main_controller.get_report_statistic()
+        
+        reason_table = ttk.Treeview(self,height=5)
+        reason_table['columns'] = ("Reason","Occurences")
+
+        reason_table.column("#0",width=0,stretch=NO)
+        reason_table.column("Reason",anchor=W, width = 120)
+        reason_table.column("Occurences",anchor=E, width=120)
+
+        reason_table.heading("#0", text = '', anchor=W)
+        reason_table.heading("Reason", text = 'Reason', anchor=W)
+        reason_table.heading("Occurences", text = 'Occurences', anchor=E)
+        
+        #Add values
+        table_iid = 0
+        for key,value in reason_dict.items():
+            reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,value))
+            table_iid += 1
+        reason_table.pack()
 
     # for testing
     def display_appointment_reasons(self, appointment_reasons):
