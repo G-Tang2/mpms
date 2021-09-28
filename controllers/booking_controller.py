@@ -1,5 +1,5 @@
 import tkinter as tk
-from controller import Controller
+from controllers.controller import Controller
 from views.booking_view import BookView
 
 
