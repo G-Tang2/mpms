@@ -14,6 +14,6 @@ class PatientHomeView(tk.Frame):
         tk.Label(self, text = "").pack()
 
         # 'Book Appointment' Button
-        tk.Button(self, text = "Book Appointment", width=18, height=5).pack()
+        tk.Button(self, text = "Book Appointment", width=18, height=5, command=master.main_controller.book_appointment).pack()
         tk.Label(self, text = "").pack()
 
