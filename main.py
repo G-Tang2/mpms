@@ -5,13 +5,21 @@ from controllers.MPMS import MPMS
 class App(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
+        # center window on display
+        self.__center_window()
         # default frame
-        self.main_frame = tk.Frame(self, width=1200, height=800)
+        self.main_frame = None
         # default controller
         self.main_controller = LoginController(self)
 
+    def __center_window(self):
+        display_w, display_h = self.winfo_screenwidth(), self.winfo_screenheight()
+        window_w, window_h = 1200, 800
+        self.geometry("%dx%d+%d+%d" % (window_w, window_h, display_w/2 - window_w/2, display_h/2 - window_h/2))
+
     def load_controller(self, controller: MPMS) -> None:
         self.main_controller = controller(self)
+
 
 if __name__ == "__main__":
     app = App()
