@@ -7,7 +7,6 @@ class Report():
     def __init__(self, type):
         self.type = type
         self.statistic = {}
-        #self.list_of_appointments = self.__fetch_appointment_list()
 
     def calculate_statistic(self, start_date, end_date, report_type, info = None):
         self.statistic = {}
@@ -37,14 +36,11 @@ class Report():
                     else:
                         self.statistic[appointment_reason] += 1
         for key,value in self.statistic.items():
-            self.statistic[key] = value/total_reasons
+            self.statistic[key] = (value/total_reasons) * 100
         
         print(self.statistic)
  
     def get_statistic(self,start_date, end_date, report_type):
         self.calculate_statistic(start_date, end_date, report_type)
         return self.statistic
-    
-    #def __fetch_appointment_list(self):
-     #   return AppointmentList()
         
