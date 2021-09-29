@@ -27,7 +27,7 @@ class BookController(MPMS):
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def show_selection(self, listbox, label):
+    def next(self, listbox):
         # create a StringVar value to store the value from listbox
         var = tk.StringVar()
 
@@ -38,7 +38,7 @@ class BookController(MPMS):
             value = ''
 
         # display
-        label.config(textvariable=var)
+        # label.config(textvariable=var)
         var.set(value)
 
     def show_branches(self, listbox):
