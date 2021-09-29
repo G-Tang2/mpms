@@ -10,8 +10,8 @@ class MPMS():
     def __init__(self, master: tk.Tk, view) -> None:
         # master is an tk instance
         self._master = master
-        self._view = view(master)
         self.__set_controller(master)
+        self._view = view(master)
         self.list_of_branches = self.__fetch_branch_list()
         self.__load_view(master)
         # list_of_appointments = self.__fetch_appointment_list()

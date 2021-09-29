@@ -33,3 +33,5 @@ class LoginController(MPMS):
                         self._master.load_controller(PatientHomeController)
                         print("login successfully")
                     return
+
+            self._view.display_email_error()

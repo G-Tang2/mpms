@@ -3,11 +3,10 @@ import tkinter as tk
 class LoginView(tk.Frame):
     def __init__(self, master: tk.Tk) -> None:
         # initialise frame and set controller
-        tk.Frame.__init__(self, master, width=1200, height=800)
+        tk.Frame.__init__(self, master)
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
-        self.email_error_label = None
 
     def __render_view(self, master: tk.Tk) -> None:
         # TODO: Include styling
@@ -34,3 +33,6 @@ class LoginView(tk.Frame):
         
         # login button
         tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(__email_address.get(), __password.get())).pack()
+
+    def display_email_error(self):
+        tk.messagebox.showerror("Error", "Invalid email address or password")
