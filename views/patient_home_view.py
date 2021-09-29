@@ -3,7 +3,7 @@ import tkinter as tk
 class PatientHomeView(tk.Frame):
     def __init__(self, master: tk.Tk) -> None:
         # Initialise frame and set controller
-        tk.Frame.__init__(self, master, width=1200, height=800)
+        tk.Frame.__init__(self, master)
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
