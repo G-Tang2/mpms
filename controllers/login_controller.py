@@ -33,9 +33,3 @@ class LoginController(MPMS):
                         self._master.load_controller(PatientHomeController)
                         print("login successfully")
                     return
-
-        # TODO: Implement error feedback in view
-        print("Incorrect email and password")
-
-    def registration(self):
-        print("Registration page hasn't been implemented!")

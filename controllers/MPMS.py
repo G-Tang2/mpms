@@ -10,7 +10,7 @@ class MPMS():
     def __init__(self, master: tk.Tk, view) -> None:
         # master is an tk instance
         self._master = master
-        self.__view = view
+        self._view = view(master)
         self.__set_controller(master)
         self.list_of_branches = self.__fetch_branch_list()
         self.__load_view(master)
@@ -23,7 +23,7 @@ class MPMS():
 
     def __load_view(self, master: tk.Tk) -> None:
         # create new view
-        new_frame = self.__view(master)
+        new_frame = self._view
         # remove frame if tk instance has a frame
         if master.main_frame is not None:
             master.main_frame.destroy()

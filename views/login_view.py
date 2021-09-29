@@ -7,6 +7,7 @@ class LoginView(tk.Frame):
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
+        self.email_error_label = None
 
     def __render_view(self, master: tk.Tk) -> None:
         # TODO: Include styling
@@ -33,6 +34,3 @@ class LoginView(tk.Frame):
         
         # login button
         tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(__email_address.get(), __password.get())).pack()
-
-        # sign up button
-        tk.Button(self, text = "Sign Up", width=10, height=1, command = master.main_controller.registration).pack()
