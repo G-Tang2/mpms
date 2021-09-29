@@ -34,5 +34,5 @@ class LoginView(tk.Frame):
         # login button
         tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(email_address.get(), password.get())).pack()
 
-    def display_email_error(self):
-        tk.messagebox.showerror("Error", "Invalid email address or password")
+    def display_email_error(self, message: str):
+        tk.messagebox.showerror("Error", message)
