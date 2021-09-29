@@ -1,6 +1,7 @@
 import tkinter as tk
 from controllers.MPMS import MPMS
 from views.booking_view import BookView
+from controllers.gp_controller import GPController
 
 
 class BookController(MPMS):
@@ -29,17 +30,22 @@ class BookController(MPMS):
 
     def next(self, listbox):
         # create a StringVar value to store the value from listbox
-        var = tk.StringVar()
+        # var = tk.StringVar()
 
         # get value from the list
-        if listbox.curselection():
-            value = listbox.get('active')
-        else:
-            value = ''
+        # if listbox.curselection():
+            # value = listbox.get('active')
+        # else:
+            # value = ''
 
         # display
         # label.config(textvariable=var)
-        var.set(value)
+        # var.set(value)
+
+        if listbox.curselection():
+            self.__master.load_controller(GPController)
+        else:
+            print('You do not select any branch')
 
     def show_branches(self, listbox):
         #insert branches information
