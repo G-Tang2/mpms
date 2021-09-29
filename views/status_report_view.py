@@ -15,8 +15,6 @@ class StatusReportView(tk.Frame):
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
         self.reason_table = None
-        # for testing
-        # self.show_appointment_reasons(master.main_controller.get_appointment_reasons())
        
 
     def __render_view(self, master: tk.Tk) -> None:
@@ -88,9 +86,3 @@ class StatusReportView(tk.Frame):
             self.reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
             table_iid += 1
         self.reason_table.pack(fill=tk.BOTH)
-        
-
-    # for testing
-    def display_appointment_reasons(self, appointment_reasons):
-        for reason in appointment_reasons:
-            tk.Label(self, text = reason).pack()
