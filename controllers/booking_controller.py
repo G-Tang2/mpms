@@ -1,9 +1,9 @@
 import tkinter as tk
-from controllers.controller import Controller
+from controllers.MPMS import MPMS
 from views.booking_view import BookView
 
 
-class BookController(Controller):
+class BookController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
         # master is an tk instance
         self.__set_controller(master)
