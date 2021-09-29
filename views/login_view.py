@@ -11,8 +11,8 @@ class LoginView(tk.Frame):
     def __render_view(self, master: tk.Tk) -> None:
         # TODO: Include styling
         # declare variables
-        __email_address = tk.StringVar()
-        __password = tk.StringVar()
+        email_address = tk.StringVar()
+        password = tk.StringVar()
 
         # header
         tk.Label(self, text="Monash Clinic", font=('Roboto',44), bg = '#67b9e6',width=500).pack()
@@ -24,15 +24,15 @@ class LoginView(tk.Frame):
 
         # email detail
         tk.Label(self, text = "Email").pack()
-        tk.Entry(self, textvariable = __email_address).pack()
+        tk.Entry(self, textvariable = email_address).pack()
 
         # password detail
         tk.Label(self, text = "Password").pack()
-        tk.Entry(self, textvariable = __password).pack()
+        tk.Entry(self, textvariable = password).pack()
         tk.Label(self, text = "").pack()
         
         # login button
-        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(__email_address.get(), __password.get())).pack()
+        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(email_address.get(), password.get())).pack()
 
     def display_email_error(self):
         tk.messagebox.showerror("Error", "Invalid email address or password")
