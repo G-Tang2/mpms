@@ -1,9 +1,10 @@
 import tkinter as tk
-from controllers.controller import Controller
+from controllers.MPMS import MPMS
 from views.booking_view import BookView
+from controllers.gp_controller import GPController
 
 
-class BookController(Controller):
+class BookController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
         # master is an tk instance
         self.__set_controller(master)
@@ -27,19 +28,24 @@ class BookController(Controller):
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def show_selection(self, listbox, label):
+    def next(self, listbox):
         # create a StringVar value to store the value from listbox
-        var = tk.StringVar()
+        # var = tk.StringVar()
 
         # get value from the list
-        if listbox.curselection():
-            value = listbox.get('active')
-        else:
-            value = ''
+        # if listbox.curselection():
+            # value = listbox.get('active')
+        # else:
+            # value = ''
 
         # display
-        label.config(textvariable=var)
-        var.set(value)
+        # label.config(textvariable=var)
+        # var.set(value)
+
+        if listbox.curselection():
+            self.__master.load_controller(GPController)
+        else:
+            print('You do not select any branch')
 
     def show_branches(self, listbox):
         #insert branches information
