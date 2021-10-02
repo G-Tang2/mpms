@@ -1,9 +1,10 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 
 class LoginView(tk.Frame):
     def __init__(self, master: tk.Tk) -> None:
         # initialise frame and set controller
-        tk.Frame.__init__(self, master)
+        tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
         self.__render_view(master)
@@ -15,25 +16,31 @@ class LoginView(tk.Frame):
         password = tk.StringVar()
 
         # header
-        tk.Label(self, text="Monash Clinic", font=('Roboto',38, "bold"), anchor="w").pack(padx=100, pady=15, fill="x")
+        tk.Label(self, text="   Monash Clinic", font=('Roboto',38, "bold"), anchor="w", bg="white").pack(ipady=10, fill="x")
+        
+        # divider
+        tk.Frame(self, bg="black", height=2).pack(fill="x")
+
+        outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
 
         # page title
-        tk.Label(self, text="Log In", font=('Roboto',28, "bold")).pack(pady=(100, 60))
+        tk.Label(outer_label_frame, text="Log In", font=('Roboto',28, "bold"), bg="white").pack(pady=(50, 60))
 
-        frame1 = tk.LabelFrame(self, relief="flat")
+        inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         # email detail
-        tk.Label(frame1, text = "Email", anchor="w").pack(padx=25, fill="x")
-        tk.Entry(frame1, font=('Roboto',14), textvariable = email_address).pack(padx=25, fill="x")
+        tk.Label(inner_label_frame, text = "Email", font=('Roboto',12), anchor="w", bg="white").pack(padx=25, fill="x")
+        tk.Entry(inner_label_frame, font=('Roboto',14), borderwidth=2, relief="solid", textvariable = email_address).pack(padx=25, fill="x")
 
         # password detail
-        tk.Label(frame1, text = "Password", anchor="w").pack(padx=25, pady=(15, 0), fill="x")
-        tk.Entry(frame1, font=('Roboto',14), textvariable = password).pack(padx=25, fill="x")
+        tk.Label(inner_label_frame, text = "Password", font=('Roboto',12), anchor="w", bg="white").pack(padx=25, pady=(15, 0), fill="x")
+        tk.Entry(inner_label_frame, font=('Roboto',14), borderwidth=2, relief="solid", textvariable = password).pack(padx=25, fill="x")
         
         # login button
-        tk.Button(frame1, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(email_address.get(), password.get())).pack(pady=25)
+        tk.Button(inner_label_frame, text = "Log In", font=('Roboto',14), borderwidth=2, relief="solid", width= 12, bg="#99d2f2", command = lambda: master.main_controller.login(email_address.get(), password.get())).pack(pady=(35, 45))
 
-        frame1.pack(padx=450, fill="x")
+        inner_label_frame.pack(padx=50, fill="x")
+        outer_label_frame.pack(padx=350, pady=50, fill="x")
 
     def display_email_error(self, message: str):
         tk.messagebox.showerror("Error", message)
