@@ -5,6 +5,8 @@ from controllers.MPMS import MPMS
 class App(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
+        # set window title
+        self.title("Monash Patient Management System (MPMS)")
         # center window on display
         self.__center_window()
         # default frame
