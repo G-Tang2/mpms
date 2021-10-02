@@ -21,11 +21,13 @@ class LoginView(tk.Frame):
         # divider
         tk.Frame(self, bg="black", height=2).pack(fill="x")
 
+        # container for login details
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
 
         # page title
         tk.Label(outer_label_frame, text="Log In", font=('Roboto',28, "bold"), bg="white").pack(pady=(50, 60))
 
+        # wrapper for login details
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         # email detail
