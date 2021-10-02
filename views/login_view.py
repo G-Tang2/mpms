@@ -15,24 +15,25 @@ class LoginView(tk.Frame):
         password = tk.StringVar()
 
         # header
-        tk.Label(self, text="Monash Clinic", font=('Roboto',44), bg = '#67b9e6',width=500).pack()
-        tk.Label(self, text = "").pack()
+        tk.Label(self, text="Monash Clinic", font=('Roboto',38, "bold"), anchor="w").pack(padx=100, pady=15, fill="x")
 
         # page title
-        tk.Label(self, text="Log In").pack()
-        tk.Label(self, text = "").pack()
+        tk.Label(self, text="Log In", font=('Roboto',28, "bold")).pack(pady=(100, 60))
+
+        frame1 = tk.LabelFrame(self, relief="flat")
 
         # email detail
-        tk.Label(self, text = "Email").pack()
-        tk.Entry(self, textvariable = email_address).pack()
+        tk.Label(frame1, text = "Email", anchor="w").pack(padx=25, fill="x")
+        tk.Entry(frame1, font=('Roboto',14), textvariable = email_address).pack(padx=25, fill="x")
 
         # password detail
-        tk.Label(self, text = "Password").pack()
-        tk.Entry(self, textvariable = password).pack()
-        tk.Label(self, text = "").pack()
+        tk.Label(frame1, text = "Password", anchor="w").pack(padx=25, pady=(15, 0), fill="x")
+        tk.Entry(frame1, font=('Roboto',14), textvariable = password).pack(padx=25, fill="x")
         
         # login button
-        tk.Button(self, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(email_address.get(), password.get())).pack()
+        tk.Button(frame1, text = "Login", width=10, height=1, command = lambda: master.main_controller.login(email_address.get(), password.get())).pack(pady=25)
+
+        frame1.pack(padx=450, fill="x")
 
     def display_email_error(self, message: str):
         tk.messagebox.showerror("Error", message)
