@@ -34,7 +34,7 @@ class LoginView(tk.Frame):
 
         # password detail
         tk.Label(inner_label_frame, text = "Password", font=('Roboto',12), anchor="w", bg="white").pack(padx=25, pady=(15, 0), fill="x")
-        tk.Entry(inner_label_frame, font=('Roboto',14), borderwidth=2, relief="solid", textvariable = password).pack(padx=25, fill="x")
+        tk.Entry(inner_label_frame, show="*", font=('Roboto',14), borderwidth=2, relief="solid", textvariable = password).pack(padx=25, fill="x")
         
         # login button
         tk.Button(inner_label_frame, text = "Log In", font=('Roboto',14), borderwidth=2, relief="solid", width= 12, bg="#99d2f2", command = lambda: master.main_controller.login(email_address.get(), password.get())).pack(pady=(35, 45))
