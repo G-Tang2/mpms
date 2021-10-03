@@ -28,7 +28,6 @@ class GPController(MPMS):
     def show_selection(self):
         tk.messagebox.askokcancel(title='Successfully', message='You have made an appointment')
 
-
     def show_gps(self, listbox):
         listbox.insert('end', 'GP1\n')
         listbox.insert('end', 'GP2\n')
