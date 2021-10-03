@@ -14,10 +14,9 @@ class GPView(tk.Frame):
         # page content
         tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
         listbox = tk.Listbox(self)
-        label = tk.Label(self, width=800, height=2, bg='lightskyblue')
         master.main_controller.show_gps(listbox)
         listbox.pack()
         tk.Button(self, text='show_selection', width=15, height=2,
-                  command=lambda: master.main_controller.show_selection(listbox, label)).pack()
-        label.pack()
+                  command=master.main_controller.show_selection).pack()
+
 

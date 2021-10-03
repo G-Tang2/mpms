@@ -25,16 +25,9 @@ class GPController(MPMS):
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def show_selection(self, listbox, label):
-        var = tk.StringVar()
+    def show_selection(self):
+        tk.messagebox.askokcancel(title='Successfully', message='You have made an appointment')
 
-        if listbox.curselection():
-            value = listbox.get('active')
-        else:
-            value = ''
-
-        label.config(textvariable=var)
-        var.set(value)
 
     def show_gps(self, listbox):
         listbox.insert('end', 'GP1\n')
