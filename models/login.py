@@ -46,7 +46,7 @@ class Login():
                     user_details = json.loads(account_user_detail)
                     user_details["email_address"] = email_address
                     user_details["password"] = password
-                    if user_details["date_of_birth"] is not None:
+                    if "date_of_birth" in user_details:
                         user_details["date_of_birth"] = datetime.strptime(user_details["date_of_birth"], "%d/%m/%Y").date()
                     return_dict = {
                         "is_valid": True,
