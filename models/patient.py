@@ -1,19 +1,24 @@
 from models.favourite_list import FavouriteList
+from models.user import User
 
-class Patient():
-    def __init__(self, info):
-        ''' info: {
-            first_name: "patient first name",
-            last_name: "patient last name",
-            phone_number: "0412345678",
-            date_of_birth: "Jun 1 2005  1:33PM",
-            gender: "male",
+class Patient(User):
+    def __init__(self, arg) -> None:
+        ''' 
+        arg: {
+            email_address: str,
+            password: str,
+            first_name: str,
+            last_name: str,
+            phone_number: str,
+            date_of_birth: datetime,
+            gender: str,
             list_of_favourites: {list_of_favourites:[]}
         }
         '''
-        self.first_name: info["first_name"]
-        self.last_name: info["last_name"]
-        self.phone_number: info["phone_number"]
-        self.date_of_birth: info["date_of_birth"]
-        self.gender: info["gender"]
-        self.list_of_favourites: FavouriteList(info["list_of_favourites"])
+        User.__init__(self, arg["email_address"], arg["password"])
+        self._first_name = arg["first_name"]
+        self._last_name = arg["last_name"]
+        self._phone_number = arg["phone_number"]
+        self._date_of_birth = arg["date_of_birth"]
+        self._gender = arg["gender"]
+        self._list_of_favourites = FavouriteList(arg["list_of_favourites"])
