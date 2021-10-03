@@ -2,7 +2,7 @@ from models.favourite_list import FavouriteList
 from models.user import User
 
 class Patient(User):
-    def __init__(self, arg):
+    def __init__(self, arg) -> None:
         ''' 
         arg: {
             email_address: str,
@@ -16,9 +16,9 @@ class Patient(User):
         }
         '''
         User.__init__(self, arg["email_address"], arg["password"])
-        self.__first_name: arg["first_name"]
-        self.__last_name: arg["last_name"]
-        self.__phone_number: arg["phone_number"]
-        self.__date_of_birth: arg["date_of_birth"]
-        self.__gender: arg["gender"]
-        self.__list_of_favourites: FavouriteList(arg["list_of_favourites"])
+        self._first_name = arg["first_name"]
+        self._last_name = arg["last_name"]
+        self._phone_number = arg["phone_number"]
+        self._date_of_birth = arg["date_of_birth"]
+        self._gender = arg["gender"]
+        self._list_of_favourites = FavouriteList(arg["list_of_favourites"])

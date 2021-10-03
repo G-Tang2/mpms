@@ -8,7 +8,7 @@ class Login():
     def __init__(self, email_address: str, password: str) -> None:
         self.user = self.load_user(email_address, password)
         
-    def load_user(self, email_address: str, password: str) -> User:
+    def load_user(self, email_address: str, password: str):
         res = self.valid_credentials(email_address, password)
         if res["is_valid"]:
             if res["account_type"] == "administrator":
