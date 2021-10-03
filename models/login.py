@@ -17,10 +17,9 @@ class Login():
             elif account_type == "patient":
                 return Patient(account_details)
             else:
-                # TODO: Throw error
-                print("Invalid account type")
+                ValueError("Invalid user. You are not an administrator or a patient.")
         else:
-            raise ValueError("Invalid email address or password")
+            raise ValueError("Invalid email address or password.")
 
     def valid_credentials(self, email_address: str, password: str) -> bool:
         # default values
