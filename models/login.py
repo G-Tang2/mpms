@@ -1,5 +1,6 @@
 import csv
 import json
+from datetime import datetime
 from models.user import User
 from models.patient import Patient
 from models.admin import Admin
@@ -8,7 +9,7 @@ class Login():
     def __init__(self, email_address: str, password: str) -> None:
         self.user = self.load_user(email_address, password)
         
-    def load_user(self, email_address: str, password: str):
+    def load_user(self, email_address: str, password: str) -> User:
         res = self.valid_credentials(email_address, password)
         if res["is_valid"]:
             if res["account_type"] == "administrator":
@@ -39,13 +40,14 @@ class Login():
                 account_type = account_details[type_index]
                 account_user_detail = account_details[user_detail_index]
 
-                # pack email address and password into user details
-                user_details = json.loads(account_user_detail)
-                user_details["email_address"] = email_address
-                user_details["password"] = password
-
                 # check if account details matches user login input
                 if account_email_address == email_address and account_password == password:
+                    # pack email address and password into user details and format date of birth
+                    user_details = json.loads(account_user_detail)
+                    user_details["email_address"] = email_address
+                    user_details["password"] = password
+                    if user_details["date_of_birth"] is not None:
+                        user_details["date_of_birth"] = datetime.strptime(user_details["date_of_birth"], "%d/%m/%Y").date()
                     return_dict = {
                         "is_valid": True,
                         "account_type": account_type,
