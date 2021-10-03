@@ -2,6 +2,7 @@ import tkinter as tk
 from controllers.MPMS import MPMS
 from views.booking_view import BookView
 from controllers.gp_controller import GPController
+from models.branch_list import BranchList
 
 
 class BookController(MPMS):
@@ -12,6 +13,7 @@ class BookController(MPMS):
         self.__master = master
         # to represent if the branches is already shown
         self.branch_flag = False
+        self.branches = BranchList()
 
     def __set_controller(self, master: tk.Tk) -> None:
         # set controller in tk instance
@@ -50,7 +52,6 @@ class BookController(MPMS):
     def show_branches(self, listbox):
         #insert branches information
         if not self.branch_flag:
-            listbox.insert('end', 'Branch1\n')
-            listbox.insert('end', 'Branch2\n')
-            listbox.insert('end', 'Branch3\n')
+            for each in self.branches.get_branch_list():
+                listbox.insert('end', each.get_name())
             self.branch_flag = True
