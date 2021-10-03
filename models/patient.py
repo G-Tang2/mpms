@@ -16,9 +16,9 @@ class Patient(User):
         }
         '''
         User.__init__(self, arg["email_address"], arg["password"])
-        self.first_name: arg["first_name"]
-        self.last_name: arg["last_name"]
-        self.phone_number: arg["phone_number"]
-        self.date_of_birth: arg["date_of_birth"]
-        self.gender: arg["gender"]
-        self.list_of_favourites: FavouriteList(arg["list_of_favourites"])
+        self.__first_name: arg["first_name"]
+        self.__last_name: arg["last_name"]
+        self.__phone_number: arg["phone_number"]
+        self.__date_of_birth: arg["date_of_birth"]
+        self.__gender: arg["gender"]
+        self.__list_of_favourites: FavouriteList(arg["list_of_favourites"])
