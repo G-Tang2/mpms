@@ -7,15 +7,12 @@ class BookView(tk.Frame):
         tk.Frame.__init__(self, master)
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
-        self.__render_view(master)
 
-    def __render_view(self, master: tk.Tk) -> None:
+    def _render_view(self, master: tk.Tk, list_of_branches) -> None:
 
         # page content
         tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
-        listbox = tk.Listbox(self)
-        tk.Button(self, text='show_branches', width=15, height=2,
-                  command=lambda: master.main_controller.show_branches(listbox)).pack()
-        listbox.pack()
+        # show list of branches
         tk.Button(self, text='next', width=15, height=2,
-                  command=lambda: master.main_controller.next(listbox)).pack()
+                  command=lambda: master.main_controller.next()).pack()
+

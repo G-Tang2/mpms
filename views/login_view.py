@@ -10,7 +10,6 @@ class LoginView(tk.Frame):
         self.__render_view(master)
 
     def __render_view(self, master: tk.Tk) -> None:
-        # TODO: Include styling
         # declare variables
         email_address = tk.StringVar()
         password = tk.StringVar()
