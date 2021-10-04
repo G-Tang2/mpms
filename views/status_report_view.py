@@ -8,11 +8,12 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
 class StatusReportView(tk.Frame):
-    def __init__(self, master: tk.Tk) -> None:
+    def __init__(self, master: tk.Tk, controller) -> None:
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
+        self.controller = controller
         self.__render_view(master)
        
 
@@ -60,7 +61,7 @@ class StatusReportView(tk.Frame):
             tk.messagebox.showerror("Error", "Start date should be earlier than end date")
             return None
         
-        reason_dict = self.master.main_controller.get_report_statistic(start_date,end_date,report_type)
+        reason_dict = self.controller.get_report_statistic(start_date,end_date,report_type)
 
         if len(reason_dict) == 0:
             tk.messagebox.showerror("Error", "No appointments within this period")

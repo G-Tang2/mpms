@@ -2,11 +2,12 @@ import tkinter as tk
 
 
 class GPView(tk.Frame):
-    def __init__(self, master: tk.Tk) -> None:
+    def __init__(self, master: tk.Tk, controller) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
+        self.controller = controller
         self.__render_view(master)
 
     def __render_view(self, master: tk.Tk) -> None:
@@ -17,6 +18,6 @@ class GPView(tk.Frame):
         master.main_controller.show_gps(listbox)
         listbox.pack()
         tk.Button(self, text='show_selection', width=15, height=2,
-                  command=master.main_controller.show_selection).pack()
+                  command=self.controller.show_selection).pack()
 
 

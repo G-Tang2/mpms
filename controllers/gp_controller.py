@@ -16,14 +16,14 @@ class GPController(MPMS):
 
     def __load_view(self, master: tk.Tk) -> None:
         # create new view
-        new_frame = GPView(master)
+        new_frame = GPView(master, self)
         # remove frame if tk instance has a frame
-        if master.main_frame is not None:
-            master.main_frame.destroy()
+        if master.body_frame is not None:
+            master.body_frame.destroy()
         # assign new frame to tk instance
-        master.main_frame = new_frame
-        master.main_frame.grid_propagate(False)
-        master.main_frame.pack(side="top", fill="both", expand=True)
+        master.body_frame = new_frame
+        master.body_frame.grid_propagate(False)
+        master.body_frame.pack(side="top", fill="both", expand=True)
 
     def show_selection(self):
         tk.messagebox.askokcancel(title='Successfully', message='You have made an appointment')

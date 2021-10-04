@@ -1,11 +1,12 @@
 import tkinter as tk
 
 class AdminHomeView(tk.Frame):
-    def __init__(self, master: tk.Tk) -> None:
+    def __init__(self, master: tk.Tk, controller) -> None:
         # Initialise frame and set controller
         tk.Frame.__init__(self, master,bg="#c1e4f7")
         self.pack_propagate(False)
         self.pack(side="top", fill="both", expand=True)
+        self.controller = controller
         self.__render_view(master)
 
     def __render_view(self, master: tk.Tk) -> None:
@@ -23,7 +24,7 @@ class AdminHomeView(tk.Frame):
         # 'Status Report' Button
 
         tk.Label(outer_label_frame, text = "", height = 4).pack()
-        tk.Button(outer_label_frame, text = "Status Report",width=18, height=5,command = master.main_controller.status_report).pack()
+        tk.Button(outer_label_frame, text = "Status Report",width=18, height=5,command = self.controller.status_report).pack()
         tk.Label(outer_label_frame, text = "", height = 4).pack()
 
         inner_label_frame.pack(padx=50, fill="x")
