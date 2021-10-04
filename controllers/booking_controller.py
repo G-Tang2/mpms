@@ -23,6 +23,8 @@ class BookController(MPMS):
     def __load_view(self, master: tk.Tk) -> None:
         # create new view
         new_frame = BookView(master)
+        # sort branch list based on branch name (alphabetical order)
+        # list_of_branch =
         new_frame._render_view(master, self.branches.get_branch_list())
         # remove frame if tk instance has a frame
         if master.main_frame is not None:
@@ -32,7 +34,7 @@ class BookController(MPMS):
         master.main_frame.grid_propagate(False)
         master.main_frame.pack(side="top", fill="both", expand=True)
 
-    def next(self, listbox):
+    def next(self):
         # create a StringVar value to store the value from listbox
         # var = tk.StringVar()
 
@@ -46,11 +48,4 @@ class BookController(MPMS):
         # label.config(textvariable=var)
         # var.set(value)
 
-        if listbox.curselection():
-            self.__master.load_controller(GPController)
-        else:
-            print('You do not select any branch')
-
-    def show_branches(self):
-        list_of_branches = self.branches.get_branch_list()
-        self._view.display_branches(list_of_branches)
+        self.__master.load_controller(GPController)

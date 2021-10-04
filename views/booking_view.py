@@ -12,7 +12,10 @@ class BookView(tk.Frame):
 
         # page content
         tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
-        # show list of branches
+        listbox = tk.Listbox(self)
+        for branch in list_of_branches:
+                listbox.insert('end', branch.get_name())
+        listbox.pack()
         tk.Button(self, text='next', width=15, height=2,
                   command=lambda: master.main_controller.next()).pack()
 
