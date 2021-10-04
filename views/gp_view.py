@@ -17,7 +17,9 @@ class GPView(tk.Frame):
         listbox = tk.Listbox(self)
         master.main_controller.show_gps(listbox)
         listbox.pack()
-        tk.Button(self, text='show_selection', width=15, height=2,
-                  command=self.controller.show_selection).pack()
+        tk.Button(self, text='next', width=15, height=2, command=self.controller.next).pack()
+        tk.Button(self, text='select_clear', width=15, height=2,command=lambda: self.selection_clear(listbox)).pack()
 
+    def selection_clear(self, listbox):
+        listbox.selection_clear(0, 'end')
 

@@ -15,8 +15,7 @@ class BookView(tk.Frame):
         tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
         listbox = tk.Listbox(self)
         for branch in list_of_branches:
-                listbox.insert('end', branch.get_name())
+            listbox.insert('end', branch.get_name())
         listbox.pack()
         tk.Button(self, text='next', width=15, height=2,
                   command=lambda: self.controller.next()).pack()
-
