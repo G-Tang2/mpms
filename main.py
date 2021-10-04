@@ -9,10 +9,12 @@ class App(tk.Tk):
         self.title("Monash Patient Management System (MPMS)")
         # center window on display
         self.__center_window()
-        # default frame
-        self.main_frame = None
+        # set header frame
+        # self.header = 
+        # body frame
+        self.body_frame = None
         # default controller
-        self.main_controller = LoginController(self)
+        LoginController(self)
         # login token
         self.login = None
 
