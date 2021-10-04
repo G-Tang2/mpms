@@ -1,9 +1,11 @@
 # Installation Guide:
-1. Install tkcalendar:
+
+*  Install tkcalendar:
     ```
     $ pip install tkcalendar
     ```
-2. Install matplotlib:
+
+*  Install matplotlib:
     ```
     $ pip install -U matplotlib
     ```
