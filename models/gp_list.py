@@ -11,5 +11,5 @@ class GPList():
             gp_list.append(GP(gp))
         return gp_list
 
-    def get_appointment_list(self):
+    def get_gps(self):
         return self.gps
