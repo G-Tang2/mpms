@@ -2,12 +2,12 @@ import json
 from models.user import User
 
 class GP():
-    def __init__(self, arg) -> None:
-        self.first_name = arg["first_name"]
-        self.last_name = arg["last_name"]
-        self.phone_number = arg["phone_number"]
-        self.area_of_interests = arg["area_of_interests"]
-        self.unavailable_days = arg["unavailable_days"]
+    def __init__(self, json) -> None:
+        self.first_name = json["first_name"]
+        self.last_name = json["last_name"]
+        self.phone_number = json["phone_number"]
+        self.area_of_interests = json["area_of_interests"]
+        self.unavailable_days = json["unavailable_days"]
 
     def get_full_name(self):
         return "{} {}".format(self.first_name, self.last_name)

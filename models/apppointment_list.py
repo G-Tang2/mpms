@@ -7,7 +7,7 @@ class AppointmentList():
     
     def __get_appointments(self, json):
         appointment_list = []
-        for appointment in json["appointment"]:
+        for appointment in json["appointments"]:
             appointment_list.append(Appointment(appointment))
         return appointment_list
 
