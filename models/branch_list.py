@@ -20,6 +20,7 @@ class BranchList():
             phone_number_index = header.index("phone_number")
             unavailable_days_index = header.index("unavailable_days")
             appointments_index = header.index("appointments")
+            gps_index = header.index("gps")
 
             for branch_details in f_reader:
                 # extract branch 
@@ -31,6 +32,7 @@ class BranchList():
                 branch_info["phone_number"] = branch_details[phone_number_index]
                 branch_info["unavailable_days"] = branch_details[unavailable_days_index]
                 branch_info["appointments"] = branch_details[appointments_index]
+                branch_info["gps"] = branch_details[gps_index]
 
                 branch_list.append(Branch(branch_info))
         return branch_list
