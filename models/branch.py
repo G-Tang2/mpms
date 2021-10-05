@@ -1,3 +1,4 @@
+from models.gp_list import GPList
 from models.queue import Queue
 from models.apppointment_list import AppointmentList
 import json
@@ -12,6 +13,7 @@ class Branch():
             self.unavailable_days = info["unavailable_days"]
             self.appointments = AppointmentList(json.loads(info["appointments"]))
             self.queue = Queue()
+            self.gps = GPList(json.loads(info["gps"]))
     
     def get_name(self):
         return self.name
