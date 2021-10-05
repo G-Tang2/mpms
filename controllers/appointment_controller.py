@@ -1,7 +1,7 @@
 import tkinter as tk
 from controllers.MPMS import MPMS
 from views.booking_view import BookView
-from controllers.gp_controller import GPController
+from views.gp_view import GPView
 from models.branch_list import BranchList
 
 
@@ -14,7 +14,6 @@ class BookController(MPMS):
         self.__master = master
         # to represent if the branches is already shown
         self.branch_flag = False
-        
 
     def __set_controller(self, master: tk.Tk) -> None:
         # set controller in tk instance
@@ -25,7 +24,7 @@ class BookController(MPMS):
         new_frame = BookView(master, self)
         # sort branch list based on branch name (alphabetical order)
         # list_of_branch =
-        new_frame._render_view(master, self.branches.get_branch_list())
+        new_frame.render_view(master, self.branches.get_branch_list())
         # remove frame if tk instance has a frame
         if master.body_frame is not None:
             master.body_frame.destroy()
@@ -34,18 +33,22 @@ class BookController(MPMS):
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)
 
-    def next(self):
-        # create a StringVar value to store the value from listbox
-        # var = tk.StringVar()
+    def next(self, master: tk.Tk) -> None:
+        new_frame = GPView(master, self)
+        new_frame.render_view(master)
 
-        # get value from the list
-        # if listbox.curselection():
-            # value = listbox.get('active')
-        # else:
-            # value = ''
+        if master.body_frame is not None:
+            master.body_frame.destroy()
 
-        # display
-        # label.config(textvariable=var)
-        # var.set(value)
+        master.body_frame = new_frame
+        master.body_frame.grid_propagate(False)
+        master.body_frame.pack(side="top", fill="both", expand=True)
 
-        GPController(self.__master)
+    def show_gps(self, listbox):
+        # move to view
+        listbox.insert('end', 'GP1\n')
+        listbox.insert('end', 'GP2\n')
+        listbox.insert('end', 'GP3\n')
+
+    def next_appointment(self):
+        tk.messagebox.askokcancel(title='Successfully', message='You have made an appointment')

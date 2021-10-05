@@ -9,7 +9,7 @@ class BookView(tk.Frame):
         self.pack(side="top", fill="both", expand=True)
         self.controller = controller
 
-    def _render_view(self, master: tk.Tk, list_of_branches) -> None:
+    def render_view(self, master: tk.Tk, list_of_branches) -> None:
 
         # page content
         tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
@@ -18,4 +18,4 @@ class BookView(tk.Frame):
             listbox.insert('end', branch.get_name())
         listbox.pack()
         tk.Button(self, text='next', width=15, height=2,
-                  command=lambda: self.controller.next()).pack()
+                  command=lambda: self.controller.next(master)).pack()
