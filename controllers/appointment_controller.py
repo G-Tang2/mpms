@@ -12,8 +12,8 @@ class BookController(MPMS):
         self.__set_controller(master)
         self.__load_view(master)
         self.__master = master
-        # to represent if the branches is already shown
-        self.branch_flag = False
+        self.branch = 'none'
+        self.gp = 'none'
 
     def __set_controller(self, master: tk.Tk) -> None:
         # set controller in tk instance
@@ -33,9 +33,11 @@ class BookController(MPMS):
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)
 
-    def next(self, master: tk.Tk) -> None:
+    def display_gp_view(self, master: tk.Tk, branch) -> None:
+        self.branch = branch
         new_frame = GPView(master, self)
-        new_frame.render_view(master)
+        list_of_gps = ['Dr Alice', 'Dr Brown', 'Dr Caman']
+        new_frame.render_view(master, list_of_gps)
 
         if master.body_frame is not None:
             master.body_frame.destroy()
@@ -44,11 +46,14 @@ class BookController(MPMS):
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)
 
-    def show_gps(self, listbox):
-        # move to view
-        listbox.insert('end', 'GP1\n')
-        listbox.insert('end', 'GP2\n')
-        listbox.insert('end', 'GP3\n')
+    def make_appointment(self, gp):
+        if not gp == '':
+            self.gp = gp
 
-    def next_appointment(self):
-        tk.messagebox.askokcancel(title='Successfully', message='You have made an appointment')
+        confirm = tk.messagebox.askokcancel(title='Successfully',
+                                            message='You are going to have an appointment at'
+                                                    + self.branch + '\nGP: ' + self.gp)
+
+        if confirm:
+            tk.messagebox.askokcancel(title='Successfully',
+                                      message='You have made an appointment \nPlease attend on time')

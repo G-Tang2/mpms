@@ -18,4 +18,11 @@ class BookView(tk.Frame):
             listbox.insert('end', branch.get_name())
         listbox.pack()
         tk.Button(self, text='next', width=15, height=2,
-                  command=lambda: self.controller.next(master)).pack()
+                  command=lambda: self.next(master, listbox)).pack()
+
+    def next(self, master: tk.Tk, listbox):
+        if listbox.curselection():
+            value = listbox.get('active')
+            self.controller.display_gp_view(master, value)
+        else:
+            tk.messagebox.showerror(title='no branch', message='please select a branch')
