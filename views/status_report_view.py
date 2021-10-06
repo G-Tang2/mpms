@@ -22,25 +22,22 @@ class StatusReportView(tk.Frame):
 
         
         # 'Start' Date
-        tk.Label(inner_label_frame, text = "Start Date", width=18, height=1).pack()
+        tk.Label(inner_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
         start_cal = Calendar(inner_label_frame,selectmode = "day", year = 2021, month = 5, day = 22, date_pattern ='yyyy-mm-dd', selectforeground ='#67b9e6')
         start_cal.pack()
-        tk.Label(inner_label_frame, text = "", width=18, height= 2).pack()
     
         # End Date
-        tk.Label(inner_label_frame, text = "End Date", width=18, height=1).pack()
+        tk.Label(inner_label_frame, text = "End Date", width=18, height=1, bg="white").pack()
         end_cal = Calendar(inner_label_frame,selectmode = "day", year = 2021, month = 5, day = 22, date_pattern ='yyyy-mm-dd', selectforeground ='#67b9e6')
         end_cal.pack()
-        tk.Label(inner_label_frame, text = "", width=18, height= 2).pack()
         
         # Report Type
         report_options = ['Reason']
         report_type = tk.StringVar()
         report_type.set(report_options[0])
 
-        tk.Label(inner_label_frame, text = "Report Type", width=18, height=1).pack()
+        tk.Label(inner_label_frame, text = "Report Type", width=18, height=1, bg="white").pack()
         tk.OptionMenu(inner_label_frame,report_type,*report_options).pack()
-        tk.Label(inner_label_frame, text = "").pack()
 
         tk.Button(inner_label_frame,text="Generate Report",command = lambda: self.controller.display_reason_report(start_cal.get_date(),end_cal.get_date(),report_type.get())).pack()
     

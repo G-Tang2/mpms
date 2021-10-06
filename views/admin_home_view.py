@@ -14,10 +14,7 @@ class AdminHomeView(tk.Frame):
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
         
         # 'Status Report' Button
-
-        tk.Label(outer_label_frame, text = "", height = 4).pack()
-        tk.Button(outer_label_frame, text = "Status Report",width=18, height=5,command = self.controller.status_report).pack()
-        tk.Label(outer_label_frame, text = "", height = 4).pack()
+        tk.Button(outer_label_frame, text="Status Report", width=18, height=5, bg="white", command = self.controller.status_report).pack(pady=50)
 
         inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
