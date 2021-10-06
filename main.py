@@ -11,7 +11,7 @@ class App(tk.Tk):
         # center window on display
         self.__center_window()
         # set header frame
-        self.header = Header(self)
+        self.header = Header(self).pack(fill="x")
         # body frame
         self.body_frame = None
         # default controller

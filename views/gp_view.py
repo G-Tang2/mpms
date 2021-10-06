@@ -5,8 +5,6 @@ class GPView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
-        self.pack_propagate(False)
-        self.pack(side="top", fill="both", expand=True)
         self.controller = controller
 
     def render_view(self, master: tk.Tk, list_of_gps) -> None:

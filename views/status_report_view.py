@@ -11,8 +11,6 @@ class StatusReportView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
-        self.pack_propagate(False)
-        self.pack(side="top", fill="both", expand=True)
         self.controller = controller
         self.__render_view(master)
        
