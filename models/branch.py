@@ -25,6 +25,9 @@ class Branch():
     def get_appointments(self) -> AppointmentList:
         return self.appointments
 
+    def get_gps(self) -> GPList:
+        return self.gps
+
     @staticmethod
     def create_from_json(json_info):
         name = json_info["name"]

@@ -9,10 +9,11 @@ class BookView(tk.Frame):
 
     def render_view(self, master: tk.Tk, list_of_branches) -> None:
 
-        # page content
+        # label to ask selecting a clinic
+        tk.Label(self, text='Please select a branch').pack()
         listbox = tk.Listbox(self)
         for branch in list_of_branches:
-            listbox.insert('end', branch.get_name())
+            listbox.insert('end', branch)
         listbox.pack()
         tk.Button(self, text='next', width=15, height=2,
                   command=lambda: self.next(master, listbox)).pack()
