@@ -12,7 +12,6 @@ class BookView(tk.Frame):
     def render_view(self, master: tk.Tk, list_of_branches) -> None:
 
         # page content
-        tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
         listbox = tk.Listbox(self)
         for branch in list_of_branches:
             listbox.insert('end', branch.get_name())

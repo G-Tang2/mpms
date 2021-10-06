@@ -12,7 +12,6 @@ class GPView(tk.Frame):
     def render_view(self, master: tk.Tk, list_of_gps) -> None:
 
         # page content
-        tk.Label(self, text='Monash Clinic', width=800, height=2, bg='lightskyblue').pack()
         listbox = tk.Listbox(self)
         for gp in list_of_gps:
             listbox.insert('end', gp)

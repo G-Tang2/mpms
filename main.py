@@ -1,6 +1,7 @@
 import tkinter as tk
 from controllers.login_controller import LoginController
 from controllers.MPMS import MPMS
+from views.header_view import Header
 
 class App(tk.Tk):
     def __init__(self):
@@ -10,7 +11,7 @@ class App(tk.Tk):
         # center window on display
         self.__center_window()
         # set header frame
-        # self.header = 
+        self.header = Header(self)
         # body frame
         self.body_frame = None
         # default controller
