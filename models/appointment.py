@@ -3,6 +3,7 @@ from datetime import datetime
 from models.appointment_reason import AppointmentReason
 from models.gp import GP
 from models.patient import Patient
+from models.questionnaire import Questionnaire
 from models.util.json import JSON
 import copy
 
@@ -13,7 +14,7 @@ class Appointment():
         self.patient= Patient(info["patient"])
         self.gp = GP(info["gp"])
         self.appointment_reason = AppointmentReason(info["appointment_reason"])
-        # self.questionnaire = Questionnaire(info["questionnaire"])
+        self.questionnaire = Questionnaire(info["questionnaire"])
 
     def get_appointment_reason(self):
         return self.appointment_reason
