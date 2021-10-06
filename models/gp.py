@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-from models.util.json import JSON
+from utils.json import JSON
 
 class GP():
     def __init__(self, first_name: str, last_name: str, phone_number: str, area_of_interests: List[str],

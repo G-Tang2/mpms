@@ -4,7 +4,7 @@ from models.appointment_reason import AppointmentReason
 from models.gp import GP
 from models.patient import Patient
 from models.questionnaire import Questionnaire
-from models.util.json import JSON
+from utils.json import JSON
 import copy
 
 class Appointment():

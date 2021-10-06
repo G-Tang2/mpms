@@ -27,7 +27,6 @@ class App(tk.Tk):
     def load_controller(self, controller: MPMS) -> None:
         self.main_controller = controller(self)
 
-
 if __name__ == "__main__":
     app = App()
     app.mainloop()

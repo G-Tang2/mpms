@@ -1,6 +1,6 @@
 from typing import List
 from models.appointment import Appointment
-from models.util.json import JSON
+from utils.json import JSON
 
 class AppointmentList():
     def __init__(self, appointments: List[Appointment]) -> None:
