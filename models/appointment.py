@@ -29,7 +29,7 @@ class Appointment():
         return tmp
     
     def to_JSON(self):
-        tmp = self.serialise()
+        tmp = self.serialise_copy()
         return JSON.to_JSON(tmp)
 
     @staticmethod
