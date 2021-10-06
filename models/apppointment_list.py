@@ -1,4 +1,3 @@
-import json
 from models.appointment import Appointment
 from models.util.json import JSON
 

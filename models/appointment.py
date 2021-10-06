@@ -1,5 +1,4 @@
 from datetime import datetime
-# from models.patient import Patient
 from models.appointment_reason import AppointmentReason
 from models.gp import GP
 from models.patient import Patient

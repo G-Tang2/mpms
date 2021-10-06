@@ -27,25 +27,12 @@ class Login():
         account_type = None
         account_details = None
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
-            f_reader = csv.reader(f)
-            header = next(f_reader, None)
-
-            # find index of email address and password in header
-            email_address_index = header.index("email_address")
-            password_index = header.index("password")
-            type_index = header.index("type")
-            user_detail_index = header.index("user")
-
-            for account_details in f_reader:
-                # extract account email address and password
-                account_email_address = account_details[email_address_index]
-                account_password = account_details[password_index]
-
-                # check if account details matches user login input
-                if account_email_address == email_address and account_password == password:
+            f_reader = csv.DictReader(f)
+            for user in f_reader:
+                if user["email_address"] == email_address and user["password"] == password:
                     is_valid_user = True
-                    account_type = account_details[type_index]
-                    account_user_detail = account_details[user_detail_index]
+                    account_type = user["type"]
+                    account_user_detail = user["user_details"]
 
                     # pack email address and password into user details and format date of birth
                     account_details = json.loads(account_user_detail)
