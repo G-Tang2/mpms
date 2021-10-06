@@ -11,7 +11,7 @@ class MPMS():
         # master is an tk instance
         self._master = master
         self._view = view(master, self)
-        self.list_of_branches = self.__fetch_branch_list()
+        self.list_of_branches = BranchList.create_from_csv()
         self.__load_view(master)
         # list_of_appointments = self.__fetch_appointment_list()
 
@@ -23,9 +23,6 @@ class MPMS():
         master.body_frame = self._view
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)  
-
-    def __fetch_branch_list(self):
-        return BranchList()
 
     def __fetch_appointment_list(self):
         return AppointmentList()

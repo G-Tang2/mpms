@@ -11,7 +11,7 @@ class Report():
     def calculate_statistic(self, start_date, end_date, report_type, info = None):
         self.statistic = {}
 
-        branch_list = BranchList()
+        branch_list = BranchList.create_from_csv()
         self.list_of_branches = branch_list.get_branch_list()
 
        

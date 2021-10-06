@@ -7,7 +7,7 @@ from models.branch_list import BranchList
 
 class BookController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
-        self.branches = BranchList()
+        self.branches = BranchList.create_from_csv()
         # master is an tk instance
         self.__set_controller(master)
         self.__load_view(master)

@@ -2,23 +2,25 @@ from models.favourite_list import FavouriteList
 from models.user import User
 
 class Patient(User):
-    def __init__(self, arg) -> None:
-        ''' 
-        arg: {
-            email_address: str,
-            password: str,
-            first_name: str,
-            last_name: str,
-            phone_number: str,
-            date_of_birth: datetime,
-            gender: str,
-            list_of_favourites: {list_of_favourites:[]}
-        }
-        '''
-        User.__init__(self, arg["email_address"], arg["password"])
-        self._first_name = arg["first_name"]
-        self._last_name = arg["last_name"]
-        self._phone_number = arg["phone_number"]
-        self._date_of_birth = arg["date_of_birth"]
-        self._gender = arg["gender"]
-        self._list_of_favourites = FavouriteList(arg["list_of_favourites"])
+    def __init__(self, email_address: str, password: str, first_name: str, last_name: str,
+            phone_number: str, date_of_birth: str, gender: str, list_of_favourites = FavouriteList()) -> None:
+        User.__init__(self, email_address, password)
+        self.first_name = first_name
+        self.last_name = last_name
+        self.phone_number = phone_number
+        self.date_of_birth = date_of_birth
+        self.gender = gender
+        self.list_of_favourites = list_of_favourites
+
+    @staticmethod
+    def create_from_json(json_info):
+        email_address = json_info["email_address"]
+        password = json_info["password"]
+        first_name = json_info["first_name"]
+        last_name = json_info["last_name"]
+        phone_number = json_info["phone_number"]
+        date_of_birth = json_info["date_of_birth"]
+        gender = json_info["gender"]
+        list_of_favourites = FavouriteList.create_from_json(json_info["list_of_favourites"])
+        return Patient(email_address, password, first_name, last_name, phone_number, date_of_birth,
+            gender, list_of_favourites)

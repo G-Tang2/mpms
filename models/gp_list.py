@@ -1,15 +1,17 @@
 
+from typing import List
 from models.gp import GP
 
 class GPList():
-    def __init__(self, json):
-        self.gps = self.__get_gps(json)
-    
-    def __get_gps(self, json):
-        gp_list = []
-        for gp in json["gps"]:
-            gp_list.append(GP(gp))
-        return gp_list
+    def __init__(self, gps: List[GP]) -> None:
+        self.gps = gps
 
-    def get_gps(self):
+    def get_gps(self) -> List[GP]:
         return self.gps
+
+    @staticmethod
+    def create_from_json(json_info):
+        gp_list = []
+        for gp_json in json_info["gps"]:
+            gp_list.append(GP.create_from_json(gp_json))
+        return GPList(gp_list)

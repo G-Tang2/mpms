@@ -7,21 +7,21 @@ from models.admin import Admin
 
 class Login():
     def __init__(self, email_address: str, password: str) -> None:
-        self.user = self.load_user(email_address, password)
+        self.user = self._load_user(email_address, password)
         
-    def load_user(self, email_address: str, password: str) -> User:
-        is_valid_user, account_type, account_details = self.valid_credentials(email_address, password)
+    def _load_user(self, email_address: str, password: str) -> User:
+        is_valid_user, account_type, account_details = self._valid_credentials(email_address, password)
         if is_valid_user:
             if account_type == "administrator":
-                return Admin(account_details)
+                return Admin.create_from_json(account_details)
             elif account_type == "patient":
-                return Patient(account_details)
+                return Patient.create_from_json(account_details)
             else:
                 ValueError("Invalid user. You are not an administrator or a patient.")
         else:
             raise ValueError("Invalid email address or password.")
 
-    def valid_credentials(self, email_address: str, password: str) -> bool:
+    def _valid_credentials(self, email_address: str, password: str) -> bool:
         # default values
         is_valid_user = False
         account_type = None
