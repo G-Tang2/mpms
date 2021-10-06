@@ -15,21 +15,23 @@ class GPView(tk.Frame):
         for gp in list_of_gps.get_gps():
             listbox.insert('end', gp.get_full_name())
         listbox.pack()
+        tk.Button(self, text='select_clear', width=15, height=2, command=lambda: self.selection_clear(listbox)).pack()
 
         # new:  patient status
+        tk.Label(self, text='Please choose your status').pack()
         var = tk.StringVar()
         var.set('Standard')
         tk.Radiobutton(self, text='New patient', variable=var, value='New patient',
                        command=lambda: self.controller.change_status(var)).pack()
-        tk.Radiobutton(self, text='Exist patient', variable=var, value='Exist patient',
+        tk.Radiobutton(self, text='Existing patient', variable=var, value='Existing patient',
                        command=lambda: self.controller.change_status(var)).pack()
 
         # new: appointment reason
+        tk.Label(self, text='Please choose your reason for appointment').pack()
         rea = tk.StringVar()
         tk.OptionMenu(self, rea, "Long", "Standard", "Tele").pack()
 
         tk.Button(self, text='next', width=15, height=2, command=lambda: self.next(listbox, rea.get())).pack()
-        tk.Button(self, text='select_clear', width=15, height=2, command=lambda: self.selection_clear(listbox)).pack()
 
     def selection_clear(self, listbox):
         listbox.selection_clear(0, 'end')
