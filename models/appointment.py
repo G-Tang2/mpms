@@ -1,6 +1,10 @@
 from datetime import datetime
 # from models.patient import Patient
 from models.appointment_reason import AppointmentReason
+from models.gp import GP
+from models.patient import Patient
+from models.util.json import JSON
+import copy
 
 class Appointment():
     def __init__(self, info):
@@ -16,4 +20,13 @@ class Appointment():
 
     def get_appointment_datetime(self):
         return self.date_time
+
+    def serialise(self):
+        tmp = copy.deepcopy(self)
+        tmp.date_time = tmp.date_time.strftime("%b %d %Y %I:%M%p")
+        return tmp
+    
+    def to_JSON(self):
+        tmp = self.serialise()
+        return JSON.to_JSON(tmp)
     

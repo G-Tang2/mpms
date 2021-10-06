@@ -1,9 +1,12 @@
+import json
 from models.appointment import Appointment
-import csv
+from models.util.json import JSON
 
 class AppointmentList():
     def __init__(self, json):
         self.appointments = self.__get_appointments(json)
+        self.x = self.to_JSON()
+        self.y = 4
     
     def __get_appointments(self, json):
         appointment_list = []
@@ -14,4 +17,10 @@ class AppointmentList():
     def get_appointment_list(self):
         return self.appointments
 
+    def to_JSON(self):
+        lst = []
+        for appointment in self.appointments:
+            lst.append(appointment.serialise())
+        return JSON.to_JSON(lst)
+        
                 

@@ -1,5 +1,4 @@
-import json
-from models.user import User
+from models.util.json import JSON
 
 class GP():
     def __init__(self, json) -> None:
@@ -13,5 +12,4 @@ class GP():
         return "{} {}".format(self.first_name, self.last_name)
 
     def to_JSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+        return JSON.to_JSON(self)
