@@ -5,8 +5,6 @@ from models.util.json import JSON
 class AppointmentList():
     def __init__(self, json):
         self.appointments = self.__get_appointments(json)
-        self.x = self.to_JSON()
-        self.y = 4
     
     def __get_appointments(self, json):
         appointment_list = []
