@@ -20,29 +20,28 @@ class GPView(tk.Frame):
         # new:  patient status
         tk.Label(self, text='Please choose your status').pack()
         var = tk.StringVar()
-        var.set('Standard')
-        tk.Radiobutton(self, text='New patient', variable=var, value='New patient',
-                       command=lambda: self.controller.change_status(var)).pack()
-        tk.Radiobutton(self, text='Existing patient', variable=var, value='Existing patient',
-                       command=lambda: self.controller.change_status(var)).pack()
+        var.set('None')
+        tk.Radiobutton(self, text='New patient', variable=var, value='New patient').pack()
+        tk.Radiobutton(self, text='Existing patient', variable=var, value='Existing patient').pack()
 
         # new: appointment reason
         tk.Label(self, text='Please choose your reason for appointment').pack()
         rea = tk.StringVar()
         tk.OptionMenu(self, rea, "Long", "Standard", "Tele").pack()
 
-        tk.Button(self, text='next', width=15, height=2, command=lambda: self.next(listbox, rea.get())).pack()
+        tk.Button(self, text='next', width=15, height=2,
+                  command=lambda: self.next(listbox, rea.get(), var.get())).pack()
 
     def selection_clear(self, listbox):
         listbox.selection_clear(0, 'end')
 
-    def next(self, listbox, reason):
+    def next(self, listbox, reason, patient_status):
         if listbox.curselection():
             value = listbox.get('active')
         else:
             value = ''
 
-        self.controller.make_appointment(value, reason)
+        self.controller.make_appointment(value, reason, patient_status)
 
 
 

@@ -14,7 +14,6 @@ class BookController(MPMS):
         self.__master = master
         self.branch = 'None'
         self.gp = 'None'
-        self.patient_status = 'None'
 
     def __set_controller(self, master: tk.Tk) -> None:
         # set controller in tk instance
@@ -42,6 +41,7 @@ class BookController(MPMS):
     def display_gp_view(self, master: tk.Tk, branch) -> None:
         self.branch = branch
         new_frame = GPView(master, self)
+        list_of_gps = []
         for branch in self.branches.get_branch_list():
             if self.branch == branch.get_name():
                 list_of_gps = branch.get_gps()
@@ -56,23 +56,19 @@ class BookController(MPMS):
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)
 
-    def make_appointment(self, gp, reason):
+    def make_appointment(self, gp, reason, patient_status):
         if not gp == '':
             self.gp = gp
 
         confirm = tk.messagebox.askokcancel(title='Successfully',
                                             message='You are going to have an appointment at'
                                                     + self.branch + '\nGP: ' + self.gp + '\nReason: ' + reason
-                                            + '\nPatient Status: ' + self.patient_status)
+                                            + '\nPatient Status: ' + patient_status)
 
         if confirm:
             self.write_appointment()
             tk.messagebox.askokcancel(title='Successfully',
                                       message='You have made an appointment \nPlease attend on time')
-
-    def change_status(self, var):
-        self.patient_status = var.get()
-        print(self.patient_status)
 
     def selection_sort(self, the_list):
         # obtain the length of the list
