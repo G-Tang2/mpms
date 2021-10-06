@@ -20,3 +20,6 @@ class Branch():
 
     def get_appointments(self):
         return self.appointments
+
+    def get_gps(self):
+        return self.gps
