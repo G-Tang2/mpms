@@ -15,9 +15,9 @@ class StatusReportController(MPMS):
     def __init__(self,master,view = StatusReportView):
         MPMS.__init__(self,master,view)
         
-    # def get_report_statistic(self, start_date, end_date,report_type,  info=None):
-    #     report = Report("reason")
-    #     return report.get_statistic(start_date, end_date, report_type)
+    def get_report_statistic(self, start_date, end_date,report_type,  info=None):
+        report = Report("reason")
+        return report.get_statistic(start_date, end_date, report_type)
 
     # def get_appointments(self):
     #     appointment_list = []
@@ -76,3 +76,17 @@ class StatusReportController(MPMS):
             reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
             table_iid += 1
         reason_table.pack(fill=tk.BOTH)
+
+    def get_reason_report(self, start_date, end_date, report_type):
+        
+        if start_date >= end_date:
+            tk.messagebox.showerror("Error", "Start date should be earlier than end date")
+            return None
+
+        reason_dict = self.get_report_statistic(start_date,end_date,report_type)
+
+        if len(reason_dict) == 0:
+            tk.messagebox.showerror("Error", "No appointments within this period")
+            return
+
+        self._view.display_reason_report(reason_dict)
