@@ -55,5 +55,27 @@ class AppointmentBookingController(MPMS):
             if branch == each_branch.get_name():
                 self._view.show_branch_info(each_branch)
 
+    def find_gp_with_least_appointment(self):
+        appointments = []
+        gps = []
+        for each_branch in self.list_of_branches.get_branch_list():
+            if self.branch == each_branch.get_name():
+                gps = each_branch.get_gps()
+                appointments = each_branch.get_appointments()
+
+        gp_dict = {}
+
+        for gp in gps.get_gps():
+            gp_dict[gp.get_full_name()] = 0
+
+        for appointment in appointments.get_appointment_list():
+            gp_dict[appointment.get_gp().get_full_name()] += 1
+
+        sorted_gp = [v for v in sorted(gp_dict.values())]
+
+        for key in gp_dict.keys():
+            if sorted_gp[0] == gp_dict[key]:
+                return key
+
     def write_appointment(self):
         pass

@@ -27,7 +27,7 @@ class AppointmentDetailView(tk.Frame):
         # new: appointment reason
         tk.Label(self, text='Please choose your reason for appointment').pack()
         rea = tk.StringVar()
-        rea.set('None')
+        rea.set('Reason for seeing GP')
         tk.OptionMenu(self, rea, "Long", "Standard", "Tele").pack()
 
         tk.Button(self, text='next', width=15, height=2,
@@ -38,11 +38,11 @@ class AppointmentDetailView(tk.Frame):
 
     def next(self, listbox, reason, patient_status):
         if listbox.curselection():
-            branch_name = listbox.get('active')
+            gp = listbox.get('active')
         else:
-            branch_name = ''
+            gp = self.controller.find_gp_with_least_appointment()
 
-        if reason == 'None':
+        if reason == 'Reason for seeing GP':
             tk.messagebox.showerror(title='reason for appointment', message='please select one reason for seeing GP')
             return
 
@@ -50,7 +50,7 @@ class AppointmentDetailView(tk.Frame):
             tk.messagebox.showerror(title='Patient Status', message='please select one patient status')
             return
 
-        self.make_appointment(branch_name, reason, patient_status)
+        self.make_appointment(gp, reason, patient_status)
 
     def make_appointment(self, gp, reason, patient_status):
         branch = self.controller.get_branch()

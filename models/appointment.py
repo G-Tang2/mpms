@@ -23,6 +23,9 @@ class Appointment():
     def get_appointment_datetime(self) -> datetime:
         return self.date_time
 
+    def get_gp(self):
+        return self.gp
+
     def serialise_copy(self):
         tmp = copy.deepcopy(self)
         tmp.date_time = tmp.date_time.strftime("%b %d %Y %I:%M%p")
