@@ -5,19 +5,13 @@ from views.gp_view import GPView
 from models.branch_list import BranchList
 
 
-class BookController(MPMS):
+class AppointmentBookingController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
+        MPMS.__init__(self, master, BookView)
+
         self.branches = BranchList.create_from_csv()
-        # master is an tk instance
-        self.__set_controller(master)
-        self.__load_view(master)
-        self.__master = master
         self.branch = 'None'
         self.gp = 'None'
-
-    def __set_controller(self, master: tk.Tk) -> None:
-        # set controller in tk instance
-        master.main_controller = self
 
     def __load_view(self, master: tk.Tk) -> None:
         # create new view
@@ -27,7 +21,8 @@ class BookController(MPMS):
         for branch in self.branches.get_branch_list():
             sorted_branches.append(branch.get_name())
 
-        sorted_branches = self.selection_sort(sorted_branches)
+        # sorted_branches = self.selection_sort(sorted_branches)
+        sorted_branches.sort()
 
         new_frame.render_view(master, sorted_branches)
         # remove frame if tk instance has a frame
@@ -40,7 +35,9 @@ class BookController(MPMS):
 
     def display_gp_view(self, master: tk.Tk, branch) -> None:
         self.branch = branch
+
         new_frame = GPView(master, self)
+
         list_of_gps = []
         for branch in self.branches.get_branch_list():
             if self.branch == branch.get_name():
@@ -69,25 +66,6 @@ class BookController(MPMS):
             self.write_appointment()
             tk.messagebox.askokcancel(title='Successfully',
                                       message='You have made an appointment \nPlease attend on time')
-
-    def selection_sort(self, the_list):
-        # obtain the length of the list
-        n = len(the_list)
-        # perform n-1 iterations
-        for i in range(n - 1):
-            # assume item at index i as the smallest
-            smallest = i
-            # check if any other item is smaller
-            for j in range(i + 1, n):
-                if the_list[j] < the_list[smallest]:
-                    # update the current smallest item
-                    smallest = j
-
-            # place the current smallest item
-            # in its correct position
-            the_list[smallest], the_list[i] = the_list[i], the_list[smallest]
-
-        return the_list
     
     def show_info(self, branch):
         for each_branch in self.branches.get_branch_list():

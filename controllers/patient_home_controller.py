@@ -1,6 +1,6 @@
 from controllers.MPMS import MPMS
 from views.patient_home_view import PatientHomeView
-from controllers.appointment_controller import BookController
+from controllers.appointment_booking_controller import AppointmentBookingController
 
 
 class PatientHomeController(MPMS):
@@ -8,5 +8,5 @@ class PatientHomeController(MPMS):
         MPMS.__init__(self, master, view)
 
     def book_appointment(self):
-        self._master.load_controller(BookController)
+        self._master.load_controller(AppointmentBookingController)
         pass
