@@ -93,7 +93,6 @@ class BookController(MPMS):
         for each_branch in self.branches.get_branch_list():
             if branch == each_branch.get_name():
                 tk.messagebox.showinfo(title='branch info', message=each_branch.get_info())
-        
 
     def write_appointment(self):
         pass
