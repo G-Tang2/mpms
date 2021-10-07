@@ -1,13 +1,16 @@
 import tkinter as tk
 
 
-class BookView(tk.Frame):
+class AppointmentView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
         self.controller = controller
+        self.__render_view(master)
 
-    def render_view(self, master: tk.Tk, list_of_branches) -> None:
+    def __render_view(self, master: tk.Tk) -> None:
+
+        list_of_branches = self.controller.sort_branches()
 
         # label to ask selecting a clinic
         tk.Label(self, text='Please select a branch').pack()
@@ -32,3 +35,6 @@ class BookView(tk.Frame):
             self.controller.show_info(value)
         else:
             tk.messagebox.showerror(title='no branch', message='please select a branch')
+
+    def show_branch_info(self, branch):
+        tk.messagebox.showinfo(title='branch info', message=branch.get_info())

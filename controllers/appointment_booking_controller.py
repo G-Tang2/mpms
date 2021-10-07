@@ -1,45 +1,39 @@
 import tkinter as tk
 from controllers.MPMS import MPMS
-from views.booking_view import BookView
-from views.gp_view import GPView
+from views.appointment_view import AppointmentView
+from views.appointment_detail_view import AppointmentDetailView
 from models.branch_list import BranchList
 
 
 class AppointmentBookingController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
-        MPMS.__init__(self, master, BookView)
+        MPMS.__init__(self, master, AppointmentView)
 
-        self.branches = BranchList.create_from_csv()
         self.branch = 'None'
         self.gp = 'None'
 
-    def __load_view(self, master: tk.Tk) -> None:
-        # create new view
-        new_frame = BookView(master, self)
+    def sort_branches(self):
         # new: sort branch list based on branch name (alphabetical order)
+        self.list_of_branches = BranchList.create_from_csv()
+
         sorted_branches = []
-        for branch in self.branches.get_branch_list():
+        for branch in self.list_of_branches.get_branch_list():
             sorted_branches.append(branch.get_name())
 
         # sorted_branches = self.selection_sort(sorted_branches)
         sorted_branches.sort()
 
-        new_frame.render_view(master, sorted_branches)
-        # remove frame if tk instance has a frame
-        if master.body_frame is not None:
-            master.body_frame.destroy()
-        # assign new frame to tk instance
-        master.body_frame = new_frame
-        master.body_frame.grid_propagate(False)
-        master.body_frame.pack(side="top", fill="both", expand=True)
+        return sorted_branches
 
     def display_gp_view(self, master: tk.Tk, branch) -> None:
         self.branch = branch
 
-        new_frame = GPView(master, self)
+        self._view = AppointmentDetailView(master, self)
+
+        new_frame = AppointmentDetailView(master, self)
 
         list_of_gps = []
-        for branch in self.branches.get_branch_list():
+        for branch in self.list_of_branches.get_branch_list():
             if self.branch == branch.get_name():
                 list_of_gps = branch.get_gps()
                 break
@@ -54,23 +48,17 @@ class AppointmentBookingController(MPMS):
         master.body_frame.pack(side="top", fill="both", expand=True)
 
     def make_appointment(self, gp, reason, patient_status):
-        if not gp == '':
-            self.gp = gp
 
-        confirm = tk.messagebox.askokcancel(title='Successfully',
-                                            message='You are going to have an appointment at'
-                                                    + self.branch + '\nGP: ' + self.gp + '\nReason: ' + reason
-                                            + '\nPatient Status: ' + patient_status)
+        confirm = self._view.show_confirm(self.branch, gp, reason, patient_status)
 
         if confirm:
             self.write_appointment()
-            tk.messagebox.askokcancel(title='Successfully',
-                                      message='You have made an appointment \nPlease attend on time')
+            self._view.show_success_message()
     
     def show_info(self, branch):
-        for each_branch in self.branches.get_branch_list():
+        for each_branch in self.list_of_branches.get_branch_list():
             if branch == each_branch.get_name():
-                tk.messagebox.showinfo(title='branch info', message=each_branch.get_info())
+                self._view.show_branch_info(each_branch)
 
     def write_appointment(self):
         pass

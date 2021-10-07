@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class GPView(tk.Frame):
+class AppointmentDetailView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
@@ -43,5 +43,14 @@ class GPView(tk.Frame):
 
         self.controller.make_appointment(value, reason, patient_status)
 
+    def show_confirm(self, branch, gp, reason, patient_status):
+        confirm = tk.messagebox.askokcancel(title='Successfully',
+                                            message='You are going to have an appointment at'
+                                                    + branch + '\nGP: ' + gp + '\nReason: ' + reason
+                                                    + '\nPatient Status: ' + patient_status)
+        return confirm
 
+    def show_success_message(self):
+        tk.messagebox.askokcancel(title='Successfully',
+                                  message='You have made an appointment \nPlease attend on time')
 
