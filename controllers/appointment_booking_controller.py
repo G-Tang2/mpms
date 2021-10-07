@@ -47,14 +47,9 @@ class AppointmentBookingController(MPMS):
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)
 
-    def make_appointment(self, gp, reason, patient_status):
+    def get_branch(self):
+        return self.branch
 
-        confirm = self._view.show_confirm(self.branch, gp, reason, patient_status)
-
-        if confirm:
-            self.write_appointment()
-            self._view.show_success_message()
-    
     def show_info(self, branch):
         for each_branch in self.list_of_branches.get_branch_list():
             if branch == each_branch.get_name():

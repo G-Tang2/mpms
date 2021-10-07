@@ -21,12 +21,13 @@ class AppointmentDetailView(tk.Frame):
         tk.Label(self, text='Please choose your status').pack()
         var = tk.StringVar()
         var.set('None')
-        tk.Radiobutton(self, text='New patient', variable=var, value='New patient').pack()
-        tk.Radiobutton(self, text='Existing patient', variable=var, value='Existing patient').pack()
+        tk.Radiobutton(self, text='New patient', variable=var, value='True').pack()
+        tk.Radiobutton(self, text='Existing patient', variable=var, value='False').pack()
 
         # new: appointment reason
         tk.Label(self, text='Please choose your reason for appointment').pack()
         rea = tk.StringVar()
+        rea.set('None')
         tk.OptionMenu(self, rea, "Long", "Standard", "Tele").pack()
 
         tk.Button(self, text='next', width=15, height=2,
@@ -37,20 +38,29 @@ class AppointmentDetailView(tk.Frame):
 
     def next(self, listbox, reason, patient_status):
         if listbox.curselection():
-            value = listbox.get('active')
+            branch_name = listbox.get('active')
         else:
-            value = ''
+            branch_name = ''
 
-        self.controller.make_appointment(value, reason, patient_status)
+        if reason == 'None':
+            tk.messagebox.showerror(title='reason for appointment', message='please select one reason for seeing GP')
+            return
 
-    def show_confirm(self, branch, gp, reason, patient_status):
+        if patient_status == 'None':
+            tk.messagebox.showerror(title='Patient Status', message='please select one patient status')
+            return
+
+        self.make_appointment(branch_name, reason, patient_status)
+
+    def make_appointment(self, gp, reason, patient_status):
+        branch = self.controller.get_branch()
+
         confirm = tk.messagebox.askokcancel(title='Successfully',
                                             message='You are going to have an appointment at'
                                                     + branch + '\nGP: ' + gp + '\nReason: ' + reason
-                                                    + '\nPatient Status: ' + patient_status)
-        return confirm
+                                                    + '\nNew patient: ' + patient_status)
 
-    def show_success_message(self):
-        tk.messagebox.askokcancel(title='Successfully',
-                                  message='You have made an appointment \nPlease attend on time')
-
+        if confirm:
+            self.controller.write_appointment()
+            tk.messagebox.askokcancel(title='Successfully',
+                                      message='You have made an appointment \nPlease attend on time')

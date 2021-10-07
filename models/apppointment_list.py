@@ -9,6 +9,9 @@ class AppointmentList():
     def get_appointment_list(self) -> List[Appointment]:
         return self.appointments
 
+    def add_appointment(self, appointment):
+        self.appointments.append(appointment)
+
     def to_JSON(self):
         lst = []
         for appointment in self.appointments:
