@@ -80,13 +80,11 @@ class StatusReportController(MPMS):
     def get_reason_report(self, start_date, end_date, report_type):
         
         if start_date >= end_date:
-            tk.messagebox.showerror("Error", "Start date should be earlier than end date")
-            return None
-
+            self._view.display_input_error("Start date should be earlier than end date")
+           
         reason_dict = self.get_report_statistic(start_date,end_date,report_type)
 
         if len(reason_dict) == 0:
-            tk.messagebox.showerror("Error", "No appointments within this period")
-            return
-
+            self._view.display_input_error("No appointments within this period")
+        
         self._view.display_reason_report(reason_dict)
