@@ -28,6 +28,10 @@ class Branch():
     def get_gps(self) -> GPList:
         return self.gps
 
+    def get_info(self):
+        return 'Name: ' + self.name + '\nAddress: ' + self.address + \
+               '\nOpening hours: ' + self.open_hour + ' - ' + self.close_hour + '\nPhone: ' + self.phone_number
+
     @staticmethod
     def create_from_json(json_info):
         name = json_info["name"]
