@@ -25,13 +25,13 @@ class StatusReportView(tk.Frame):
         # 'Start' Date
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(start_date_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
-        start_cal = DateEntry(start_date_label_frame, selectmode = 'day', showweeknumbers = False)
+        start_cal = DateEntry(start_date_label_frame, date_pattern='mm/dd/y', selectmode = 'day', showweeknumbers = False)
         start_cal.pack()
     
         # End Date
         end_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(end_date_label_frame, text = "End Date", width=18, height=1, bg="white").pack()
-        end_cal = DateEntry(end_date_label_frame, selectmode = 'day', showweeknumbers = False)
+        end_cal = DateEntry(end_date_label_frame, date_pattern='mm/dd/y', selectmode = 'day', showweeknumbers = False)
         end_cal.pack()
 
         start_date_label_frame.pack(side="left")
@@ -53,7 +53,7 @@ class StatusReportView(tk.Frame):
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
 
-    def display_input_error(message):
+    def display_input_error(self, message):
         tk.messagebox.showerror("Error", message)
     
     def display_reason_report(self, reason_dict):
@@ -87,4 +87,3 @@ class StatusReportView(tk.Frame):
             reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
             table_iid += 1
         reason_table.pack(fill=tk.BOTH)
-        DateEntry().pack()
