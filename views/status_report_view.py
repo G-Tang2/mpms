@@ -45,6 +45,9 @@ class StatusReportView(tk.Frame):
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
 
+    def display_input_error(message):
+        tk.messagebox.showerror("Error", message)
+    
     def display_reason_report(self, reason_dict):
         report = Toplevel(self)
         report.title("Reason Report")
@@ -76,3 +79,4 @@ class StatusReportView(tk.Frame):
             reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
             table_iid += 1
         reason_table.pack(fill=tk.BOTH)
+        DateEntry().pack()
