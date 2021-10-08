@@ -77,7 +77,9 @@ class AppointmentDetailView(tk.Frame):
         days = self.controller.get_days()
         date_list['value'] = days
         date_list.pack()
-        tk.Button(self, text='show time', command=lambda: self.__show_time(dt.get())).pack()
+        date = '2020-01-01'
+        self.__show_time(date)
+        # tk.Button(self, text='show time', command=lambda: self.__show_time(dt.get())).pack()
 
     def __show_time(self, date):
         if not self.time_show:

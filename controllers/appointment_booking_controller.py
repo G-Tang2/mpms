@@ -23,7 +23,7 @@ class AppointmentBookingController(MPMS):
         self.appointments = AppointmentList([])
 
     def __create_data(self, master: tk.Tk):
-        #self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
+        # self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
         self.patient = master.login.get_user()
         self.gp = GP('Alice', 'Brown', '012345678', [], [])
         self.date = datetime.datetime(2010, 1, 1)
@@ -120,8 +120,9 @@ class AppointmentBookingController(MPMS):
 
     def get_time(self, date):
         minute = timedelta(minutes=15)
-        now = datetime.datetime(year=int(date[:4]), month=int(date[5:7]), day=int(date[8:10]), hour=8, minute=45, second=0)
-        print(now)
+        now = datetime.datetime(year=int(date[:4]), month=int(date[5:7]), day=int(date[8:10]),
+                                hour=8, minute=45, second=0)
+
         times = []
         for i in range(20):
             now = now + minute
