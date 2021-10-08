@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import datetime
-from datetime import timedelta
+
 
 
 class AppointmentDetailView(tk.Frame):
@@ -75,7 +74,7 @@ class AppointmentDetailView(tk.Frame):
         dt = tk.StringVar()
         dt.set('None')
         date_list = ttk.Combobox(self, textvariable=dt)
-        days = self.get_days()
+        days = self.controller.get_days()
         date_list['value'] = days
         date_list.pack()
         tk.Button(self, text='show time', command=lambda: self.__show_time(dt.get())).pack()
@@ -84,31 +83,9 @@ class AppointmentDetailView(tk.Frame):
         if not self.time_show:
             tm = tk.StringVar()
             time_list = ttk.Combobox(self, textvariable=tm)
-            times = self.get_time(date)
+            times = self.controller.get_time(date)
             # times = ['1', '2']
             time_list['value'] = times
             time_list.pack()
             self.time_show = True
 
-    def get_days(self):
-        day = timedelta(days=1)
-        today = datetime.date.today()
-        days = []
-        for i in range(7):
-            today = today + day
-            #today_str = today.strftime('%d/%m/%y')
-            days.append(today)
-
-        return days
-
-    def get_time(self, date):
-        minute = timedelta(minutes=15)
-        now = datetime.datetime(year=int(date[:4]), month=int(date[5:7]), day=int(date[8:10]), hour=8, minute=45, second=0)
-        print(now)
-        times = []
-        for i in range(20):
-            now = now + minute
-            now_str = now.strftime('%H:%M')
-            times.append(now_str)
-
-        return times
