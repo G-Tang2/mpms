@@ -7,6 +7,7 @@ from models.branch_list import BranchList
 from models.appointment import Appointment
 from models.questionnaire import Questionnaire
 from models.appointment_reason import AppointmentReason
+from models.appointment_reason_list import AppointmentReasonList
 from models.apppointment_list import AppointmentList
 from models.gp import GP
 import csv
@@ -21,6 +22,7 @@ class AppointmentBookingController(MPMS):
 
         self.__create_data(master)
         self.appointments = AppointmentList([])
+        self.list_of_reasons = AppointmentReasonList.create_from_csv()
 
     def __create_data(self, master: tk.Tk):
         # self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
@@ -118,15 +120,26 @@ class AppointmentBookingController(MPMS):
 
         return days
 
-    def get_time(self, date):
-        minute = timedelta(minutes=15)
-        now = datetime.datetime(year=int(date[:4]), month=int(date[5:7]), day=int(date[8:10]),
-                                hour=8, minute=45, second=0)
+    def get_time(self, reason):
+        duration = 1
+        for each_reason in self.list_of_reasons.get_resaon_list():
+            if each_reason.get_reason() == reason:
+                duration = each_reason.get_duration()
 
+        minute = timedelta(minutes=int(duration))
+        now = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
+        now = now - minute
         times = []
+        # TODO: change it to the while loop
         for i in range(20):
             now = now + minute
             now_str = now.strftime('%H:%M')
             times.append(now_str)
 
         return times
+
+    def get_reason_list(self):
+        reasons = []
+        for reason in self.list_of_reasons.get_resaon_list():
+            reasons.append(reason.get_reason())
+        return reasons

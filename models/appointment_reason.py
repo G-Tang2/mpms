@@ -6,6 +6,9 @@ class AppointmentReason():
 
     def get_reason(self):
         return self.reason
+
+    def get_duration(self):
+        return self.duration
     
     @staticmethod
     def create_from_json(json_info):

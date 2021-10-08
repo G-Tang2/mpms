@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
-
+from tkcalendar import *
 
 
 class AppointmentDetailView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
+        self.time_list = ''
         self.controller = controller
         self.time_show = False
 
@@ -30,13 +31,33 @@ class AppointmentDetailView(tk.Frame):
         # new: appointment reason
         tk.Label(self, text='Please choose your reason for appointment').pack()
         rea = tk.StringVar()
-        rea.set('Reason for seeing GP')
-        tk.OptionMenu(self, rea, "Long", "Standard", "Tele").pack()
+        rea.set('Select one reason for seeing GP')
+        reason_box = ttk.Combobox(self, textvariable=rea, width=30)
+        reasons = self.controller.get_reason_list()
+        reason_box['value'] = reasons
+        reason_box.bind('<<ComboboxSelected>>', self.callback)
+        reason_box.pack()
+
+        app_date = DateEntry(self, date_pattern='mm/dd/y', selectmode='day', showweeknumbers=False)
+        app_date.pack()
+
+        tm = tk.StringVar()
+        self.time_list = ttk.Combobox(self, textvariable=tm, state='disabled')
+        self.time_list.pack()
 
         tk.Button(self, text='next', command=lambda: self.next(listbox, rea.get(), var.get())).pack()
 
-        self.__show_date()
+        # self.__show_date()
 
+    def callback(self, e):
+        if e.widget.get() == 'Select one reason for seeing GP':
+            self.time_list['state'] = tk.DISABLED
+        else:
+            self.time_list['state'] = tk.NORMAL
+
+            times = self.controller.get_time(e.widget.get())
+            self.time_list['value'] = times
+            self.time_show = True
 
     def selection_clear(self, listbox):
         listbox.selection_clear(0, 'end')
@@ -55,39 +76,44 @@ class AppointmentDetailView(tk.Frame):
             tk.messagebox.showerror(title='Patient Status', message='please select one patient status')
             return
 
-        self.make_appointment(gp, reason, patient_status)
+        tk.Button(self, text='complete',
+                  command=lambda: self.make_appointment(gp, reason, patient_status))
+
+        # self.make_appointment(gp, reason, patient_status)
+
+
 
     def make_appointment(self, gp, reason, patient_status):
         branch = self.controller.get_branch()
 
-        confirm = tk.messagebox.askokcancel(title='Successfully',
+        confirm = tk.messagebox.askokcancel(title='Confirming',
                                             message='You are going to have an appointment at'
                                                     + branch + '\nGP: ' + gp + '\nReason: ' + reason
                                                     + '\nNew patient: ' + patient_status)
 
         if confirm:
-            # self.controller.write_appointment()
-            tk.messagebox.askokcancel(title='Successfully',
+            self.controller.write_appointment()
+            tk.messagebox.showinfo(title='Successfully',
                                       message='You have made an appointment \nPlease attend on time')
 
     def __show_date(self):
-        dt = tk.StringVar()
-        dt.set('None')
-        date_list = ttk.Combobox(self, textvariable=dt)
-        days = self.controller.get_days()
-        date_list['value'] = days
-        date_list.pack()
-        date = '2020-01-01'
-        self.__show_time(date)
+        # dt = tk.StringVar()
+        # dt.set('None')
+        # date_list = ttk.Combobox(self, textvariable=dt)
+        # days = self.controller.get_days()
+        # date_list['value'] = days
+        # date_list.pack()
+        # date = '2020-01-01'
+        # self.__show_time(date)
+        app_date = DateEntry(self, date_pattern='mm/dd/y', selectmode='day', showweeknumbers=False)
+        app_date.pack()
         # tk.Button(self, text='show time', command=lambda: self.__show_time(dt.get())).pack()
 
-    def __show_time(self, date):
+    def __show_time(self, reason):
         if not self.time_show:
             tm = tk.StringVar()
-            time_list = ttk.Combobox(self, textvariable=tm)
-            times = self.controller.get_time(date)
-            # times = ['1', '2']
+            time_list = ttk.Combobox(self, textvariable=tm, state='disabled')
+            times = self.controller.get_time(reason)
             time_list['value'] = times
             time_list.pack()
             self.time_show = True
-
