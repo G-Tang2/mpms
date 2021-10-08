@@ -11,8 +11,8 @@ class LoginController(MPMS):
 
     def login(self, email_address: str, password: str):
         try:
-            self.login = Login(email_address, password)
-            if self.login.is_patient():
+            self._master.login = Login(email_address, password)
+            if self._master.login.is_patient():
                 self._master.load_controller(PatientHomeController)
                 self._master.login = Login(email_address, password)
             else:

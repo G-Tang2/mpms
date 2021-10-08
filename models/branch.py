@@ -28,6 +28,9 @@ class Branch():
     def get_gps(self) -> GPList:
         return self.gps
 
+    def get_open_hours(self):
+        return self.open_hour
+
     def get_info(self):
         return 'Name: ' + self.name + '\nAddress: ' + self.address + \
                '\nOpening hours: ' + self.open_hour + ' - ' + self.close_hour + '\nPhone: ' + self.phone_number

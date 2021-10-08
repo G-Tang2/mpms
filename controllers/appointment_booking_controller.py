@@ -1,16 +1,17 @@
-from datetime import datetime
+import datetime
 import tkinter as tk
 from controllers.MPMS import MPMS
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
 from models.branch_list import BranchList
 from models.appointment import Appointment
-from models.patient import Patient
 from models.questionnaire import Questionnaire
 from models.appointment_reason import AppointmentReason
+from models.appointment_reason_list import AppointmentReasonList
 from models.apppointment_list import AppointmentList
 from models.gp import GP
 import csv
+from datetime import timedelta
 
 
 class AppointmentBookingController(MPMS):
@@ -19,13 +20,15 @@ class AppointmentBookingController(MPMS):
 
         self.branch = 'None'
 
-        self.__create_data()
+        self.__create_data(master)
         self.appointments = AppointmentList([])
+        self.list_of_reasons = AppointmentReasonList.create_from_csv()
 
-    def __create_data(self):
-        self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
+    def __create_data(self, master: tk.Tk):
+        # self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
+        self.patient = master.login.get_user()
         self.gp = GP('Alice', 'Brown', '012345678', [], [])
-        self.date = datetime(2010, 1, 1)
+        self.date = datetime.datetime(2010, 1, 1)
         self.appointment_reason = AppointmentReason('long', 15)
         self.questionnaire = Questionnaire()
 
@@ -98,10 +101,45 @@ class AppointmentBookingController(MPMS):
     def write_appointment(self):
         headers = ['appointments']
         new_appointment = Appointment(True, self.date, self.patient, self.gp,
-                                      [self.appointment_reason], self.questionnaire)
+                                      self.appointment_reason, self.questionnaire)
 
         self.appointments.add_appointment(new_appointment)
         with open("./app_data/appointments.csv", "w") as f:
             f_csv_w = csv.writer(f)
             f_csv_w.writerow(headers)
             f_csv_w.writerow([self.appointments.to_JSON()])
+
+    def get_days(self):
+        day = timedelta(days=1)
+        today = datetime.date.today()
+        days = []
+        for i in range(7):
+            today = today + day
+            today_str = today.strftime('%y-%m-%d')
+            days.append(today_str)
+
+        return days
+
+    def get_time(self, reason):
+        duration = 1
+        for each_reason in self.list_of_reasons.get_resaon_list():
+            if each_reason.get_reason() == reason:
+                duration = each_reason.get_duration()
+
+        minute = timedelta(minutes=int(duration))
+        now = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
+        now = now - minute
+        times = []
+        # TODO: change it to the while loop
+        for i in range(20):
+            now = now + minute
+            now_str = now.strftime('%H:%M')
+            times.append(now_str)
+
+        return times
+
+    def get_reason_list(self):
+        reasons = []
+        for reason in self.list_of_reasons.get_resaon_list():
+            reasons.append(reason.get_reason())
+        return reasons

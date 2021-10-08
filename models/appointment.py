@@ -9,7 +9,7 @@ import copy
 
 class Appointment():
     def __init__(self, new_patient: bool, date_time: datetime, patient: Patient, gp: GP,
-            appointment_reason: List[AppointmentReason], questionnaire: Questionnaire) -> None:
+            appointment_reason: AppointmentReason, questionnaire: Questionnaire) -> None:
         self.new_patient = new_patient
         self.date_time = date_time
         self.patient = patient
@@ -17,7 +17,7 @@ class Appointment():
         self.appointment_reason = appointment_reason
         self.questionnaire = questionnaire
 
-    def get_appointment_reason(self) -> List[AppointmentReason]:
+    def get_appointment_reason(self) -> AppointmentReason:
         return self.appointment_reason
 
     def get_appointment_datetime(self) -> datetime:
