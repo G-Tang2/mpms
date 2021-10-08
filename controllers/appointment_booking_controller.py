@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 import tkinter as tk
 from controllers.MPMS import MPMS
 from views.appointment_view import AppointmentView
@@ -10,6 +10,7 @@ from models.appointment_reason import AppointmentReason
 from models.apppointment_list import AppointmentList
 from models.gp import GP
 import csv
+from datetime import timedelta
 
 
 class AppointmentBookingController(MPMS):
@@ -25,7 +26,7 @@ class AppointmentBookingController(MPMS):
         #self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
         self.patient = master.login.get_user()
         self.gp = GP('Alice', 'Brown', '012345678', [], [])
-        self.date = datetime(2010, 1, 1)
+        self.date = datetime.datetime(2010, 1, 1)
         self.appointment_reason = AppointmentReason('long', 15)
         self.questionnaire = Questionnaire()
 
@@ -106,3 +107,25 @@ class AppointmentBookingController(MPMS):
             f_csv_w.writerow(headers)
             f_csv_w.writerow([self.appointments.to_JSON()])
 
+    def get_days(self):
+        day = timedelta(days=1)
+        today = datetime.date.today()
+        days = []
+        for i in range(7):
+            today = today + day
+            today_str = today.strftime('%y-%m-%d')
+            days.append(today_str)
+
+        return days
+
+    def get_time(self, date):
+        minute = timedelta(minutes=15)
+        now = datetime.datetime(year=int(date[:4]), month=int(date[5:7]), day=int(date[8:10]), hour=8, minute=45, second=0)
+        print(now)
+        times = []
+        for i in range(20):
+            now = now + minute
+            now_str = now.strftime('%H:%M')
+            times.append(now_str)
+
+        return times
