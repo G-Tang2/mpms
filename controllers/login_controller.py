@@ -14,7 +14,9 @@ class LoginController(MPMS):
             self._master.login = Login(email_address, password)
             if self._master.login.is_patient():
                 self._master.load_controller(PatientHomeController)
+                self._master.login = Login(email_address, password)
             else:
                 self._master.load_controller(AdminHomeController)
+                self._master.login = Login(email_address, password)
         except ValueError as m:
             self._view.display_email_error(m)
