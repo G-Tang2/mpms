@@ -1,8 +1,16 @@
+from datetime import datetime
 import tkinter as tk
 from controllers.MPMS import MPMS
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
 from models.branch_list import BranchList
+from models.appointment import Appointment
+from models.patient import Patient
+from models.questionnaire import Questionnaire
+from models.appointment_reason import AppointmentReason
+from models.apppointment_list import AppointmentList
+from models.gp import GP
+import csv
 
 
 class AppointmentBookingController(MPMS):
@@ -10,7 +18,16 @@ class AppointmentBookingController(MPMS):
         MPMS.__init__(self, master, AppointmentView)
 
         self.branch = 'None'
-        self.gp = 'None'
+
+        self.__create_data()
+        self.appointments = AppointmentList([])
+
+    def __create_data(self):
+        self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
+        self.gp = GP('Alice', 'Brown', '012345678', [], [])
+        self.date = datetime(2010, 1, 1)
+        self.appointment_reason = AppointmentReason('long', 15)
+        self.questionnaire = Questionnaire()
 
     def sort_branches(self):
         # new: sort branch list based on branch name (alphabetical order)
@@ -35,6 +52,7 @@ class AppointmentBookingController(MPMS):
         list_of_gps = []
         for branch in self.list_of_branches.get_branch_list():
             if self.branch == branch.get_name():
+                self.appointments = branch.get_appointments()
                 list_of_gps = branch.get_gps()
                 break
 
@@ -78,4 +96,12 @@ class AppointmentBookingController(MPMS):
                 return key
 
     def write_appointment(self):
-        pass
+        headers = ['appointments']
+        new_appointment = Appointment(True, self.date, self.patient, self.gp,
+                                      [self.appointment_reason], self.questionnaire)
+
+        self.appointments.add_appointment(new_appointment)
+        with open("./app_data/appointments.csv", "w") as f:
+            f_csv_w = csv.writer(f)
+            f_csv_w.writerow(headers)
+            f_csv_w.writerow([self.appointments.to_JSON()])

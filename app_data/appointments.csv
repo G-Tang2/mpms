@@ -1,0 +1,59 @@
+appointments
+"[
+    {
+        ""appointment_reason"": {
+            ""duration"": 15,
+            ""reason"": ""reason3""
+        },
+        ""date_time"": ""Jun 01 2010 01:33PM"",
+        ""gp"": {
+            ""area_of_interests"": [
+                ""Adults""
+            ],
+            ""first_name"": ""Borg"",
+            ""last_name"": ""Murley"",
+            ""phone_number"": ""0467739687"",
+            ""unavailable_days"": []
+        },
+        ""new_patient"": true,
+        ""patient"": {
+            ""_email_address"": ""patient@monash.edu"",
+            ""_password"": ""Monash1234"",
+            ""date_of_birth"": ""Jun 1 2005  1:33PM"",
+            ""first_name"": ""patient first name"",
+            ""gender"": ""male"",
+            ""last_name"": ""patient last name"",
+            ""list_of_favourites"": {},
+            ""phone_number"": ""0412345678""
+        },
+        ""questionnaire"": {}
+    },
+    {
+        ""appointment_reason"": [
+            {
+                ""duration"": 15,
+                ""reason"": ""long""
+            }
+        ],
+        ""date_time"": ""Jan 01 2010 12:00AM"",
+        ""gp"": {
+            ""area_of_interests"": [],
+            ""first_name"": ""Alice"",
+            ""last_name"": ""Brown"",
+            ""phone_number"": ""012345678"",
+            ""unavailable_days"": []
+        },
+        ""new_patient"": true,
+        ""patient"": {
+            ""_email_address"": ""patient@monash.edu"",
+            ""_password"": ""Monash1234"",
+            ""date_of_birth"": ""01/01/1990"",
+            ""first_name"": ""Tom"",
+            ""gender"": ""Male"",
+            ""last_name"": ""T"",
+            ""list_of_favourites"": {},
+            ""phone_number"": ""012345678""
+        },
+        ""questionnaire"": {}
+    }
+]"
