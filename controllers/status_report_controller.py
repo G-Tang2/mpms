@@ -10,12 +10,23 @@ from tkinter.constants import E, NO, W
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import datetime
 
 class StatusReportController(MPMS):
     def __init__(self,master,view = StatusReportView):
         MPMS.__init__(self,master,view)
 
     def get_reason_report(self, start_date, end_date, report_type):
+        
+        print(start_date)
+        # print(type(start_date))
+        # try:
+        #     test1 = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+        #     test2 = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+        # except ValueError:
+        #     self._view.display_input_error("Incorrect date format input")
+        #     return
+        
         if start_date >= end_date:
             self._view.display_input_error("Start date should be earlier than end date")
             return
