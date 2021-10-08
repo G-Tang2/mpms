@@ -50,7 +50,7 @@ class AppointmentBookingController(MPMS):
 
         self._view = AppointmentDetailView(master, self)
 
-        new_frame = AppointmentDetailView(master, self)
+        # new_frame = AppointmentDetailView(master, self)
 
         list_of_gps = []
         for branch in self.list_of_branches.get_branch_list():
@@ -59,12 +59,12 @@ class AppointmentBookingController(MPMS):
                 list_of_gps = branch.get_gps()
                 break
 
-        new_frame.render_view(master, list_of_gps)
+        self._view.render_view(master, list_of_gps)
 
         if master.body_frame is not None:
             master.body_frame.destroy()
 
-        master.body_frame = new_frame
+        master.body_frame = self._view
         master.body_frame.grid_propagate(False)
         master.body_frame.pack(side="top", fill="both", expand=True)
 
@@ -127,13 +127,14 @@ class AppointmentBookingController(MPMS):
                 duration = each_reason.get_duration()
 
         minute = timedelta(minutes=int(duration))
-        now = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
-        now = now - minute
+        open_hour = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
+        close_hour = datetime.datetime(year=2021, month=1, day=1, hour=17, minute=0, second=0)
+        open_hour = open_hour - minute
         times = []
-        # TODO: change it to the while loop
-        for i in range(20):
-            now = now + minute
-            now_str = now.strftime('%H:%M')
+
+        while open_hour < close_hour - minute:
+            open_hour = open_hour + minute
+            now_str = open_hour.strftime('%H:%M')
             times.append(now_str)
 
         return times
