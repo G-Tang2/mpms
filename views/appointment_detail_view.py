@@ -79,7 +79,7 @@ class AppointmentDetailView(tk.Frame):
         tk.Button(self, text='complete',
                   command=lambda: self.make_appointment(gp, reason, patient_status))
 
-        # self.make_appointment(gp, reason, patient_status)
+        self.make_appointment(gp, reason, patient_status)
 
 
 
