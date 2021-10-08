@@ -1,4 +1,7 @@
 import tkinter as tk
+from tkinter import ttk
+import datetime
+from datetime import timedelta
 
 
 class AppointmentDetailView(tk.Frame):
@@ -6,6 +9,7 @@ class AppointmentDetailView(tk.Frame):
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
         self.controller = controller
+        self.time_show = False
 
     def render_view(self, master: tk.Tk, list_of_gps) -> None:
 
@@ -15,7 +19,7 @@ class AppointmentDetailView(tk.Frame):
         for gp in list_of_gps.get_gps():
             listbox.insert('end', gp.get_full_name())
         listbox.pack()
-        tk.Button(self, text='select_clear', width=15, height=2, command=lambda: self.selection_clear(listbox)).pack()
+        tk.Button(self, text='select_clear', command=lambda: self.selection_clear(listbox)).pack()
 
         # new:  patient status
         tk.Label(self, text='Please choose your status').pack()
@@ -30,8 +34,10 @@ class AppointmentDetailView(tk.Frame):
         rea.set('Reason for seeing GP')
         tk.OptionMenu(self, rea, "Long", "Standard", "Tele").pack()
 
-        tk.Button(self, text='next', width=15, height=2,
-                  command=lambda: self.next(listbox, rea.get(), var.get())).pack()
+        tk.Button(self, text='next', command=lambda: self.next(listbox, rea.get(), var.get())).pack()
+
+        self.__show_date()
+
 
     def selection_clear(self, listbox):
         listbox.selection_clear(0, 'end')
@@ -64,3 +70,45 @@ class AppointmentDetailView(tk.Frame):
             # self.controller.write_appointment()
             tk.messagebox.askokcancel(title='Successfully',
                                       message='You have made an appointment \nPlease attend on time')
+
+    def __show_date(self):
+        dt = tk.StringVar()
+        dt.set('None')
+        date_list = ttk.Combobox(self, textvariable=dt)
+        days = self.get_days()
+        date_list['value'] = days
+        date_list.pack()
+        tk.Button(self, text='show time', command=lambda: self.__show_time(dt.get())).pack()
+
+    def __show_time(self, date):
+        if not self.time_show:
+            tm = tk.StringVar()
+            time_list = ttk.Combobox(self, textvariable=tm)
+            times = self.get_time(date)
+            # times = ['1', '2']
+            time_list['value'] = times
+            time_list.pack()
+            self.time_show = True
+
+    def get_days(self):
+        day = timedelta(days=1)
+        today = datetime.date.today()
+        days = []
+        for i in range(7):
+            today = today + day
+            #today_str = today.strftime('%d/%m/%y')
+            days.append(today)
+
+        return days
+
+    def get_time(self, date):
+        minute = timedelta(minutes=15)
+        now = datetime.datetime(year=int(date[:4]), month=int(date[5:7]), day=int(date[8:10]), hour=8, minute=45, second=0)
+        print(now)
+        times = []
+        for i in range(20):
+            now = now + minute
+            now_str = now.strftime('%H:%M')
+            times.append(now_str)
+
+        return times
