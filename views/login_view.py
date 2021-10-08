@@ -12,6 +12,9 @@ class LoginView(tk.Frame):
         email_address = tk.StringVar()
         password = tk.StringVar()
 
+        email_address.set("patient@monash.edu")
+        password.set("Monash1234")
+
         # container for login details
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
 

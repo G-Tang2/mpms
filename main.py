@@ -10,6 +10,8 @@ class App(tk.Tk):
         self.title("Monash Patient Management System (MPMS)")
         # center window on display
         self.__center_window()
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
         # set header frame
         self.header = Header(self).pack(fill="x")
         # body frame

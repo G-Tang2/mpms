@@ -26,7 +26,7 @@ class Patient(User):
         first_name = json_info["first_name"]
         last_name = json_info["last_name"]
         phone_number = json_info["phone_number"]
-        date_of_birth = datetime.strptime(json_info["date_of_birth"], "%Y-%m-%dT%H:%M:%S")
+        date_of_birth = json_info["date_of_birth"]
         gender = json_info["gender"]
         list_of_favourites = FavouriteList.create_from_json(json_info["list_of_favourites"])
         return Patient(email_address, password, first_name, last_name, phone_number, date_of_birth,

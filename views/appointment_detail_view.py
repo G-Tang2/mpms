@@ -13,6 +13,7 @@ class AppointmentDetailView(tk.Frame):
 
     def render_view(self, master: tk.Tk, list_of_gps) -> None:
 
+        tk.Button(self, text='back', command=self.controller.back).pack()
         # select GP
         tk.Label(self, text='Please select a GP (optional)').pack()
         listbox = tk.Listbox(self)

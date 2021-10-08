@@ -1,3 +1,4 @@
+import copy
 import datetime
 import tkinter as tk
 from controllers.MPMS import MPMS
@@ -16,13 +17,26 @@ from datetime import timedelta
 
 class AppointmentBookingController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
-        MPMS.__init__(self, master, AppointmentView)
-
+        self.container_frame = tk.Frame(master)
         self.branch = 'None'
-
+        self.view = AppointmentView(self.container_frame, self)
+        self.views_stack = [self.view]
         self.__create_data(master)
         self.appointments = AppointmentList([])
         self.list_of_reasons = AppointmentReasonList.create_from_csv()
+        self._master = master
+        self.list_of_branches = BranchList.create_from_csv()
+        self.__load_view(master)
+        # list_of_appointments = self.__fetch_appointment_list()
+
+    def __load_view(self, master: tk.Tk) -> None:
+        # remove frame if tk instance has a frame
+        if master.body_frame is not None:
+            master.body_frame.destroy()
+        # assign new frame to tk instance
+        self.view.grid(row=0, column=0)
+        master.body_frame = self.container_frame
+        master.body_frame.pack()
 
     def __create_data(self, master: tk.Tk):
         # self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
@@ -48,9 +62,8 @@ class AppointmentBookingController(MPMS):
     def display_gp_view(self, master: tk.Tk, branch) -> None:
         self.branch = branch
 
-        self._view = AppointmentDetailView(master, self)
-
-        new_frame = AppointmentDetailView(master, self)
+        view = AppointmentDetailView(self.container_frame, self)
+        self.views_stack.append(view)
 
         list_of_gps = []
         for branch in self.list_of_branches.get_branch_list():
@@ -59,14 +72,16 @@ class AppointmentBookingController(MPMS):
                 list_of_gps = branch.get_gps()
                 break
 
-        new_frame.render_view(master, list_of_gps)
+        view.render_view(self.container_frame, list_of_gps)
+        # master.body_frame.destroy()
+        view.grid(row=0, column=0)
+        view.tkraise()
 
-        if master.body_frame is not None:
-            master.body_frame.destroy()
-
-        master.body_frame = new_frame
-        master.body_frame.grid_propagate(False)
-        master.body_frame.pack(side="top", fill="both", expand=True)
+    def back(self):
+        current_frame = self.views_stack.pop()
+        current_frame.destroy()
+        previous_view = self.views_stack[-1]
+        previous_view.tkraise()
 
     def get_branch(self):
         return self.branch

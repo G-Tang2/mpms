@@ -6,9 +6,9 @@ class AppointmentView(tk.Frame):
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
         self.controller = controller
-        self.__render_view(master)
+        self._render_view(master)
 
-    def __render_view(self, master: tk.Tk) -> None:
+    def _render_view(self, master: tk.Tk) -> None:
 
         list_of_branches = self.controller.sort_branches()
 
