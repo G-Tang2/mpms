@@ -61,6 +61,6 @@ class AppointmentDetailView(tk.Frame):
                                                     + '\nNew patient: ' + patient_status)
 
         if confirm:
-            self.controller.write_appointment()
+            # self.controller.write_appointment()
             tk.messagebox.askokcancel(title='Successfully',
                                       message='You have made an appointment \nPlease attend on time')
