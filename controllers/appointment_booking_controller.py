@@ -5,7 +5,6 @@ from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
 from models.branch_list import BranchList
 from models.appointment import Appointment
-from models.patient import Patient
 from models.questionnaire import Questionnaire
 from models.appointment_reason import AppointmentReason
 from models.apppointment_list import AppointmentList
@@ -19,11 +18,12 @@ class AppointmentBookingController(MPMS):
 
         self.branch = 'None'
 
-        self.__create_data()
+        self.__create_data(master)
         self.appointments = AppointmentList([])
 
-    def __create_data(self):
-        self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
+    def __create_data(self, master: tk.Tk):
+        #self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
+        self.patient = master.login.get_user()
         self.gp = GP('Alice', 'Brown', '012345678', [], [])
         self.date = datetime(2010, 1, 1)
         self.appointment_reason = AppointmentReason('long', 15)
@@ -98,10 +98,11 @@ class AppointmentBookingController(MPMS):
     def write_appointment(self):
         headers = ['appointments']
         new_appointment = Appointment(True, self.date, self.patient, self.gp,
-                                      [self.appointment_reason], self.questionnaire)
+                                      self.appointment_reason, self.questionnaire)
 
         self.appointments.add_appointment(new_appointment)
         with open("./app_data/appointments.csv", "w") as f:
             f_csv_w = csv.writer(f)
             f_csv_w.writerow(headers)
             f_csv_w.writerow([self.appointments.to_JSON()])
+

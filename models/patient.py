@@ -1,9 +1,11 @@
 from models.favourite_list import FavouriteList
 from models.user import User
+from datetime import datetime
+import copy
 
 class Patient(User):
     def __init__(self, email_address: str, password: str, first_name: str, last_name: str,
-            phone_number: str, date_of_birth: str, gender: str, list_of_favourites = FavouriteList()) -> None:
+            phone_number: str, date_of_birth: datetime, gender: str, list_of_favourites = FavouriteList()) -> None:
         User.__init__(self, email_address, password)
         self.first_name = first_name
         self.last_name = last_name
@@ -11,6 +13,11 @@ class Patient(User):
         self.date_of_birth = date_of_birth
         self.gender = gender
         self.list_of_favourites = list_of_favourites
+
+    def serialise_copy(self):
+        tmp = copy.deepcopy(self)
+        tmp.date_of_birth = tmp.date_of_birth.strftime("%b %d %Y %I:%M%p")
+        return tmp
 
     @staticmethod
     def create_from_json(json_info):
