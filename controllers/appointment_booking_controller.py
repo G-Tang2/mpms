@@ -19,8 +19,8 @@ class AppointmentBookingController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
         self.container_frame = tk.Frame(master)
         self.branch = 'None'
-        self.view = AppointmentView(self.container_frame, self)
-        self.views_stack = [self.view]
+        self._view = AppointmentView(self.container_frame, self)
+        self.views_stack = [self._view]
         self.__create_data(master)
         self.appointments = AppointmentList([])
         self.list_of_reasons = AppointmentReasonList.create_from_csv()
@@ -34,7 +34,7 @@ class AppointmentBookingController(MPMS):
         if master.body_frame is not None:
             master.body_frame.destroy()
         # assign new frame to tk instance
-        self.view.grid(row=0, column=0)
+        self._view.grid(row=0, column=0)
         master.body_frame = self.container_frame
         master.body_frame.pack()
 
@@ -73,15 +73,18 @@ class AppointmentBookingController(MPMS):
                 break
 
         view.render_view(self.container_frame, list_of_gps)
-        # master.body_frame.destroy()
         view.grid(row=0, column=0)
         view.tkraise()
+        self._view = view
 
     def back(self):
+        # destroy current frame and load the previous frame
         current_frame = self.views_stack.pop()
         current_frame.destroy()
         previous_view = self.views_stack[-1]
+        previous_view.reload_values()
         previous_view.tkraise()
+        self._view = previous_view
 
     def get_branch(self):
         return self.branch

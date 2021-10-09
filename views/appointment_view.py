@@ -6,6 +6,8 @@ class AppointmentView(tk.Frame):
         # initialise frame and set controller
         tk.Frame.__init__(self, master)
         self.controller = controller
+        self._branch_listbox = None
+        self._selected_clinic_index = 0
         self._render_view(master)
 
     def _render_view(self, master: tk.Tk) -> None:
@@ -21,10 +23,18 @@ class AppointmentView(tk.Frame):
         tk.Button(self, text='Show Info', width=15, height=2, command=lambda: self.show_info(listbox)).pack()
         tk.Button(self, text='next', width=15, height=2,
                   command=lambda: self.next(master, listbox)).pack()
+        self._branch_listbox = listbox
+
+    def reload_values(self):
+        # reload branch selection
+        if self._branch_listbox is not None:
+            self._branch_listbox.select_set(self._selected_clinic_index)
 
     def next(self, master: tk.Tk, listbox):
         if listbox.curselection():
             value = listbox.get('active')
+            # save index of selected branch
+            self._selected_clinic_index = listbox.curselection()
             self.controller.display_gp_view(master, value)
         else:
             tk.messagebox.showerror(title='no branch', message='please select a branch')
