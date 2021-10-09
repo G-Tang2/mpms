@@ -38,8 +38,6 @@ class Login():
                     account_details = json.loads(account_user_detail)
                     account_details["email_address"] = email_address
                     account_details["password"] = password
-                    if "date_of_birth" in account_details:
-                        account_details["date_of_birth"] = datetime.strptime(account_details["date_of_birth"], "%d/%m/%Y")
                     break
             
             return is_valid_user, account_type, account_details
