@@ -1,4 +1,4 @@
 answer,question
-null,"Do you or the person who needs the appointment have ANY of the following symptoms: fever, chills, cough, sore throat, shortness of breath, runny nose, loss of smell or loss of taste or have you experienced one or several of these in the past 14 days?"
-null,Have you or the person who needs the appointment been to a COVID-19 hot spot or outbreak area in the last two weeks?
-null,Have you or the person who needs the appointment been in direct contact with someone with suspected coronavirus (COVID-19) or who has returned from international or interstate travel in the past 14 days?
+no,"Do you or the person who needs the appointment have ANY of the following symptoms: fever, chills, cough, sore throat, shortness of breath, runny nose, loss of smell or loss of taste or have you experienced one or several of these in the past 14 days?"
+no,Have you or the person who needs the appointment been to a COVID-19 hot spot or outbreak area in the last two weeks?
+no,Have you or the person who needs the appointment been in direct contact with someone with suspected coronavirus (COVID-19) or who has returned from international or interstate travel in the past 14 days?

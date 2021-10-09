@@ -13,6 +13,7 @@ from models.apppointment_list import AppointmentList
 from models.gp import GP
 import csv
 from datetime import timedelta
+from views.questionnaire_view import QuestionnaireView
 
 
 class AppointmentBookingController(MPMS):
@@ -27,6 +28,9 @@ class AppointmentBookingController(MPMS):
         self._master = master
         self.list_of_branches = BranchList.create_from_csv()
         self.__load_view(master)
+        self.list_of_gps = []
+        self.questionnaire = Questionnaire.create_from_csv()
+        self.patient = master.login.get_user()
         # list_of_appointments = self.__fetch_appointment_list()
 
     def __load_view(self, master: tk.Tk) -> None:
@@ -40,11 +44,7 @@ class AppointmentBookingController(MPMS):
 
     def __create_data(self, master: tk.Tk):
         # self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
-        self.patient = master.login.get_user()
-        self.gp = GP('Alice', 'Brown', '012345678', [], [])
-        self.date = datetime.datetime(2010, 1, 1)
         self.appointment_reason = AppointmentReason('long', 15)
-        self.questionnaire = Questionnaire()
 
     def sort_branches(self):
         # new: sort branch list based on branch name (alphabetical order)
@@ -65,14 +65,13 @@ class AppointmentBookingController(MPMS):
         view = AppointmentDetailView(self.container_frame, self)
         self.views_stack.append(view)
 
-        list_of_gps = []
         for branch in self.list_of_branches.get_branch_list():
             if self.branch == branch.get_name():
                 self.appointments = branch.get_appointments()
-                list_of_gps = branch.get_gps()
+                self.list_of_gps = branch.get_gps()
                 break
 
-        view.render_view(self.container_frame, list_of_gps)
+        view.render_view(self.container_frame, self.list_of_gps)
         # master.body_frame.destroy()
         view.grid(row=0, column=0)
         view.tkraise()
@@ -113,10 +112,14 @@ class AppointmentBookingController(MPMS):
             if sorted_gp[0] == gp_dict[key]:
                 return key
 
-    def write_appointment(self):
+    def write_appointment(self, patient_status, gp, date, time, reason):
         headers = ['appointments']
-        new_appointment = Appointment(True, self.date, self.patient, self.gp,
-                                      self.appointment_reason, self.questionnaire)
+        appointment_gp = self.find_gp(gp)
+        appointment_reason = self.find_reason(reason)
+        appointment_date = datetime.datetime(year=int(date[0:2]), month=int(date[3:5]), day=int(date[6:8]),
+                                             hour=int(time[0:2]), minute=int(time[3:5]))
+        new_appointment = Appointment(patient_status, appointment_date, self.patient, appointment_gp,
+                                      appointment_reason, self.questionnaire)
 
         self.appointments.add_appointment(new_appointment)
         with open("./app_data/appointments.csv", "w") as f:
@@ -159,3 +162,23 @@ class AppointmentBookingController(MPMS):
         for reason in self.list_of_reasons.get_resaon_list():
             reasons.append(reason.get_reason())
         return reasons
+
+    def display_questionnaire_view(self, master: tk.Tk, gp, reason, patient_status, date, time) -> None:
+
+        view = QuestionnaireView(self.container_frame, self)
+        self.views_stack.append(view)
+
+        view.render_view(self.container_frame, gp, reason, patient_status, self.questionnaire, date, time)
+        # master.body_frame.destroy()
+        view.grid(row=0, column=0)
+        view.tkraise()
+
+    def find_gp(self, gp):
+        for each_gp in self.list_of_gps.get_gps():
+            if gp == each_gp.get_full_name():
+                return each_gp
+
+    def find_reason(self, reason):
+        for each_reason in self.list_of_reasons.get_resaon_list():
+            if reason == each_reason.get_reason():
+                return each_reason

@@ -1,4 +1,5 @@
-class Question():
+
+class Question:
     def __init__(self, question: str, answer: str) -> None:
         self.question = question
         self.answer = answer
@@ -16,4 +17,4 @@ class Question():
     def create_from_json(json_info):
         question = json_info["question"]
         answer = json_info["answer"]
-        return AppointmentReason(question, answer)
+        return Question(question, answer)

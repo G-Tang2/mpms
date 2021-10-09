@@ -15,12 +15,14 @@ class AppointmentDetailView(tk.Frame):
 
         tk.Button(self, text='back', command=self.controller.back).pack()
         # select GP
-        tk.Label(self, text='Please select a GP (optional)').pack()
-        listbox = tk.Listbox(self)
-        for gp in list_of_gps.get_gps():
-            listbox.insert('end', gp.get_full_name())
-        listbox.pack()
-        tk.Button(self, text='select_clear', command=lambda: self.selection_clear(listbox)).pack()
+        gp = tk.StringVar()
+        gp.set('please choose a GP(optional)')
+        gp_box = ttk.Combobox(self, textvariable=gp, width=30)
+        gps = ['None']
+        for each_gp in list_of_gps.get_gps():
+            gps.append(each_gp.get_full_name())
+        gp_box['value'] = gps
+        gp_box.pack()
 
         # new:  patient status
         tk.Label(self, text='Please choose your status').pack()
@@ -46,8 +48,8 @@ class AppointmentDetailView(tk.Frame):
         self.time_list = ttk.Combobox(self, textvariable=tm, state='disabled')
         self.time_list.pack()
 
-        tk.Button(self, text='next', command=lambda: self.next(listbox, rea.get(), var.get())).pack()
-
+        tk.Button(self, text='next', command=
+        lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack()
         # self.__show_date()
 
     def callback(self, e):
@@ -60,16 +62,11 @@ class AppointmentDetailView(tk.Frame):
             self.time_list['value'] = times
             self.time_show = True
 
-    def selection_clear(self, listbox):
-        listbox.selection_clear(0, 'end')
-
-    def next(self, listbox, reason, patient_status):
-        if listbox.curselection():
-            gp = listbox.get('active')
-        else:
+    def next(self, master, gp, reason, patient_status, date, time):
+        if gp == 'None':
             gp = self.controller.find_gp_with_least_appointment()
 
-        if reason == 'Reason for seeing GP':
+        if reason == 'Select one reason for seeing GP':
             tk.messagebox.showerror(title='reason for appointment', message='please select one reason for seeing GP')
             return
 
@@ -80,41 +77,4 @@ class AppointmentDetailView(tk.Frame):
         tk.Button(self, text='complete',
                   command=lambda: self.make_appointment(gp, reason, patient_status))
 
-        self.make_appointment(gp, reason, patient_status)
-
-
-
-    def make_appointment(self, gp, reason, patient_status):
-        branch = self.controller.get_branch()
-
-        confirm = tk.messagebox.askokcancel(title='Confirming',
-                                            message='You are going to have an appointment at'
-                                                    + branch + '\nGP: ' + gp + '\nReason: ' + reason
-                                                    + '\nNew patient: ' + patient_status)
-
-        if confirm:
-            self.controller.write_appointment()
-            tk.messagebox.showinfo(title='Successfully',
-                                      message='You have made an appointment \nPlease attend on time')
-
-    def __show_date(self):
-        # dt = tk.StringVar()
-        # dt.set('None')
-        # date_list = ttk.Combobox(self, textvariable=dt)
-        # days = self.controller.get_days()
-        # date_list['value'] = days
-        # date_list.pack()
-        # date = '2020-01-01'
-        # self.__show_time(date)
-        app_date = DateEntry(self, date_pattern='mm/dd/y', selectmode='day', showweeknumbers=False)
-        app_date.pack()
-        # tk.Button(self, text='show time', command=lambda: self.__show_time(dt.get())).pack()
-
-    def __show_time(self, reason):
-        if not self.time_show:
-            tm = tk.StringVar()
-            time_list = ttk.Combobox(self, textvariable=tm, state='disabled')
-            times = self.controller.get_time(reason)
-            time_list['value'] = times
-            time_list.pack()
-            self.time_show = True
+        self.controller.display_questionnaire_view(master,gp, reason, patient_status, date, time)

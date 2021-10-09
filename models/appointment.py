@@ -45,4 +45,3 @@ class Appointment():
         appointment_reason = AppointmentReason.create_from_json(json_info["appointment_reason"])
         questionnaire = Questionnaire.create_from_json(json_info["questionnaire"])
         return Appointment(new_patient, date_time, patient, gp, appointment_reason, questionnaire)
-    
