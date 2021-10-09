@@ -5,7 +5,7 @@ import copy
 
 class Patient(User):
     def __init__(self, email_address: str, password: str, first_name: str, last_name: str,
-            phone_number: str, date_of_birth: str, gender: str, list_of_favourites = FavouriteList()) -> None:
+            phone_number: str, date_of_birth: datetime, gender: str, list_of_favourites = FavouriteList()) -> None:
         User.__init__(self, email_address, password)
         self.first_name = first_name
         self.last_name = last_name
@@ -16,7 +16,7 @@ class Patient(User):
 
     def serialise_copy(self):
         tmp = copy.deepcopy(self)
-        #tmp.date_of_birth = tmp.date_of_birth.strftime("%b %d %Y %I:%M%p")
+        tmp.date_of_birth = tmp.date_of_birth.strftime("%Y-%m-%dT%H:%M:%S")
         return tmp
 
     @staticmethod

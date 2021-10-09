@@ -1,1 +1,57 @@
 appointments
+"[
+    {
+        ""appointment_reason"": {
+            ""duration"": 30,
+            ""reason"": ""Long consultation face to face ""
+        },
+        ""date_time"": ""2021-11-09T12:30:00"",
+        ""gp"": {
+            ""area_of_interests"": [
+                ""Adults""
+            ],
+            ""first_name"": ""Borg"",
+            ""last_name"": ""Murley"",
+            ""phone_number"": ""0467739687"",
+            ""unavailable_days"": []
+        },
+        ""new_patient"": true,
+        ""patient"": {
+            ""date_of_birth"": ""2000-11-10T00:00:00"",
+            ""email_address"": ""patient@monash.edu"",
+            ""first_name"": ""patient first name"",
+            ""gender"": ""male"",
+            ""last_name"": ""patient last name"",
+            ""list_of_favourites"": {},
+            ""password"": ""Monash1234"",
+            ""phone_number"": ""0412345678""
+        },
+        ""questionnaire"": {}
+    },
+    {
+        ""appointment_reason"": {
+            ""duration"": 15,
+            ""reason"": ""long""
+        },
+        ""date_time"": ""2010-01-01T00:00:00"",
+        ""gp"": {
+            ""area_of_interests"": [],
+            ""first_name"": ""Alice"",
+            ""last_name"": ""Brown"",
+            ""phone_number"": ""012345678"",
+            ""unavailable_days"": []
+        },
+        ""new_patient"": true,
+        ""patient"": {
+            ""date_of_birth"": ""2000-11-10T00:00:00"",
+            ""email_address"": ""patient@monash.edu"",
+            ""first_name"": ""patient first name"",
+            ""gender"": ""male"",
+            ""last_name"": ""patient last name"",
+            ""list_of_favourites"": {},
+            ""password"": ""Monash1234"",
+            ""phone_number"": ""0412345678""
+        },
+        ""questionnaire"": {}
+    }
+]"

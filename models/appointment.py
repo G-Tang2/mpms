@@ -29,6 +29,7 @@ class Appointment():
     def serialise_copy(self):
         tmp = copy.deepcopy(self)
         tmp.date_time = tmp.date_time.strftime("%Y-%m-%dT%H:%M:%S")
+        tmp.patient = tmp.patient.serialise_copy()
         return tmp
     
     def to_JSON(self):
