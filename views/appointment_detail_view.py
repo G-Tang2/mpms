@@ -82,4 +82,4 @@ class AppointmentDetailView(tk.Frame):
         tk.Button(self, text='complete',
                   command=lambda: self.make_appointment(gp, reason, patient_status))
 
-        self.controller.display_questionnaire_view(master,gp, reason, patient_status, date, time)
+        self.controller.display_questionnaire_view(master, gp, reason, patient_status, date, time)

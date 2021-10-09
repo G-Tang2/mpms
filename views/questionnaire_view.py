@@ -7,27 +7,15 @@ class QuestionnaireView(tk.Frame):
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
         # self.__render_view(master)
-        self.gp = 'gp'
-        self.reason = 'reason'
-        self.patient_status = 'status'
-        self.date = 'date'
-        self.time = 'time'
 
-    def render_view(self, master: tk.Tk, gp, reason, patient_status, questions, date, time) -> None:
+    def render_view(self, master: tk.Tk, questions) -> None:
 
-        self.gp = gp
-        self.reason = reason
-        self.patient_status = patient_status
-        self.date = date
-        self.time = time
-        # container for login details
         outer_label_frame = tk.LabelFrame(self, relief="flat", borderwidth=2, bg="white")
 
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         questions = questions.get_question_list()
 
-        # 'Status Report' Button
         tk.Label(outer_label_frame, text=questions[0].get_question(), width=18, height=10, bg="white").pack()
         ans_1 = tk.StringVar()
         ans_1.set('None')
@@ -65,19 +53,21 @@ class QuestionnaireView(tk.Frame):
                                                   message='"Please search on health.gov.au and attend a free COVID-19 respiratory clinic"')
                 return
 
-        self.make_appointment(self.gp, self.reason, self.patient_status, self.date, self.time)
+        self.make_appointment()
 
-    def make_appointment(self, gp, reason, patient_status, date, time):
+    def make_appointment(self):
         branch = self.controller.get_branch()
-        date = date.strftime('%y-%m-%d')
+        appointment_Data = self.controller.get_data()
 
         confirm = tk.messagebox.askokcancel(title='Confirming',
                                             message='You are going to have an appointment at'
-                                                    + branch + '\nGP: ' + gp + '\nReason: ' + reason
-                                                    + '\nNew patient: ' + patient_status +
-                                            '\nDate: ' + date + '\nTime: ' + time)
+                                                    + branch + '\nGP: ' + appointment_Data[0] +
+                                                    '\nReason: ' + appointment_Data[1]
+                                                    + '\nNew patient: ' + appointment_Data[2] +
+                                                    '\nDate: ' + appointment_Data[3].strftime('%y-%m-%d') +
+                                                    '\nTime: ' + appointment_Data[4])
 
         if confirm:
-            self.controller.write_appointment(patient_status, gp, date, time, reason)
+            self.controller.write_appointment()
             tk.messagebox.showinfo(title='Successfully',
                                    message='You have made an appointment \nPlease attend on time')
