@@ -16,7 +16,7 @@ from views.questionnaire_view import QuestionnaireView
 
 class AppointmentBookingController(MPMS):
     def __init__(self, master: tk.Tk) -> None:
-        self.container_frame = tk.Frame(master)
+        self.container_frame = tk.Frame(master,  bg="#c1e4f7")
         self.branch = 'None'
         self.appointments = AppointmentList([])
         self.list_of_reasons = AppointmentReasonList.create_from_csv()
