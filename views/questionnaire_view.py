@@ -40,12 +40,13 @@ class QuestionnaireView(tk.Frame):
         tk.Radiobutton(q3_frame, text='Yes', variable=ans_3, value='Yes').pack(side='left')
         tk.Radiobutton(q3_frame, text='No', variable=ans_3, value='No').pack(side='left')
 
-        tk.Button(outer_label_frame, text='Confirm',
-                  command=lambda: self.confirm_question(ans_1.get(), ans_2.get(), ans_3.get())).pack(pady=20)
+        tk.Button(inner_label_frame, text='Confirm',command=lambda: self.confirm_question(ans_1.get(), ans_2.get(), ans_3.get())).pack(side = 'right' ,pady=30, padx=150)
+        tk.Button(inner_label_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30, padx = 150)
 
-        inner_label_frame.pack(padx=50, fill="x")
+        
         # outer_label_frame.pack(fill="x")
         outer_label_frame.pack(padx=50, pady=50, fill="both")
+        inner_label_frame.pack(padx=50, fill="x")
 
     def confirm_question(self, ans1, ans2, ans3):
         for i in [ans1, ans2, ans3]:
