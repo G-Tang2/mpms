@@ -1,6 +1,7 @@
 import copy
 import datetime
 import tkinter as tk
+from typing import overload
 
 import pandas as pd
 
@@ -21,12 +22,6 @@ from views.questionnaire_view import QuestionnaireView
 class AppointmentBookingController(Controller):
     def __init__(self, master: tk.Tk) -> None:
         super().__init__(master)
-        self.container_frame = tk.Frame(master,  bg="#c1e4f7")
-        self._view = AppointmentView(self.container_frame, self)
-        self.views_stack = [self.view]
-        self._view.render_view()
-        self._load_view()
-
         self.MPMS = MPMS.get_instance()
         self.patient = self.MPMS.get_login().get_user()
 
@@ -39,15 +34,21 @@ class AppointmentBookingController(Controller):
         self.questionnaire = Questionnaire.create_from_csv()
         self.__create_data()
 
-    def __load_view(self, master: tk.Tk) -> None:
+        self.container_frame = tk.Frame(master,  bg="#c1e4f7")
+        self._view = AppointmentView(self.container_frame, self)
+        self._view.render_view(master)
+        self._view.grid(row=0, column=0)
+        self.views_stack = [self._view]
+        self._load_view()
+
+    def _load_view(self) -> None:
         # remove frame if tk instance has a frame
-        if master.body_frame is not None:
-            master.body_frame.destroy()
+        if self._master.body_frame is not None:
+            self._master.body_frame.destroy()
         # assign new frame to tk instance
-        self.view.grid(row=0, column=0)
-        master.body_frame = self.container_frame
-        master.body_frame.grid_propagate(False)
-        master.body_frame.pack(side="top", fill="both", expand=True)
+        self._master.body_frame = self.container_frame
+        self._master.body_frame.grid_propagate(False)
+        self._master.body_frame.pack(side="top", fill="both", expand=True)  
 
     def __create_data(self):
         self.gp = 'gp'

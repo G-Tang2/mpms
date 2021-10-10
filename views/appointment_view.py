@@ -6,9 +6,8 @@ class AppointmentView(tk.Frame):
         # initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
-        self._render_view(master)
 
-    def _render_view(self, master: tk.Tk) -> None:
+    def render_view(self, master: tk.Tk) -> None:
 
         outer_frame = tk.Frame(self, relief="solid", borderwidth=2, bg="white")
         inner_frame = tk.Frame(outer_frame, relief="flat", bg="white")
