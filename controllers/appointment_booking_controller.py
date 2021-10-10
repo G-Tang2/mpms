@@ -80,13 +80,17 @@ class AppointmentBookingController(Controller):
         # master.body_frame.destroy()
         view.grid(row=0, column=0)
         view.tkraise()
+        self._view = view
 
     # For AppointmentDetailView: back to the previous view
     def back(self):
+        # destroy current frame and load the previous frame
         current_frame = self.views_stack.pop()
         current_frame.destroy()
         previous_view = self.views_stack[-1]
+        previous_view.reload_values()
         previous_view.tkraise()
+        self._view = previous_view
 
     # For QuestionnaireView: display the branch in the confirm box
     def get_branch(self):

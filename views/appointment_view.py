@@ -31,6 +31,8 @@ class AppointmentView(tk.Frame):
     def next(self, master: tk.Tk, listbox):
         if listbox.curselection():
             value = listbox.get('active')
+            # save index of selected branch
+            self._selected_clinic_index = listbox.curselection()
             self.controller.display_gp_view(master, value)
         else:
             tk.messagebox.showerror(title='no branch', message='please select a branch')
