@@ -16,10 +16,8 @@ class AppointmentDetailView(tk.Frame):
 
         outer_frame = tk.Frame(self, relief="solid", borderwidth=2, bg="white")
         inner_frame = tk.Frame(outer_frame, relief="flat", bg="white")
-        outer_frame.pack(padx=350, pady=120, fill="x", ipady=30, ipadx=30)
-        inner_frame.pack(padx=150, fill="x")
+       
 
-        tk.Button(inner_frame, text='back', command=self.controller.back).pack(pady=30)
 
         # new:  patient status
         statue_frame = tk.Frame(outer_frame, width=200)
@@ -66,7 +64,11 @@ class AppointmentDetailView(tk.Frame):
         gp_box.pack()
 
         # button to the next page
-        tk.Button(outer_frame, text='next', command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack()
+        tk.Button(inner_frame, text='Next', command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack(side = 'right')
+        tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30)
+
+        outer_frame.pack(padx=350, pady=120, fill="x", ipady=30, ipadx=30)
+        inner_frame.pack(padx=150, fill="x")
         # self.__show_date()
 
     def callback(self, e):
