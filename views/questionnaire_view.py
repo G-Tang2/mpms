@@ -41,7 +41,7 @@ class QuestionnaireView(tk.Frame):
         tk.Radiobutton(q3_frame, text='No', variable=ans_3, value='No').pack(side='left')
 
         tk.Button(outer_label_frame, text='Confirm',
-                  command=lambda: self.confirm_question(ans_1.get(), ans_2.get(), ans_3.get())).pack()
+                  command=lambda: self.confirm_question(ans_1.get(), ans_2.get(), ans_3.get())).pack(pady=20)
 
         inner_label_frame.pack(padx=50, fill="x")
         # outer_label_frame.pack(fill="x")
@@ -63,15 +63,15 @@ class QuestionnaireView(tk.Frame):
 
     def make_appointment(self):
         branch = self.controller.get_branch()
-        appointment_Data = self.controller.get_data()
+        appointment_data = self.controller.get_data()
 
         confirm = tk.messagebox.askokcancel(title='Confirming',
                                             message='You are going to have an appointment at: '
-                                                    + branch + '\nGP: ' + appointment_Data[0] +
-                                                    '\nReason: ' + appointment_Data[1]
-                                                    + '\nNew patient: ' + appointment_Data[2] +
-                                                    '\nDate: ' + appointment_Data[3].strftime('%y-%m-%d') +
-                                                    '\nTime: ' + appointment_Data[4])
+                                                    + branch + '\nGP: ' + appointment_data[0] +
+                                                    '\nReason: ' + appointment_data[1]
+                                                    + '\nNew patient: ' + appointment_data[2] +
+                                                    '\nDate: ' + appointment_data[3].strftime('%y-%m-%d') +
+                                                    '\nTime: ' + appointment_data[4])
 
         if confirm:
             self.controller.write_appointment()

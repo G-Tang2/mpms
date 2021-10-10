@@ -19,6 +19,9 @@ class MPMS():
     def get_list_of_branches(self):
         return self.list_of_branches
 
+    def get_list_of_reasons(self):
+        return self.list_of_reasons
+
     @staticmethod
     def get_instance():
         if MPMS._instance is None:

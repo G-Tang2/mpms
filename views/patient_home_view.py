@@ -13,7 +13,7 @@ class PatientHomeView(tk.Frame):
 
         # 'Book Appointment' Button
         tk.Button(inner_label_frame, text="Book Appointment", width=18, height=5,
-                  command=self.controller.book_appointment).pack()
+                  command=self.controller.book_appointment).pack(padx=50, pady=30)
 
         inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
