@@ -207,7 +207,8 @@ class AppointmentBookingController:
                                       appointment_reason, self.questionnaire)
 
         self.appointments.add_appointment(new_appointment)
-        dt = pd.read_csv("./app_data/test.csv")
-        dt_copy = dt.copy()
-        dt_copy['appointments'].loc[int(branch_id) - 1] = self.appointments.to_JSON()
-        dt_copy.to_csv("./app_data/test.csv", index=False)
+        dt = pd.read_csv("./app_data/branches.csv")
+        # dt_copy['appointments'].loc[int(branch_id) - 1] = self.appointments.to_JSON()
+
+        dt.loc[int(branch_id) - 1, ('appointments')] = self.appointments.to_JSON()
+        dt.to_csv("./app_data/test.csv", index=False)

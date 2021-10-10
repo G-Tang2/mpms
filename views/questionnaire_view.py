@@ -41,7 +41,7 @@ class QuestionnaireView(tk.Frame):
         tk.Radiobutton(q3_frame, text='No', variable=ans_3, value='No').pack(side='left')
 
         tk.Button(outer_label_frame, text='Confirm',
-                  command=lambda: self.confirm_question(ans_1.get(), ans_2.get(), ans_3.get())).pack()
+                  command=lambda: self.confirm_question(ans_1.get(), ans_2.get(), ans_3.get())).pack(pady=20)
 
         inner_label_frame.pack(padx=50, fill="x")
         # outer_label_frame.pack(fill="x")
