@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkcalendar import *
+import datetime
 
 
 class AppointmentDetailView(tk.Frame):
@@ -48,6 +49,7 @@ class AppointmentDetailView(tk.Frame):
         app_date.pack(side='left')
 
         tm = tk.StringVar()
+        tm.set('Time')
         self.time_list = ttk.Combobox(dt_frame, textvariable=tm, state='disabled', width=15)
         self.time_list.pack(side='right')
 
@@ -83,14 +85,22 @@ class AppointmentDetailView(tk.Frame):
             gp = self.controller.find_gp_with_least_appointment()
 
         if reason == 'Select one reason for seeing GP':
-            tk.messagebox.showerror(title='reason for appointment', message='please select one reason for seeing GP')
+            tk.messagebox.showerror(title='Reason for appointment Error', message='please select one reason for seeing GP')
             return
 
         if patient_status == 'None':
-            tk.messagebox.showerror(title='Patient Status', message='please select one patient status')
+            tk.messagebox.showerror(title='Patient status Error', message='please select one patient status')
             return
 
-        tk.Button(self, text='complete',
-                  command=lambda: self.make_appointment(gp, reason, patient_status))
+        if date < datetime.date.today():
+            tk.messagebox.showerror(title='Date Error', message='please choose a date after today')
+            return
+
+        if time == 'Time':
+            tk.messagebox.showerror(title='Time Error', message='please choose a time')
+            return
+
+        # tk.Button(self, text='complete',
+                  # command=lambda: self.make_appointment(gp, reason, patient_status))
 
         self.controller.display_questionnaire_view(master, gp, reason, patient_status, date, time)
