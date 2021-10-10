@@ -1,5 +1,6 @@
 import tkinter as tk
 from controllers.controller import Controller
+from controllers.header_controller import HeaderController
 from controllers.login_controller import LoginController
 from views.header_view import Header
 
@@ -12,8 +13,11 @@ class App(tk.Tk):
         self.__center_window()
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
+        # login state
+        self.login = None
         # set header frame
         self.header = Header(self).pack(fill="x")
+        self.header_controller = HeaderController(self)
         # body frame
         self.body_frame = None
         # default controller
