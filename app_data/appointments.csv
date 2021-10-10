@@ -1,1 +1,74 @@
-appointments
+appointments
+"[
+    {
+        ""appointment_reason"": {
+            ""duration"": 30,
+            ""reason"": ""Long consultation face to face ""
+        },
+        ""date_time"": ""2021-11-09T12:30:00"",
+        ""gp"": {
+            ""area_of_interests"": [
+                ""Adults""
+            ],
+            ""first_name"": ""Borg"",
+            ""last_name"": ""Murley"",
+            ""phone_number"": ""0467739687"",
+            ""unavailable_days"": []
+        },
+        ""new_patient"": true,
+        ""patient"": {
+            ""date_of_birth"": ""2000-11-10T00:00:00"",
+            ""email_address"": ""patient@monash.edu"",
+            ""first_name"": ""Alan"",
+            ""gender"": ""male"",
+            ""last_name"": ""Turing"",
+            ""list_of_favourites"": {},
+            ""password"": ""Monash1234"",
+            ""phone_number"": ""0412345678""
+        },
+        ""questionnaire"": null
+    },
+    {
+        ""appointment_reason"": {
+            ""duration"": ""15"",
+            ""reason"": ""Telehealth (Video / Phone consult)""
+        },
+        ""date_time"": ""2021-10-10T09:15:00"",
+        ""gp"": {
+            ""area_of_interests"": [
+                ""Children""
+            ],
+            ""first_name"": ""Alicea"",
+            ""last_name"": ""Wallbanks"",
+            ""phone_number"": ""0456294673"",
+            ""unavailable_days"": []
+        },
+        ""new_patient"": ""False"",
+        ""patient"": {
+            ""date_of_birth"": ""2000-11-10T00:00:00"",
+            ""email_address"": ""patient@monash.edu"",
+            ""first_name"": ""Alan"",
+            ""gender"": ""male"",
+            ""last_name"": ""Turing"",
+            ""list_of_favourites"": {},
+            ""password"": ""Monash1234"",
+            ""phone_number"": ""0412345678""
+        },
+        ""questionnaire"": {
+            ""questions"": [
+                {
+                    ""answer"": ""no"",
+                    ""question"": ""Do you or the person who needs the appointment have ANY of the following symptoms: fever, chills, cough, sore throat, shortness of breath, runny nose, loss of smell or loss of taste or have you experienced one or several of these in the past 14 days?""
+                },
+                {
+                    ""answer"": ""no"",
+                    ""question"": ""Have you or the person who needs the appointment been to a COVID-19 hot spot or outbreak area in the last two weeks?""
+                },
+                {
+                    ""answer"": ""no"",
+                    ""question"": ""Have you or the person who needs the appointment been in direct contact with someone with suspected coronavirus (COVID-19) or who has returned from international or interstate travel in the past 14 days?""
+                }
+            ]
+        }
+    }
+]"

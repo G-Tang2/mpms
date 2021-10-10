@@ -5,9 +5,8 @@ class AdminHomeView(tk.Frame):
         # Initialise frame and set controller
         tk.Frame.__init__(self, master,bg="#c1e4f7")
         self.controller = controller
-        self.__render_view(master)
 
-    def __render_view(self, master: tk.Tk) -> None:
+    def render_view(self) -> None:
         # container for login details
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
 

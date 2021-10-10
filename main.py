@@ -18,8 +18,6 @@ class App(tk.Tk):
         self.body_frame = None
         # default controller
         LoginController(self)
-        # login token
-        self.login = None
 
     def __center_window(self):
         display_w, display_h = self.winfo_screenwidth(), self.winfo_screenheight()

@@ -1,38 +1,30 @@
-# Parent controller stub
-from models.apppointment_list import AppointmentList
-import tkinter as tk
-# from views.login_view import LoginView
-# from views.patient_home_view import PatientHomeView
 from models.branch_list import BranchList
+from models.login import Login
 
 class MPMS():
-    def __init__(self, master: tk.Tk, view) -> None:
-        # master is an tk instance
-        self._master = master
-        self._view = view(master, self)
+    # global instance
+    _instance = None
+    
+    def __init__(self) -> None:
         self.list_of_branches = BranchList.create_from_csv()
-        self.__load_view(master)
-        instance = None
-        # list_of_appointments = self.__fetch_appointment_list()
+        self.login = None
 
-    def __load_view(self, master: tk.Tk) -> None:
-        # remove frame if tk instance has a frame
-        if master.body_frame is not None:
-            master.body_frame.destroy()
-        # assign new frame to tk instance
-        master.body_frame = self._view
-        master.body_frame.grid_propagate(False)
-        master.body_frame.pack(side="top", fill="both", expand=True)  
+    def get_login(self) -> Login:
+        return self.login
 
-    def __fetch_appointment_list(self):
-        return AppointmentList()
+    def set_login(self, login: Login) -> bool:
+        self.login = login
+        return True
 
     def get_list_of_branches(self):
         return self.list_of_branches
 
+    def get_list_of_reasons(self):
+        return self.list_of_reasons
+
     @staticmethod
     def get_instance():
-        if MPMS.instance is None:
-            MPMS.instance = MPMS()
-        return MPMS.instance
+        if MPMS._instance is None:
+            MPMS._instance = MPMS()
+        return MPMS._instance
     

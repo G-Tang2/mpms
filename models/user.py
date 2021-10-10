@@ -1,8 +1,8 @@
 
 class User():
     def __init__(self, email_address: str, password: str) -> None:
-        self._email_address = email_address
-        self._password = password
+        self.email_address = email_address
+        self.password = password
 
     def get_email_address(self) -> str:
         return self._email_address

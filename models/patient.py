@@ -5,7 +5,7 @@ import copy
 
 class Patient(User):
     def __init__(self, email_address: str, password: str, first_name: str, last_name: str,
-            phone_number: str, date_of_birth: str, gender: str, list_of_favourites = FavouriteList()) -> None:
+            phone_number: str, date_of_birth: datetime, gender: str, list_of_favourites = FavouriteList()) -> None:
         User.__init__(self, email_address, password)
         self.first_name = first_name
         self.last_name = last_name
@@ -16,7 +16,7 @@ class Patient(User):
 
     def serialise_copy(self):
         tmp = copy.deepcopy(self)
-        #tmp.date_of_birth = tmp.date_of_birth.strftime("%b %d %Y %I:%M%p")
+        tmp.date_of_birth = tmp.date_of_birth.strftime("%Y-%m-%dT%H:%M:%S")
         return tmp
 
     @staticmethod
@@ -26,7 +26,7 @@ class Patient(User):
         first_name = json_info["first_name"]
         last_name = json_info["last_name"]
         phone_number = json_info["phone_number"]
-        date_of_birth = json_info["date_of_birth"]
+        date_of_birth = datetime.strptime(json_info["date_of_birth"], "%Y-%m-%dT%H:%M:%S")
         gender = json_info["gender"]
         list_of_favourites = FavouriteList.create_from_json(json_info["list_of_favourites"])
         return Patient(email_address, password, first_name, last_name, phone_number, date_of_birth,

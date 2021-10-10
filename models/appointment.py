@@ -29,6 +29,7 @@ class Appointment():
     def serialise_copy(self):
         tmp = copy.deepcopy(self)
         tmp.date_time = tmp.date_time.strftime("%Y-%m-%dT%H:%M:%S")
+        tmp.patient = tmp.patient.serialise_copy()
         return tmp
     
     def to_JSON(self):
@@ -44,4 +45,3 @@ class Appointment():
         appointment_reason = AppointmentReason.create_from_json(json_info["appointment_reason"])
         questionnaire = Questionnaire.create_from_json(json_info["questionnaire"])
         return Appointment(new_patient, date_time, patient, gp, appointment_reason, questionnaire)
-    

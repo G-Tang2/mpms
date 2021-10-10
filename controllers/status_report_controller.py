@@ -1,3 +1,4 @@
+from controllers.controller import Controller
 from models.apppointment_list import AppointmentList
 import tkinter as tk
 from controllers.MPMS import MPMS
@@ -12,9 +13,12 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import datetime
 
-class StatusReportController(MPMS):
-    def __init__(self,master,view = StatusReportView):
-        MPMS.__init__(self,master,view)
+class StatusReportController(Controller):
+    def __init__(self,master):
+        super().__init__(master)
+        self._view = StatusReportView(master, self)
+        self._view.render_view()
+        self._load_view()
 
     def get_reason_report(self, start_date, end_date, report_type):
         

@@ -1,55 +1,59 @@
-import copy
 import datetime
 import tkinter as tk
+import pandas as pd
 from controllers.MPMS import MPMS
+from controllers.controller import Controller
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
+from models.appointment_reason_list import AppointmentReasonList
 from models.branch_list import BranchList
 from models.appointment import Appointment
 from models.questionnaire import Questionnaire
-from models.appointment_reason import AppointmentReason
-from models.appointment_reason_list import AppointmentReasonList
 from models.apppointment_list import AppointmentList
-from models.gp import GP
-import csv
 from datetime import timedelta
+from views.questionnaire_view import QuestionnaireView
 
 
-class AppointmentBookingController(MPMS):
+class AppointmentBookingController(Controller):
     def __init__(self, master: tk.Tk) -> None:
-        self.container_frame = tk.Frame(master)
+        super().__init__(master)
+        self.MPMS = MPMS.get_instance()
+        self.patient = self.MPMS.get_login().get_user()
+
+        # TODO: Fetch these data from self.MPMS
         self.branch = 'None'
-        self._view = AppointmentView(self.container_frame, self)
-        self.views_stack = [self._view]
-        self.__create_data(master)
         self.appointments = AppointmentList([])
         self.list_of_reasons = AppointmentReasonList.create_from_csv()
-        self._master = master
         self.list_of_branches = BranchList.create_from_csv()
-        self.__load_view(master)
-        # list_of_appointments = self.__fetch_appointment_list()
+        self.list_of_gps = []
+        self.questionnaire = Questionnaire.create_from_csv()
+        self.__create_data()
 
-    def __load_view(self, master: tk.Tk) -> None:
-        # remove frame if tk instance has a frame
-        if master.body_frame is not None:
-            master.body_frame.destroy()
-        # assign new frame to tk instance
+        self.container_frame = tk.Frame(master,  bg="#c1e4f7")
+        self._view = AppointmentView(self.container_frame, self)
+        self._view.render_view(master)
         self._view.grid(row=0, column=0)
-        master.body_frame = self.container_frame
-        master.body_frame.pack()
+        self.views_stack = [self._view]
+        self._load_view()
 
-    def __create_data(self, master: tk.Tk):
-        # self.patient = Patient('patient@monash.edu', 'Monash1234', 'Tom', 'T', '012345678', '01/01/1990', 'Male')
-        self.patient = master.login.get_user()
-        self.gp = GP('Alice', 'Brown', '012345678', [], [])
-        self.date = datetime.datetime(2010, 1, 1)
-        self.appointment_reason = AppointmentReason('long', 15)
-        self.questionnaire = Questionnaire()
+    def _load_view(self) -> None:
+        # remove frame if tk instance has a frame
+        if self._master.body_frame is not None:
+            self._master.body_frame.destroy()
+        # assign new frame to tk instance
+        self._master.body_frame = self.container_frame
+        self._master.body_frame.grid_propagate(False)
+        self._master.body_frame.pack(side="top", fill="both", expand=True)  
 
+    def __create_data(self):
+        self.gp = 'gp'
+        self.reason = 'reason'
+        self.patient_status = 'status'
+        self.date = 'date'
+        self.time = 'time'
+
+    # For AppointmentView: sort branch list based on branch name (alphabetical order)
     def sort_branches(self):
-        # new: sort branch list based on branch name (alphabetical order)
-        self.list_of_branches = BranchList.create_from_csv()
-
         sorted_branches = []
         for branch in self.list_of_branches.get_branch_list():
             sorted_branches.append(branch.get_name())
@@ -59,24 +63,26 @@ class AppointmentBookingController(MPMS):
 
         return sorted_branches
 
+    # For AppointmentView: display next view
     def display_gp_view(self, master: tk.Tk, branch) -> None:
         self.branch = branch
 
         view = AppointmentDetailView(self.container_frame, self)
         self.views_stack.append(view)
 
-        list_of_gps = []
         for branch in self.list_of_branches.get_branch_list():
             if self.branch == branch.get_name():
                 self.appointments = branch.get_appointments()
-                list_of_gps = branch.get_gps()
+                self.list_of_gps = branch.get_gps()
                 break
 
-        view.render_view(self.container_frame, list_of_gps)
+        view.render_view(self.container_frame, self.list_of_gps)
+        # master.body_frame.destroy()
         view.grid(row=0, column=0)
         view.tkraise()
         self._view = view
 
+    # For AppointmentDetailView: back to the previous view
     def back(self):
         # destroy current frame and load the previous frame
         current_frame = self.views_stack.pop()
@@ -86,14 +92,17 @@ class AppointmentBookingController(MPMS):
         previous_view.tkraise()
         self._view = previous_view
 
+    # For QuestionnaireView: display the branch in the confirm box
     def get_branch(self):
         return self.branch
 
+    # For AppointmentView: display the info of the selected branch
     def show_info(self, branch):
         for each_branch in self.list_of_branches.get_branch_list():
             if branch == each_branch.get_name():
                 self._view.show_branch_info(each_branch)
 
+    # For AppointmentDetailView: if user do not select a GP, this method will find the GP with least appointments
     def find_gp_with_least_appointment(self):
         appointments = []
         gps = []
@@ -116,17 +125,7 @@ class AppointmentBookingController(MPMS):
             if sorted_gp[0] == gp_dict[key]:
                 return key
 
-    def write_appointment(self):
-        headers = ['appointments']
-        new_appointment = Appointment(True, self.date, self.patient, self.gp,
-                                      self.appointment_reason, self.questionnaire)
-
-        self.appointments.add_appointment(new_appointment)
-        with open("./app_data/appointments.csv", "w") as f:
-            f_csv_w = csv.writer(f)
-            f_csv_w.writerow(headers)
-            f_csv_w.writerow([self.appointments.to_JSON()])
-
+    # For AppointmentDetailView: offer day list to the date choosen box
     def get_days(self):
         day = timedelta(days=1)
         today = datetime.date.today()
@@ -138,6 +137,7 @@ class AppointmentBookingController(MPMS):
 
         return days
 
+    # For AppointmentDetailView: offer time list to the date choosen box based on the reason
     def get_time(self, reason):
         duration = 1
         for each_reason in self.list_of_reasons.get_resaon_list():
@@ -145,19 +145,76 @@ class AppointmentBookingController(MPMS):
                 duration = each_reason.get_duration()
 
         minute = timedelta(minutes=int(duration))
-        now = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
-        now = now - minute
+        open_hour = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
+        close_hour = datetime.datetime(year=2021, month=1, day=1, hour=17, minute=0, second=0)
+        open_hour = open_hour - minute
         times = []
-        # TODO: change it to the while loop
-        for i in range(20):
-            now = now + minute
-            now_str = now.strftime('%H:%M')
+
+        while open_hour < close_hour - minute:
+            open_hour = open_hour + minute
+            now_str = open_hour.strftime('%H:%M')
             times.append(now_str)
 
         return times
 
+    # For AppointmentDetailView: offer reason list to the reason choosen box
     def get_reason_list(self):
         reasons = []
         for reason in self.list_of_reasons.get_resaon_list():
             reasons.append(reason.get_reason())
         return reasons
+
+    # For AppointmentDetailView: display the questionnaire view after all the details completed
+    def display_questionnaire_view(self, master: tk.Tk, gp, reason, patient_status, date, time) -> None:
+
+        self.gp = gp
+        self.reason = reason
+        self.patient_status = patient_status
+        self.date = date
+        self.time = time
+
+        view = QuestionnaireView(self.container_frame, self)
+        self.views_stack.append(view)
+
+        view.render_view(self.container_frame, self.questionnaire)
+        # master.body_frame.destroy()
+        view.grid(row=0, column=0)
+        view.tkraise()
+
+    # For this controller : find the GP object based on the GP name
+    def find_gp(self, gp):
+        for each_gp in self.list_of_gps.get_gps():
+            if gp == each_gp.get_full_name():
+                return each_gp
+
+    # For this controller : find the AppointmentReason object based on the reason
+    def find_reason(self, reason):
+        for each_reason in self.list_of_reasons.get_resaon_list():
+            if reason == each_reason.get_reason():
+                return each_reason
+
+    def get_data(self):
+        return [self.gp, self.reason, self.patient_status, self.date, self.time]
+
+    # For QuestionnaireView: write the appointment info to file after confirmation
+    def write_appointment(self):
+        branch_id = 0
+        for branch in self.list_of_branches.get_branch_list():
+            if self.branch == branch.get_name():
+                branch_id = branch.get_id()
+                break
+
+        appointment_gp = self.find_gp(self.gp)
+        appointment_reason = self.find_reason(self.reason)
+        date = self.date.strftime('%y-%m-%d')
+        appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]),
+                                             hour=int(self.time[0:2]), minute=int(self.time[3:5]))
+        new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
+                                      appointment_reason, self.questionnaire)
+
+        self.appointments.add_appointment(new_appointment)
+        dt = pd.read_csv("./app_data/branches.csv")
+        # dt_copy['appointments'].loc[int(branch_id) - 1] = self.appointments.to_JSON()
+
+        dt.loc[int(branch_id) - 1, ('appointments')] = self.appointments.to_JSON()
+        dt.to_csv("./app_data/test.csv", index=False)
