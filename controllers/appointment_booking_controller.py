@@ -5,6 +5,7 @@ import tkinter as tk
 import pandas as pd
 
 from controllers.MPMS import MPMS
+from controllers.controller import Controller
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
 from models.branch_list import BranchList
@@ -17,24 +18,26 @@ from datetime import timedelta
 from views.questionnaire_view import QuestionnaireView
 
 
-class AppointmentBookingController(MPMS):
+class AppointmentBookingController(Controller):
     def __init__(self, master: tk.Tk) -> None:
+        super().__init__(master)
         self.container_frame = tk.Frame(master,  bg="#c1e4f7")
+        self._view = AppointmentView(self.container_frame, self)
+        self.views_stack = [self.view]
+        self._view.render_view()
+        self._load_view()
+
+        self.MPMS = MPMS.get_instance()
+        self.patient = self.MPMS.get_login().get_user()
+
+        # TODO: Fetch these data from self.MPMS
         self.branch = 'None'
         self.appointments = AppointmentList([])
         self.list_of_reasons = AppointmentReasonList.create_from_csv()
         self.list_of_branches = BranchList.create_from_csv()
         self.list_of_gps = []
         self.questionnaire = Questionnaire.create_from_csv()
-        self.patient = master.login.get_user()
         self.__create_data()
-
-        self.view = AppointmentView(self.container_frame, self)
-
-        self.views_stack = [self.view]
-        self._master = master
-        self.__load_view(master)
-        # list_of_appointments = self.__fetch_appointment_list()
 
     def __load_view(self, master: tk.Tk) -> None:
         # remove frame if tk instance has a frame
