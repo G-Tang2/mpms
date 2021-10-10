@@ -5,10 +5,7 @@ from controllers.MPMS import MPMS
 from controllers.controller import Controller
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
-from models.appointment_reason_list import AppointmentReasonList
-from models.branch_list import BranchList
 from models.appointment import Appointment
-from models.questionnaire import Questionnaire
 from models.apppointment_list import AppointmentList
 from datetime import timedelta
 from views.questionnaire_view import QuestionnaireView
@@ -19,14 +16,12 @@ class AppointmentBookingController(Controller):
         super().__init__(master)
         self.MPMS = MPMS.get_instance()
         self.patient = self.MPMS.get_login().get_user()
+        self.branch = 'None'
 
-        # TODO: Fetch these data from self.MPMS
+        # Fetch these data from self.MPMS
         self.branch = 'None'
         self.appointments = AppointmentList([])
-        self.list_of_reasons = AppointmentReasonList.create_from_csv()
-        self.list_of_branches = BranchList.create_from_csv()
         self.list_of_gps = []
-        self.questionnaire = Questionnaire.create_from_csv()
         self.__create_data()
 
         self.container_frame = tk.Frame(master,  bg="#c1e4f7")
@@ -55,7 +50,7 @@ class AppointmentBookingController(Controller):
     # For AppointmentView: sort branch list based on branch name (alphabetical order)
     def sort_branches(self):
         sorted_branches = []
-        for branch in self.list_of_branches.get_branch_list():
+        for branch in self.MPMS.get_list_of_branches().get_branch_list():
             sorted_branches.append(branch.get_name())
 
         # sorted_branches = self.selection_sort(sorted_branches)
@@ -70,7 +65,7 @@ class AppointmentBookingController(Controller):
         view = AppointmentDetailView(self.container_frame, self)
         self.views_stack.append(view)
 
-        for branch in self.list_of_branches.get_branch_list():
+        for branch in self.MPMS.get_list_of_branches().get_branch_list():
             if self.branch == branch.get_name():
                 self.appointments = branch.get_appointments()
                 self.list_of_gps = branch.get_gps()
@@ -98,7 +93,7 @@ class AppointmentBookingController(Controller):
 
     # For AppointmentView: display the info of the selected branch
     def show_info(self, branch):
-        for each_branch in self.list_of_branches.get_branch_list():
+        for each_branch in self.MPMS.get_list_of_branches().get_branch_list():
             if branch == each_branch.get_name():
                 self._view.show_branch_info(each_branch)
 
@@ -106,7 +101,7 @@ class AppointmentBookingController(Controller):
     def find_gp_with_least_appointment(self):
         appointments = []
         gps = []
-        for each_branch in self.list_of_branches.get_branch_list():
+        for each_branch in self.MPMS.get_list_of_branches().get_branch_list():
             if self.branch == each_branch.get_name():
                 gps = each_branch.get_gps()
                 appointments = each_branch.get_appointments()
@@ -140,7 +135,7 @@ class AppointmentBookingController(Controller):
     # For AppointmentDetailView: offer time list to the date choosen box based on the reason
     def get_time(self, reason):
         duration = 1
-        for each_reason in self.list_of_reasons.get_resaon_list():
+        for each_reason in self.MPMS.get_list_of_reasons().get_resaon_list():
             if each_reason.get_reason() == reason:
                 duration = each_reason.get_duration()
 
@@ -160,7 +155,7 @@ class AppointmentBookingController(Controller):
     # For AppointmentDetailView: offer reason list to the reason choosen box
     def get_reason_list(self):
         reasons = []
-        for reason in self.list_of_reasons.get_resaon_list():
+        for reason in self.MPMS.get_list_of_reasons().get_resaon_list():
             reasons.append(reason.get_reason())
         return reasons
 
@@ -176,7 +171,7 @@ class AppointmentBookingController(Controller):
         view = QuestionnaireView(self.container_frame, self)
         self.views_stack.append(view)
 
-        view.render_view(self.container_frame, self.questionnaire)
+        view.render_view(self.container_frame, self.MPMS.get_questionnaire())
         # master.body_frame.destroy()
         view.grid(row=0, column=0)
         view.tkraise()
@@ -189,7 +184,7 @@ class AppointmentBookingController(Controller):
 
     # For this controller : find the AppointmentReason object based on the reason
     def find_reason(self, reason):
-        for each_reason in self.list_of_reasons.get_resaon_list():
+        for each_reason in self.MPMS.get_list_of_reasons().get_resaon_list():
             if reason == each_reason.get_reason():
                 return each_reason
 
@@ -199,7 +194,7 @@ class AppointmentBookingController(Controller):
     # For QuestionnaireView: write the appointment info to file after confirmation
     def write_appointment(self):
         branch_id = 0
-        for branch in self.list_of_branches.get_branch_list():
+        for branch in self.MPMS.get_list_of_branches().get_branch_list():
             if self.branch == branch.get_name():
                 branch_id = branch.get_id()
                 break
@@ -210,7 +205,7 @@ class AppointmentBookingController(Controller):
         appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]),
                                              hour=int(self.time[0:2]), minute=int(self.time[3:5]))
         new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
-                                      appointment_reason, self.questionnaire)
+                                      appointment_reason, self.MPMS.get_questionnaire())
 
         self.appointments.add_appointment(new_appointment)
         dt = pd.read_csv("./app_data/branches.csv")
