@@ -1,6 +1,9 @@
 import copy
 import datetime
 import tkinter as tk
+
+import pandas as pd
+
 from controllers.MPMS import MPMS
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
@@ -120,7 +123,7 @@ class AppointmentBookingController(MPMS):
                 return key
 
     # For QuestionnaireView: write the appointment info to file after confirmation
-    def write_appointment(self):
+    def write_appointment_1(self):
         headers = ['appointments']
         appointment_gp = self.find_gp(self.gp)
         appointment_reason = self.find_reason(self.reason)
@@ -206,3 +209,23 @@ class AppointmentBookingController(MPMS):
 
     def get_data(self):
         return [self.gp, self.reason, self.patient_status, self.date, self.time]
+
+    def write_appointment(self):
+        for branch in self.list_of_branches.get_branch_list():
+            if self.branch == branch.get_name():
+                id = branch.get_id()
+                break
+
+        appointment_gp = self.find_gp(self.gp)
+        appointment_reason = self.find_reason(self.reason)
+        date = self.date.strftime('%y-%m-%d')
+        appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]),
+                                             hour=int(self.time[0:2]), minute=int(self.time[3:5]))
+        new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
+                                      appointment_reason, self.questionnaire)
+
+        self.appointments.add_appointment(new_appointment)
+        dt = pd.read_csv("./app_data/test.csv")
+        dt_copy = dt.copy()
+        dt_copy['appointments'].loc[int(id) - 1] = self.appointments.to_JSON()
+        dt_copy.to_csv("./app_data/test.csv", index=False)

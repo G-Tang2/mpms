@@ -2,78 +2,20 @@ appointments
 "[
     {
         ""appointment_reason"": {
-            ""duration"": 15,
-            ""reason"": ""Telehealth (Video / Phone consult)""
+            ""duration"": 30,
+            ""reason"": ""Long consultation face to face ""
         },
-        ""date_time"": ""2021-10-10T12:30:00"",
-        ""gp"": {
-            ""area_of_interests"": [
-                ""Adolescents"",
-                ""Children""
-            ],
-            ""first_name"": ""Mara"",
-            ""last_name"": ""Aldridge"",
-            ""phone_number"": ""0425151407"",
-            ""unavailable_days"": []
-        },
-        ""new_patient"": false,
-        ""patient"": {
-            ""date_of_birth"": ""2000-11-10T00:00:00"",
-            ""email_address"": ""patient@monash.edu"",
-            ""first_name"": ""Alan"",
-            ""gender"": ""male"",
-            ""last_name"": ""Turing"",
-            ""list_of_favourites"": {},
-            ""password"": ""Monash1234"",
-            ""phone_number"": ""0412345678""
-        },
-        ""questionnaire"": null
-    },
-    {
-        ""appointment_reason"": {
-            ""duration"": 15,
-            ""reason"": ""Telehealth (Video / Phone consult)""
-        },
-        ""date_time"": ""2021-10-10T13:30:00"",
-        ""gp"": {
-            ""area_of_interests"": [
-                ""Adolescents"",
-                ""Children""
-            ],
-            ""first_name"": ""Mara"",
-            ""last_name"": ""Aldridge"",
-            ""phone_number"": ""0425151407"",
-            ""unavailable_days"": []
-        },
-        ""new_patient"": false,
-        ""patient"": {
-            ""date_of_birth"": ""2000-11-10T00:00:00"",
-            ""email_address"": ""patient@monash.edu"",
-            ""first_name"": ""Alan"",
-            ""gender"": ""male"",
-            ""last_name"": ""Turing"",
-            ""list_of_favourites"": {},
-            ""password"": ""Monash1234"",
-            ""phone_number"": ""0412345678""
-        },
-        ""questionnaire"": null
-    },
-    {
-        ""appointment_reason"": {
-            ""duration"": 15,
-            ""reason"": ""Telehealth (Video / Phone consult)""
-        },
-        ""date_time"": ""2021-11-10T09:30:00"",
+        ""date_time"": ""2021-11-09T12:30:00"",
         ""gp"": {
             ""area_of_interests"": [
                 ""Adults""
             ],
-            ""first_name"": ""Theodora"",
-            ""last_name"": ""Riden"",
-            ""phone_number"": ""0477528947"",
+            ""first_name"": ""Borg"",
+            ""last_name"": ""Murley"",
+            ""phone_number"": ""0467739687"",
             ""unavailable_days"": []
         },
-        ""new_patient"": false,
+        ""new_patient"": true,
         ""patient"": {
             ""date_of_birth"": ""2000-11-10T00:00:00"",
             ""email_address"": ""patient@monash.edu"",
@@ -91,14 +33,14 @@ appointments
             ""duration"": ""15"",
             ""reason"": ""Telehealth (Video / Phone consult)""
         },
-        ""date_time"": ""2021-10-10T09:00:00"",
+        ""date_time"": ""2021-10-10T09:15:00"",
         ""gp"": {
             ""area_of_interests"": [
                 ""Children""
             ],
-            ""first_name"": ""Donavon"",
-            ""last_name"": ""Boniface"",
-            ""phone_number"": ""0487251531"",
+            ""first_name"": ""Alicea"",
+            ""last_name"": ""Wallbanks"",
+            ""phone_number"": ""0456294673"",
             ""unavailable_days"": []
         },
         ""new_patient"": ""False"",
