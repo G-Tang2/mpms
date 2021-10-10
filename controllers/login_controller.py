@@ -2,7 +2,7 @@ import tkinter as tk
 from controllers.controller import Controller
 from controllers.patient_home_controller import PatientHomeController
 from controllers.admin_home_controller import AdminHomeController
-from controllers.MPMS import MPMS
+from models.MPMS import MPMS
 from views.login_view import LoginView
 from models.login import Login
 
