@@ -1,7 +1,7 @@
 from controllers.controller import Controller
 from models.apppointment_list import AppointmentList
 import tkinter as tk
-from controllers.MPMS import MPMS
+from models.MPMS import MPMS
 from views.status_report_view import StatusReportView
 from models.report import Report
 

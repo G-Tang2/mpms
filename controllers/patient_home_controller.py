@@ -1,4 +1,4 @@
-from controllers.MPMS import MPMS
+from models.MPMS import MPMS
 from controllers.controller import Controller
 from views.patient_home_view import PatientHomeView
 from controllers.appointment_booking_controller import AppointmentBookingController

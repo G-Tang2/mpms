@@ -1,7 +1,7 @@
 import datetime
 import tkinter as tk
 import pandas as pd
-from controllers.MPMS import MPMS
+from models.MPMS import MPMS
 from controllers.controller import Controller
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
