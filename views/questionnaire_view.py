@@ -63,15 +63,15 @@ class QuestionnaireView(tk.Frame):
 
     def make_appointment(self):
         branch = self.controller.get_branch()
-        appointment_Data = self.controller.get_data()
+        appointment_data = self.controller.get_data()
 
         confirm = tk.messagebox.askokcancel(title='Confirming',
                                             message='You are going to have an appointment at: '
-                                                    + branch + '\nGP: ' + appointment_Data[0] +
-                                                    '\nReason: ' + appointment_Data[1]
-                                                    + '\nNew patient: ' + appointment_Data[2] +
-                                                    '\nDate: ' + appointment_Data[3].strftime('%y-%m-%d') +
-                                                    '\nTime: ' + appointment_Data[4])
+                                                    + branch + '\nGP: ' + appointment_data[0] +
+                                                    '\nReason: ' + appointment_data[1]
+                                                    + '\nNew patient: ' + appointment_data[2] +
+                                                    '\nDate: ' + appointment_data[3].strftime('%y-%m-%d') +
+                                                    '\nTime: ' + appointment_data[4])
 
         if confirm:
             self.controller.write_appointment()
