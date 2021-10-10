@@ -4,6 +4,7 @@ import tkinter as tk
 # from views.login_view import LoginView
 # from views.patient_home_view import PatientHomeView
 from models.branch_list import BranchList
+from models.appointment_reason_list import AppointmentReasonList
 
 class MPMS():
     def __init__(self, master: tk.Tk, view) -> None:
@@ -11,8 +12,9 @@ class MPMS():
         self._master = master
         self._view = view(master, self)
         self.list_of_branches = BranchList.create_from_csv()
+        self.list_of_reasons = AppointmentReasonList.create_from_csv()
         self.__load_view(master)
-        instance = None
+        MPMS.instance = None
         # list_of_appointments = self.__fetch_appointment_list()
 
     def __load_view(self, master: tk.Tk) -> None:
@@ -22,13 +24,16 @@ class MPMS():
         # assign new frame to tk instance
         master.body_frame = self._view
         master.body_frame.grid_propagate(False)
-        master.body_frame.pack(side="top", fill="both", expand=True)  
+        master.body_frame.pack(side="top", fill="both", expand=True)
 
     def __fetch_appointment_list(self):
         return AppointmentList()
 
     def get_list_of_branches(self):
         return self.list_of_branches
+
+    def get_list_of_reasons(self):
+        return self.list_of_reasons
 
     @staticmethod
     def get_instance():

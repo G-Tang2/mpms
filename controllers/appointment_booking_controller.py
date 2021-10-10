@@ -1,24 +1,21 @@
-import copy
 import datetime
 import tkinter as tk
-
 import pandas as pd
-
 from controllers.MPMS import MPMS
 from views.appointment_view import AppointmentView
 from views.appointment_detail_view import AppointmentDetailView
+from models.appointment_reason_list import AppointmentReasonList
 from models.branch_list import BranchList
 from models.appointment import Appointment
 from models.questionnaire import Questionnaire
-from models.appointment_reason_list import AppointmentReasonList
 from models.apppointment_list import AppointmentList
-import csv
 from datetime import timedelta
 from views.questionnaire_view import QuestionnaireView
 
 
-class AppointmentBookingController(MPMS):
+class AppointmentBookingController:
     def __init__(self, master: tk.Tk) -> None:
+        # self.mpms = MPMS.get_instance()
         self.container_frame = tk.Frame(master,  bg="#c1e4f7")
         self.branch = 'None'
         self.appointments = AppointmentList([])
@@ -122,23 +119,6 @@ class AppointmentBookingController(MPMS):
             if sorted_gp[0] == gp_dict[key]:
                 return key
 
-    # For QuestionnaireView: write the appointment info to file after confirmation
-    def write_appointment_1(self):
-        headers = ['appointments']
-        appointment_gp = self.find_gp(self.gp)
-        appointment_reason = self.find_reason(self.reason)
-        date = self.date.strftime('%y-%m-%d')
-        appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]),
-                                             hour=int(self.time[0:2]), minute=int(self.time[3:5]))
-        new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
-                                      appointment_reason, self.questionnaire)
-
-        self.appointments.add_appointment(new_appointment)
-        with open("./app_data/appointments.csv", "w") as f:
-            f_csv_w = csv.writer(f)
-            f_csv_w.writerow(headers)
-            f_csv_w.writerow([self.appointments.to_JSON()])
-
     # For AppointmentDetailView: offer day list to the date choosen box
     def get_days(self):
         day = timedelta(days=1)
@@ -210,10 +190,12 @@ class AppointmentBookingController(MPMS):
     def get_data(self):
         return [self.gp, self.reason, self.patient_status, self.date, self.time]
 
+    # For QuestionnaireView: write the appointment info to file after confirmation
     def write_appointment(self):
+        branch_id = 0
         for branch in self.list_of_branches.get_branch_list():
             if self.branch == branch.get_name():
-                id = branch.get_id()
+                branch_id = branch.get_id()
                 break
 
         appointment_gp = self.find_gp(self.gp)
@@ -227,5 +209,5 @@ class AppointmentBookingController(MPMS):
         self.appointments.add_appointment(new_appointment)
         dt = pd.read_csv("./app_data/test.csv")
         dt_copy = dt.copy()
-        dt_copy['appointments'].loc[int(id) - 1] = self.appointments.to_JSON()
+        dt_copy['appointments'].loc[int(branch_id) - 1] = self.appointments.to_JSON()
         dt_copy.to_csv("./app_data/test.csv", index=False)

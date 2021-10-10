@@ -66,8 +66,7 @@ class AppointmentDetailView(tk.Frame):
         gp_box.pack()
 
         # button to the next page
-        tk.Button(outer_frame, text='next', command=
-        lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack()
+        tk.Button(outer_frame, text='next', command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack()
         # self.__show_date()
 
     def callback(self, e):
@@ -99,8 +98,5 @@ class AppointmentDetailView(tk.Frame):
         if time == 'Time':
             tk.messagebox.showerror(title='Time Error', message='please choose a time')
             return
-
-        # tk.Button(self, text='complete',
-                  # command=lambda: self.make_appointment(gp, reason, patient_status))
 
         self.controller.display_questionnaire_view(master, gp, reason, patient_status, date, time)
