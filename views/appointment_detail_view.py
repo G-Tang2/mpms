@@ -64,12 +64,16 @@ class AppointmentDetailView(tk.Frame):
         gp_box.pack()
 
         # button to the next page
-        tk.Button(inner_frame, text='Next', command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack(side = 'right')
+        tk.Button(inner_frame, text='Next', 
+            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack(side = 'right')
         tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30)
 
         outer_frame.pack(padx=350, pady=120, fill="x", ipady=30, ipadx=30)
         inner_frame.pack(padx=150, fill="x")
         # self.__show_date()
+
+    def reload_values(self):
+        pass
 
     def callback(self, e):
         if e.widget.get() == 'Select one reason for seeing GP':
