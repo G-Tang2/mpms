@@ -10,6 +10,7 @@ from controllers.login_controller import LoginController
 class HeaderController(Controller):
     def __init__(self, master):
         super().__init__(master)
+        self.MPMS = MPMS.get_instance()
     
     def return_home(self):
         self.MPMS = MPMS.get_instance()
@@ -20,8 +21,12 @@ class HeaderController(Controller):
             else:
                 self._master.load_controller(AdminHomeController) 
                 print("Admin")
-    #Give controller
 
     def logout(self):
         self._master.load_controller(LoginController)
-        self._master.login = None
+        #self.MPMS.set_login(None)
+        #self._master.header.update()
+        
+    def login_status(self):
+        self.MPMS = MPMS.get_instance()
+        return self.MPMS.get_login()

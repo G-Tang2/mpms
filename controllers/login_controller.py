@@ -6,6 +6,7 @@ from models.MPMS import MPMS
 from views.login_view import LoginView
 from models.login import Login
 
+
 class LoginController(Controller):
     def __init__(self, master):
         super().__init__(master)
@@ -19,7 +20,16 @@ class LoginController(Controller):
             self.MPMS.set_login(Login(email_address, password))
             if self.MPMS.get_login().is_patient():
                 self._master.load_controller(PatientHomeController)
+                #self._master.header.refresh()
+                self._master.login = True
+                self._master.header.update()
+                
             else:
                 self._master.load_controller(AdminHomeController)
+                #self._master.header.refresh()
+                self._master.login = True
+                self._master.header.update()
+                
         except ValueError as m:
             self._view.display_email_error(m)
+
