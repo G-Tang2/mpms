@@ -30,6 +30,7 @@ class AppointmentBookingController(Controller):
         self._view = AppointmentView(self.container_frame, self)
         self._view.render_view(master)
         self._view.grid(row=0, column=1, sticky="ns")
+        # self._view.grid(row=0, column=0)
         self.views_stack = [self._view]
         self._load_view()
 
@@ -75,7 +76,8 @@ class AppointmentBookingController(Controller):
 
         view.render_view(self.container_frame, self.list_of_gps)
         # master.body_frame.destroy()
-        view.grid(row=0, column=0)
+        view.grid(row=0, column=1, sticky="ns")
+
         view.tkraise()
         self._view = view
 
@@ -175,7 +177,7 @@ class AppointmentBookingController(Controller):
 
         view.render_view(self.container_frame, self.MPMS.get_questionnaire())
         # master.body_frame.destroy()
-        view.grid(row=0, column=0)
+        view.grid(row=0, column=1, sticky="ns")
         view.tkraise()
 
     # For this controller : find the GP object based on the GP name
