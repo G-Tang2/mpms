@@ -22,6 +22,7 @@ class StatusReportView(tk.Frame):
 
         date_label_frame = tk.LabelFrame(inner_label_frame, relief="flat", bg="white")
         # 'Start' Date
+        tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
         
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(start_date_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
@@ -46,8 +47,8 @@ class StatusReportView(tk.Frame):
         tk.Label(inner_label_frame, text = "Report Type", width=18, height=1, bg="white").pack()
         tk.OptionMenu(inner_label_frame,report_type,*report_options).pack()
 
-        tk.Button(inner_label_frame,text="Generate Report",
-            command = lambda: self.controller.get_reason_report(start_cal.get(),end_cal.get(),report_type.get())).pack()
+        tk.Button(inner_label_frame,text="Generate Report", height = 4, width = 20,
+            command = lambda: self.controller.get_reason_report(start_cal.get(),end_cal.get(),report_type.get())).pack(pady = 40)
     
         
         inner_label_frame.pack(padx=50, fill="x")
