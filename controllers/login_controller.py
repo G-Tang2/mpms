@@ -21,14 +21,8 @@ class LoginController(Controller):
             self._master.header_controller.display_logout()
             if self.MPMS.get_login().is_patient():
                 self._master.load_controller(PatientHomeController)
-                #self._master.header.refresh()
-                self._master.login = True
-                # self._master.header.update()
-                
             else:
                 self._master.load_controller(AdminHomeController)
-                #self._master.header.refresh()
-                self._master.login = True
                 self._master.header.update()
                 
         except ValueError as m:
