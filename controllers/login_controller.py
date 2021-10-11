@@ -22,7 +22,7 @@ class LoginController(Controller):
                 self._master.load_controller(PatientHomeController)
                 #self._master.header.refresh()
                 self._master.login = True
-                self._master.header.update()
+                # self._master.header.update()
                 
             else:
                 self._master.load_controller(AdminHomeController)

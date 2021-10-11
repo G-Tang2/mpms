@@ -98,13 +98,13 @@ class AppointmentBookingController(Controller):
                 self._view.show_branch_info(each_branch)
 
     # For AppointmentDetailView: if user do not select a GP, this method will find the GP with least appointments
-    def find_gp_with_least_appointment(self):
+    def find_gp_with_least_appointment(self) -> str:
         appointments = []
         gps = []
         for each_branch in self.MPMS.get_list_of_branches().get_branch_list():
             if self.branch == each_branch.get_name():
-                gps = each_branch.get_gps()
-                appointments = each_branch.get_appointments()
+                gps = each_branch.get_gps() # GPList
+                appointments = each_branch.get_appointments() # AppointmentList
 
         gp_dict = {}
 
@@ -114,11 +114,10 @@ class AppointmentBookingController(Controller):
         for appointment in appointments.get_appointment_list():
             gp_dict[appointment.get_gp().get_full_name()] += 1
 
-        sorted_gp = [v for v in sorted(gp_dict.values())]
+        sorted_gp = sorted(gp_dict.items(), key=lambda item: item[1])
+        gp_name = sorted_gp[0][0]
 
-        for key in gp_dict.keys():
-            if sorted_gp[0] == gp_dict[key]:
-                return key
+        return gp_name
 
     # For AppointmentDetailView: offer day list to the date choosen box
     def get_days(self):
