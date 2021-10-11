@@ -29,7 +29,7 @@ class StatusReportController(Controller):
             start_date_check = datetime.datetime.strptime(start_date, '%d/%m/%Y')
             end_date_check = datetime.datetime.strptime(end_date, '%d/%m/%Y')
         except ValueError:
-            self._view.display_input_error("Incorrect date format input (Use DD/MM/YYYY)")
+            self._view.display_input_error("Incorrect date format input \n(Use DD/MM/YYYY)")
             return
         
         if start_date >= end_date:
