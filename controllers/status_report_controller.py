@@ -12,6 +12,7 @@ from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from datetime import datetime
+import datetime
 
 class StatusReportController(Controller):
     def __init__(self,master):
@@ -23,13 +24,13 @@ class StatusReportController(Controller):
     def get_reason_report(self, start_date, end_date, report_type):
         
         print(start_date)
-        # print(type(start_date))
-        # try:
-        #     test1 = datetime.datetime.strptime(start_date, '%d-%m-%Y')
-        #     test2 = datetime.datetime.strptime(end_date, '%d-%m-%Y')
-        # except ValueError:
-        #     self._view.display_input_error("Incorrect date format input")
-        #     return
+        print(type(start_date))
+        try:
+            start_date_check = datetime.datetime.strptime(start_date, '%d/%m/%Y')
+            end_date_check = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+        except ValueError:
+            self._view.display_input_error("Incorrect date format input \n(Use DD/MM/YYYY)")
+            return
         
         if start_date >= end_date:
             self._view.display_input_error("Start date should be earlier than end date")
@@ -43,6 +44,7 @@ class StatusReportController(Controller):
         
         self._view.display_reason_report(reason_dict)
 
+    # Move to MPMS
     def return_statistic(self, start_date, end_date, report_type, info = None):
         self.statistic = {}
 
@@ -52,8 +54,8 @@ class StatusReportController(Controller):
 
         if report_type.lower() == "reason":
             
-            start_date = datetime.strptime(str(start_date), '%Y-%m-%d')
-            end_date = datetime.strptime(str(end_date), '%Y-%m-%d')
+            start_date = datetime.datetime.strptime(str(start_date), '%d/%m/%Y')
+            end_date = datetime.datetime.strptime(str(end_date), '%d/%m/%Y')
 
             total_reasons = 0
             for branch in list_of_branches:
