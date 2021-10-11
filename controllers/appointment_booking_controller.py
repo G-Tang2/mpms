@@ -25,9 +25,12 @@ class AppointmentBookingController(Controller):
         self.__create_data()
 
         self.container_frame = tk.Frame(master,  bg="#c1e4f7")
+        self.container_frame.columnconfigure(index=0, weight=1)
+        self.container_frame.columnconfigure(index=2, weight=1)
         self._view = AppointmentView(self.container_frame, self)
         self._view.render_view(master)
-        self._view.grid(row=0, column=0)
+        self._view.grid(row=0, column=1, sticky="ns")
+        # self._view.grid(row=0, column=0)
         self.views_stack = [self._view]
         self._load_view()
 
@@ -73,7 +76,8 @@ class AppointmentBookingController(Controller):
 
         view.render_view(self.container_frame, self.list_of_gps)
         # master.body_frame.destroy()
-        view.grid(row=0, column=0)
+        view.grid(row=0, column=1, sticky="ns")
+
         view.tkraise()
         self._view = view
 
@@ -172,7 +176,7 @@ class AppointmentBookingController(Controller):
 
         view.render_view(self.container_frame, self.MPMS.get_questionnaire())
         # master.body_frame.destroy()
-        view.grid(row=0, column=0)
+        view.grid(row=0, column=1, sticky="ns")
         view.tkraise()
 
     # For this controller : find the GP object based on the GP name
@@ -200,9 +204,10 @@ class AppointmentBookingController(Controller):
 
         appointment_gp = self.find_gp(self.gp)
         appointment_reason = self.find_reason(self.reason)
-        date = self.date.strftime('%y-%m-%d')
-        appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]),
-                                             hour=int(self.time[0:2]), minute=int(self.time[3:5]))
+        # date = self.date.strftime('%y-%m-%d')
+        date = self.date.strftime("%Y-%m-%d")
+        # appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]), hour=int(self.time[0:2]), minute=int(self.time[3:5]))
+        appointment_date = datetime.datetime(date + 'T' + self.time)
         new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
                                       appointment_reason, self.MPMS.get_questionnaire())
 
