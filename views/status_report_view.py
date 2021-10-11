@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from tkinter.constants import E, NO, W
 from tkcalendar import *
+from datetime import date
 
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -19,20 +20,24 @@ class StatusReportView(tk.Frame):
         # container for login details
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
-
         date_label_frame = tk.LabelFrame(inner_label_frame, relief="flat", bg="white")
+        
+        # Current Date
+        today = date.today()
+        print(type(today.year), today.month)
+        #year = today.year , month = today.month, day = today.day,
+        
         # 'Start' Date
         tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
-        
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(start_date_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
-        start_cal = DateEntry(start_date_label_frame, date_pattern='mm/dd/y', selectmode = 'day', showweeknumbers = False)
+        start_cal = DateEntry(start_date_label_frame, date_pattern='dd/mm/y', selectmode = 'day', showweeknumbers = False)
         start_cal.pack()
         
         # End Date
         end_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(end_date_label_frame, text = "End Date", width=18, height=1, bg="white").pack()
-        end_cal = DateEntry(end_date_label_frame, date_pattern='mm/dd/y', selectmode = 'day', showweeknumbers = False)
+        end_cal = DateEntry(end_date_label_frame, date_pattern='dd/mm/y', selectmode = 'day', showweeknumbers = False)
         end_cal.pack()
 
         start_date_label_frame.pack(side="left")
@@ -54,8 +59,6 @@ class StatusReportView(tk.Frame):
         inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
-
-
 
     def display_input_error(self, message):
         tk.messagebox.showerror("Error", message)
