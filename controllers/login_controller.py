@@ -18,6 +18,7 @@ class LoginController(Controller):
     def login(self, email_address: str, password: str):
         try:
             self.MPMS.set_login(Login(email_address, password))
+            self._master.header_controller.display_logout()
             if self.MPMS.get_login().is_patient():
                 self._master.load_controller(PatientHomeController)
                 #self._master.header.refresh()

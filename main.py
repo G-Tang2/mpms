@@ -17,7 +17,6 @@ class App(tk.Tk):
         self.login = None
         # set header frame
         self.header_controller = HeaderController(self)
-        self.header = Header(self).pack(fill="x")
         # body frame
         self.body_frame = None
         # default controller
