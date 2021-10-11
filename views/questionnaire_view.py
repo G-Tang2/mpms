@@ -62,6 +62,9 @@ class QuestionnaireView(tk.Frame):
 
         self.make_appointment()
 
+    def reload_values(self):
+        pass
+
     def make_appointment(self):
         branch = self.controller.get_branch()
         appointment_data = self.controller.get_data()

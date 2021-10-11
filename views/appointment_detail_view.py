@@ -72,6 +72,9 @@ class AppointmentDetailView(tk.Frame):
         inner_frame.pack(padx=150, fill="x")
         # self.__show_date()
 
+    def reload_values(self):
+        pass
+
     def callback(self, e):
         if e.widget.get() == 'Select one reason for seeing GP':
             self.time_list['state'] = tk.DISABLED
