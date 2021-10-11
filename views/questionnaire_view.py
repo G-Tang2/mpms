@@ -11,7 +11,6 @@ class QuestionnaireView(tk.Frame):
     def render_view(self, master: tk.Tk, questions) -> None:
 
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
-
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         questions = questions.get_question_list()
@@ -51,7 +50,7 @@ class QuestionnaireView(tk.Frame):
     def confirm_question(self, ans1, ans2, ans3):
         for i in [ans1, ans2, ans3]:
             if i == 'None':
-                tk.messagebox.showerror(title='No', message='please complete all the questions', width=100)
+                tk.messagebox.showerror(title='No', message='please complete all the questions')
                 return
 
         for i in [ans1, ans2, ans3]:

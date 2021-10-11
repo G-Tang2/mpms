@@ -13,7 +13,8 @@ class AppointmentView(tk.Frame):
 
         outer_frame = tk.Frame(self, relief="solid", borderwidth=2, bg="white")
         inner_frame = tk.Frame(outer_frame, relief="flat", bg="white")
-        outer_frame.pack(padx=350, pady=120, fill="x")
+        # outer_frame.pack(padx=350, pady=120, fill="x")
+        outer_frame.pack()
         inner_frame.pack(padx=150, fill="x")
 
         list_of_branches = self.controller.sort_branches()
