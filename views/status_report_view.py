@@ -22,11 +22,12 @@ class StatusReportView(tk.Frame):
 
         date_label_frame = tk.LabelFrame(inner_label_frame, relief="flat", bg="white")
         # 'Start' Date
+        
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(start_date_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
         start_cal = DateEntry(start_date_label_frame, date_pattern='mm/dd/y', selectmode = 'day', showweeknumbers = False)
         start_cal.pack()
-    
+        
         # End Date
         end_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(end_date_label_frame, text = "End Date", width=18, height=1, bg="white").pack()
@@ -46,11 +47,14 @@ class StatusReportView(tk.Frame):
         tk.OptionMenu(inner_label_frame,report_type,*report_options).pack()
 
         tk.Button(inner_label_frame,text="Generate Report",
-            command = lambda: self.controller.get_reason_report(start_cal.get_date(),end_cal.get_date(),report_type.get())).pack()
+            command = lambda: self.controller.get_reason_report(start_cal.get(),end_cal.get(),report_type.get())).pack()
     
+        
         inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
+
+
 
     def display_input_error(self, message):
         tk.messagebox.showerror("Error", message)
