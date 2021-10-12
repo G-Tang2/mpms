@@ -19,55 +19,47 @@ class QuestionnaireView(tk.Frame):
         # title
         tk.Label(outer_label_frame, text="Questionnaire", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
-        # question 1
-        tk.Label(outer_label_frame, text=questions[0].get_question(), justify='left', wraplength=800, width=120, height=5, bg="white").pack()
-        ans_1 = tk.StringVar()
-        ans_1.set('None')
-        q1_frame = tk.Frame(outer_label_frame, bg="white")
-        q1_frame.pack()
-        tk.Radiobutton(q1_frame, text='Yes', variable=ans_1, value='Yes', bg="white").pack(side='left')
-        tk.Radiobutton(q1_frame, text='No', variable=ans_1, value='No', bg="white").pack(side='right')
+        # get how many questions in the question
+        question_count = len(questions)
+        var = []
+        frames = []
 
-        # question 2
-        tk.Label(outer_label_frame, text=questions[1].get_question(), width=120, height=5, bg="white", justify='left', wraplength=800).pack()
-        ans_2 = tk.StringVar()
-        ans_2.set('None')
-        q2_frame = tk.Frame(outer_label_frame, bg="white")
-        q2_frame.pack()
-        tk.Radiobutton(q2_frame, text='Yes', variable=ans_2, value='Yes', bg="white").pack(side='left')
-        tk.Radiobutton(q2_frame, text='No', variable=ans_2, value='No', bg="white").pack(side='right')
+        # create the variable and frames based on the count of the questions
+        for i in range(question_count):
+            var.append(tk.StringVar())
+            frames.append(tk.Frame(outer_label_frame, bg="white"))
 
-        # question 3
-        tk.Label(outer_label_frame, text=questions[2].get_question(), justify='left', wraplength=800, width=120, height=5, bg="white").pack()
-        ans_3 = tk.StringVar()
-        ans_3.set('None')
-        q3_frame = tk.Frame(outer_label_frame, bg="white")
-        q3_frame.pack()
-        tk.Radiobutton(q3_frame, text='Yes', variable=ans_3, value='Yes', bg="white").pack(side='left')
-        tk.Radiobutton(q3_frame, text='No', variable=ans_3, value='No', bg="white").pack(side='left')
+        # display all the questions and radiobuttons
+        for i in range(question_count):
+            tk.Label(outer_label_frame, text=questions[i].get_question(), justify='left', wraplength=800, width=120,
+                     height=5, bg="white").pack()
+            frames[i].pack()
+            var[i].set('None')
+            tk.Radiobutton(frames[i], text='Yes', variable=var[i], value='Yes', bg="white").pack(side='left')
+            tk.Radiobutton(frames[i], text='No', variable=var[i], value='No', bg="white").pack(side='right')
 
         # Buttons
-        tk.Button(inner_label_frame, text='Confirm',command=lambda: self.check_question(ans_1.get(), ans_2.get(), ans_3.get(), appointment_data, branch)).pack(side = 'right' ,pady=30, padx=150)
+        tk.Button(inner_label_frame, text='Confirm',command=lambda: self.check_question(var, appointment_data, branch)).pack(side = 'right' ,pady=30, padx=150)
         tk.Button(inner_label_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30, padx = 150)
 
         # pack the background frames
         outer_label_frame.pack(pady=50)
         inner_label_frame.pack(padx=50, fill="x")
 
-    def check_question(self, ans1, ans2, ans3, appointment_data, branch):
+    def check_question(self, var, appointment_data, branch):
         '''
         to check if the question is complete and if the patient meet the requirement
         '''
 
         # if some of the question is not complete, display the message to patient
-        for i in [ans1, ans2, ans3]:
-            if i == 'None':
+        for i in var:
+            if i.get() == 'None':
                 tk.messagebox.showerror(title='No', message='please complete all the questions')
                 return
 
         # if the patient does not meet the requirement, show the advice
-        for i in [ans1, ans2, ans3]:
-            if i == 'Yes':
+        for i in var:
+            if i.get() == 'Yes':
                 tk.messagebox.showerror(title='No',
                                                   message='"Please search on health.gov.au and attend a free COVID-19 respiratory clinic"')
                 return
