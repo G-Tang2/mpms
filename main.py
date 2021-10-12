@@ -20,7 +20,7 @@ class App(tk.Tk):
         # body frame
         self.body_frame = None
         # default controller
-        LoginController(self)
+        self.load_controller(LoginController)
 
     def __center_window(self):
         display_w, display_h = self.winfo_screenwidth(), self.winfo_screenheight()

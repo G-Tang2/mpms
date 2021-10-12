@@ -3,7 +3,7 @@ import tkinter as tk
 import pandas as pd
 from models.MPMS import MPMS
 from controllers.controller import Controller
-from views.appointment_view import AppointmentView
+from views.branch_view import BranchView
 from views.appointment_detail_view import AppointmentDetailView
 from models.appointment import Appointment
 from models.apppointment_list import AppointmentList
@@ -23,12 +23,16 @@ class AppointmentBookingController(Controller):
         self.appointments = AppointmentList([])
         self.list_of_gps = []
         self.__create_data()
+        self.gp, self.reason, self.patient_status, self.date, self.time = [None, None, None, None, None]
 
         self.container_frame = tk.Frame(master,  bg="#c1e4f7")
         self.container_frame.columnconfigure(index=0, weight=1)
         self.container_frame.columnconfigure(index=2, weight=1)
-        self._view = AppointmentView(self.container_frame, self)
-        self._view.render_view(master)
+        self._display_branch_view(master)
+
+    def _display_branch_view(self, master):
+        self._view = BranchView(self.container_frame, self)
+        self._view.render_view(master, self.sort_branches())
         self._view.grid(row=0, column=1, sticky="ns")
         # self._view.grid(row=0, column=0)
         self.views_stack = [self._view]
@@ -68,11 +72,9 @@ class AppointmentBookingController(Controller):
         view = AppointmentDetailView(self.container_frame, self)
         self.views_stack.append(view)
 
-        for branch in self.MPMS.get_list_of_branches().get_branch_list():
-            if self.branch == branch.get_name():
-                self.appointments = branch.get_appointments()
-                self.list_of_gps = branch.get_gps()
-                break
+        self.appointments = self.MPMS.get_branch(branch).get_appointments()
+        self.list_of_gps = self.MPMS.get_branch(branch).get_gps()
+
 
         view.render_view(self.container_frame, self.list_of_gps)
         # master.body_frame.destroy()
@@ -91,24 +93,16 @@ class AppointmentBookingController(Controller):
         previous_view.tkraise()
         self._view = previous_view
 
-    # For QuestionnaireView: display the branch in the confirm box
-    def get_branch(self):
-        return self.branch
-
     # For AppointmentView: display the info of the selected branch
     def show_info(self, branch):
-        for each_branch in self.MPMS.get_list_of_branches().get_branch_list():
-            if branch == each_branch.get_name():
-                self._view.show_branch_info(each_branch)
+        self._view.show_branch_info(self.MPMS.get_branch(branch))
 
     # For AppointmentDetailView: if user do not select a GP, this method will find the GP with least appointments
     def find_gp_with_least_appointment(self) -> str:
         appointments = []
-        gps = []
-        for each_branch in self.MPMS.get_list_of_branches().get_branch_list():
-            if self.branch == each_branch.get_name():
-                gps = each_branch.get_gps() # GPList
-                appointments = each_branch.get_appointments() # AppointmentList
+
+        gps = self.MPMS.get_branch(self.branch).get_gps() # GPList
+        appointments = self.MPMS.get_branch(self.branch).get_appointments() # AppointmentList
 
         gp_dict = {}
 
@@ -174,7 +168,7 @@ class AppointmentBookingController(Controller):
         view = QuestionnaireView(self.container_frame, self)
         self.views_stack.append(view)
 
-        view.render_view(self.container_frame, self.MPMS.get_questionnaire())
+        view.render_view(self.container_frame, self.MPMS.get_questionnaire().get_question_list(), self.get_data(), self.branch)
         # master.body_frame.destroy()
         view.grid(row=0, column=1, sticky="ns")
         view.tkraise()
@@ -205,9 +199,9 @@ class AppointmentBookingController(Controller):
         appointment_gp = self.find_gp(self.gp)
         appointment_reason = self.find_reason(self.reason)
         # date = self.date.strftime('%y-%m-%d')
-        date = self.date.strftime("%Y-%m-%d")
+        # date = self.date.strftime("%Y-%m-%d")
         # appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]), hour=int(self.time[0:2]), minute=int(self.time[3:5]))
-        appointment_date = datetime.datetime(date + 'T' + self.time)
+        appointment_date = datetime.datetime.strptime(self.date + 'T' + self.time, "%d/%m/%YT%H:%M")
         new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
                                       appointment_reason, self.MPMS.get_questionnaire())
 

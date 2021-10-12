@@ -19,19 +19,13 @@ class HeaderController(Controller):
         self._view.pack(fill="x")   
 
     def return_home(self):
-        self.MPMS = MPMS.get_instance()
         if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController,LoginController):
-            confirmation = tk.messagebox.askquestion(title='Confirmation', message='Return to Home Page and Discard Changes?')
-            if not confirmation:
-                return
-
-        if self.MPMS.login is not None:
-            if self.MPMS.get_login().is_patient():
-                self._master.load_controller(PatientHomeController) 
-                print("Patient")
-            else:
-                self._master.load_controller(AdminHomeController) 
-                print("Admin")
+            tk.messagebox.askquestion(title='Confirmation', message='Return to Home Page and Discard Changes?')
+            if self.MPMS.login is not None:
+                if self.MPMS.get_login().is_patient():
+                    self._master.load_controller(PatientHomeController) 
+                else:
+                    self._master.load_controller(AdminHomeController)
 
     def display_logout(self):
         self._view.pack_forget()
