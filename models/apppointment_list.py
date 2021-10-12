@@ -16,7 +16,7 @@ class AppointmentList():
         lst = []
         for appointment in self.appointments:
             lst.append(appointment.serialise_copy())
-        return JSON.to_JSON(lst)
+        return JSON.to_JSON({"appointment": lst})
 
     @staticmethod
     def create_from_json(json_info):
