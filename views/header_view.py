@@ -27,7 +27,7 @@ class Header(tk.Frame):
         tk.Button(self.header_frame, text="   Monash Clinic", relief = 'flat',borderwidth= 0, highlightthickness = 0 , font=('Roboto',38, "bold"), anchor="w", bg="white",
             command = lambda: self.master.header_controller.return_home()).pack(fill = 'x', side = "left", ipady=5)
         tk.Button(self.header_frame, image = self.logout_image, relief = 'flat', 
-            command = lambda: self.master.header_controller.logout(),borderwidth= 0, highlightthickness = 0 , height = 5, anchor="w", bg="#99d2f2").pack(fill = 'x',side = "right", ipady=5) 
+            command = lambda: self.master.header_controller.logout(),borderwidth= 0, highlightthickness = 0 , height = 5, anchor="w", bg="#99d2f2").pack(fill = 'x',side = "right", ipady=5, padx = 10) 
 
         self.header_frame.pack(fill = 'x')
     
