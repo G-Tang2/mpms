@@ -73,8 +73,8 @@ class AppointmentDetailView(tk.Frame):
         tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=20)
 
         # pack the buttons
-        outer_frame.pack(padx=100, pady=120, fill="x", ipady=30, ipadx=30)
-        inner_frame.pack(padx=50, fill="x")
+        outer_frame.pack(pady=50, fill="x", ipady=30, ipadx=30)
+        inner_frame.pack(padx=150, fill="x")
 
     def reload_values(self):
         pass
