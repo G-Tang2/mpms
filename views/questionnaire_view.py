@@ -21,45 +21,46 @@ class QuestionnaireView(tk.Frame):
 
         # get how many questions in the question
         question_count = len(questions)
-        var = []
+        ans = []
         frames = []
 
         # create the variable and frames based on the count of the questions
-        for i in range(question_count):
-            var.append(tk.StringVar())
+        for count in range(question_count):
+            ans.append(tk.StringVar())
             frames.append(tk.Frame(outer_label_frame, bg="white"))
 
         # display all the questions and radiobuttons
-        for i in range(question_count):
-            tk.Label(outer_label_frame, text=questions[i].get_question(), justify='left', wraplength=800, width=120,
+        for question_index in range(question_count):
+            tk.Label(outer_label_frame, text=questions[question_index].get_question(), justify='left', wraplength=800, width=120,
                      height=5, bg="white").pack()
-            frames[i].pack()
-            var[i].set('None')
-            tk.Radiobutton(frames[i], text='Yes', variable=var[i], value='Yes', bg="white").pack(side='left')
-            tk.Radiobutton(frames[i], text='No', variable=var[i], value='No', bg="white").pack(side='right')
+            frames[question_index].pack()
+            # set the default value to None
+            ans[question_index].set('None')
+            tk.Radiobutton(frames[question_index], text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left')
+            tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right')
 
         # Buttons
-        tk.Button(inner_label_frame, text='Confirm',command=lambda: self.check_question(var, appointment_data, branch)).pack(side = 'right' ,pady=30, padx=150)
+        tk.Button(inner_label_frame, text='Confirm',command=lambda: self.check_question(ans, appointment_data, branch)).pack(side = 'right' ,pady=30, padx=150)
         tk.Button(inner_label_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30, padx = 150)
 
         # pack the background frames
         outer_label_frame.pack(pady=50)
         inner_label_frame.pack(padx=50, fill="x")
 
-    def check_question(self, var, appointment_data, branch):
+    def check_question(self, ans, appointment_data, branch):
         '''
         to check if the question is complete and if the patient meet the requirement
         '''
 
         # if some of the question is not complete, display the message to patient
-        for i in var:
-            if i.get() == 'None':
+        for each_answer in ans:
+            if each_answer.get() == 'None':
                 tk.messagebox.showerror(title='No', message='please complete all the questions')
                 return
 
         # if the patient does not meet the requirement, show the advice
-        for i in var:
-            if i.get() == 'Yes':
+        for each_answer in ans:
+            if each_answer.get() == 'Yes':
                 tk.messagebox.showerror(title='No',
                                                   message='"Please search on health.gov.au and attend a free COVID-19 respiratory clinic"')
                 return
