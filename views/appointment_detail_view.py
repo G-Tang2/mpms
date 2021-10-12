@@ -86,7 +86,7 @@ class AppointmentDetailView(tk.Frame):
             self.time_show = True
 
     def next(self, master, gp, reason, patient_status, date, time):
-        if gp == 'None' or 'please choose a GP(optional)':
+        if gp == 'None' or gp == 'please choose a GP(optional)':
             gp = self.controller.find_gp_with_least_appointment()
 
         if reason == 'Select one reason for seeing GP':
