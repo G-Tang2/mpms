@@ -4,6 +4,7 @@ from models.questionnaire import Questionnaire
 from models.login import Login
 from datetime import datetime
 import datetime
+import pandas as pd
 
 class MPMS:
     # global instance
@@ -65,6 +66,15 @@ class MPMS:
             for key,value in self.statistic.items():
                 self.statistic[key] = (value/total_reasons) * 100
             return self.statistic
+
+    @staticmethod
+    def write_appointment(branch_id, appointment_list):
+        # read file from file
+        dt = pd.read_csv("./app_data/branches.csv")
+        # change the appointment list value and write to the file
+        dt.loc[int(branch_id) - 1, ('appointments')] = appointment_list.to_JSON()
+        dt.to_csv("./app_data/test.csv", index=False)
+
 
     @staticmethod
     def get_instance():

@@ -1,5 +1,6 @@
 import datetime
 import tkinter as tk
+from models.branch_list import BranchList
 import pandas as pd
 from models.MPMS import MPMS
 from controllers.controller import Controller
@@ -231,11 +232,13 @@ class AppointmentBookingController(Controller):
         # add new appointment to the list
         self.appointments.add_appointment(new_appointment)
 
-        # read file from file
-        dt = pd.read_csv("./app_data/branches.csv")
-        # change the appointment list value and write to the file
-        dt.loc[int(branch_id) - 1, ('appointments')] = self.appointments.to_JSON()
-        dt.to_csv("./app_data/test.csv", index=False)
+        self.MPMS.write_appointment(branch_id, self.appointments)
+
+        # # read file from file
+        # dt = pd.read_csv("./app_data/branches.csv")
+        # # change the appointment list value and write to the file
+        # dt.loc[int(branch_id) - 1, ('appointments')] = self.appointments.to_JSON()
+        # dt.to_csv("./app_data/test.csv", index=False)
 
     ######################  Controller  #########################
     def find_gp(self, gp):

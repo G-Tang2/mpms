@@ -47,7 +47,7 @@ class AppointmentDetailView(tk.Frame):
         # date and time
         dt_frame = tk.Frame(outer_frame, width=200, bg="white")
         dt_frame.pack(pady=10)
-        app_date = DateEntry(dt_frame, date_pattern='mm/dd/y', selectmode='day', showweeknumbers=False)
+        app_date = DateEntry(dt_frame, date_pattern='dd/mm/y', selectmode='day', showweeknumbers=False)
         app_date.pack(side='left')
 
         tm = tk.StringVar()
