@@ -25,7 +25,7 @@ class QuestionnaireView(tk.Frame):
         frames = []
 
         # create the variable and frames based on the count of the questions
-        for count in range(question_count):
+        for _ in range(question_count):
             ans.append(tk.StringVar())
             frames.append(tk.Frame(outer_label_frame, bg="white"))
 
