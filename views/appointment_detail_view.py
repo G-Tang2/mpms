@@ -14,13 +14,13 @@ class AppointmentDetailView(tk.Frame):
 
     def render_view(self, master: tk.Tk, list_of_gps) -> None:
 
-        outer_frame = tk.Frame(self, relief="solid", borderwidth=2, bg="white")
-        inner_frame = tk.Frame(outer_frame, relief="flat", bg="white")
-       
+        outer_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
+        inner_frame = tk.LabelFrame(outer_frame, relief="flat", bg="white")
 
+        tk.Label(outer_frame, text="Appointment Detail", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
         # new:  patient status
-        statue_frame = tk.Frame(outer_frame, width=200)
+        statue_frame = tk.Frame(outer_frame, width=200, bg="white")
         statue_frame.pack(pady=10)
         tk.Label(statue_frame, text='Please choose your status').pack(side='top')
         var = tk.StringVar()
@@ -29,7 +29,7 @@ class AppointmentDetailView(tk.Frame):
         tk.Radiobutton(statue_frame, text='Existing patient', variable=var, value='False').pack(side='right')
 
         # new: appointment reason
-        reason_frame = tk.Frame(outer_frame, width=200)
+        reason_frame = tk.Frame(outer_frame, width=200, bg="white")
         reason_frame.pack(pady=10)
         tk.Label(reason_frame, text='Please choose your reason for appointment').pack()
         rea = tk.StringVar()
@@ -41,7 +41,7 @@ class AppointmentDetailView(tk.Frame):
         reason_box.pack()
 
         # for user to select date and time for appointment
-        dt_frame = tk.Frame(outer_frame, width=200)
+        dt_frame = tk.Frame(outer_frame, width=200, bg="white")
         dt_frame.pack(pady=10)
         app_date = DateEntry(dt_frame, date_pattern='mm/dd/y', selectmode='day', showweeknumbers=False)
         app_date.pack(side='left')
@@ -52,7 +52,7 @@ class AppointmentDetailView(tk.Frame):
         self.time_list.pack(side='right')
 
         # for patient to select a GP
-        gp_frame = tk.Frame(outer_frame, width=200)
+        gp_frame = tk.Frame(outer_frame, width=200, bg="white")
         gp_frame.pack(pady=10)
         gp = tk.StringVar()
         gp.set('please choose a GP(optional)')
@@ -66,10 +66,10 @@ class AppointmentDetailView(tk.Frame):
         # button to the next page
         tk.Button(inner_frame, text='Next', 
             command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack(side = 'right')
-        tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30)
+        tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=20)
 
-        outer_frame.pack(padx=350, pady=120, fill="x", ipady=30, ipadx=30)
-        inner_frame.pack(padx=150, fill="x")
+        outer_frame.pack(padx=100, pady=120, fill="x", ipady=30, ipadx=30)
+        inner_frame.pack(padx=50, fill="x")
         # self.__show_date()
 
     def reload_values(self):
@@ -86,7 +86,7 @@ class AppointmentDetailView(tk.Frame):
             self.time_show = True
 
     def next(self, master, gp, reason, patient_status, date, time):
-        if gp == 'None':
+        if gp == 'None' or 'please choose a GP(optional)':
             gp = self.controller.find_gp_with_least_appointment()
 
         if reason == 'Select one reason for seeing GP':
