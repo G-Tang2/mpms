@@ -33,6 +33,10 @@ class HeaderController(Controller):
         self._view.pack()
 
     def logout(self):
+        if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController,LoginController):
+            confirmation = tk.messagebox.askquestion(title='Confirmation', message='Return to Login Page and Discard Changes?')
+            if not confirmation:
+                return
         self._master.load_controller(LoginController)
         self.MPMS.set_login(None)
         self._view.hide_logout_btn()
