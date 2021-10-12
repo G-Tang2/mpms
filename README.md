@@ -9,3 +9,8 @@
     ```
     $ pip install -U matplotlib
     ```
+    
+*  Install pandas:
+    ```
+    $ pip install pandas
+    ```
