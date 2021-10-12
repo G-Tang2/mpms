@@ -21,21 +21,22 @@ class BranchView(tk.Frame):
         # title label
         tk.Label(outer_frame, text="Branches", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
-        outer_frame.pack(pady=50)
-        inner_frame.pack(padx=150, fill="x")
-
         # selecting a clinic
         tk.Label(outer_frame, text='Please select a branch', font=('Roboto', 20)).pack(pady=10)
         listbox = tk.Listbox(outer_frame)
         for branch in list_of_branches:
             listbox.insert('end', branch)
-        listbox.pack()
+        listbox.pack(padx=100)
 
         # Buttons
         button_frame = tk.Frame(outer_frame, bg='white')
         button_frame.pack(pady=20)
         tk.Button(button_frame, text='Show Info', command=lambda: self.show_info(listbox)).pack(side='left', padx=10)
         tk.Button(button_frame, text='next', command=lambda: self.next(master, listbox)).pack(side='right', padx=10)
+
+        # pack the frames
+        outer_frame.pack(pady=50, fill='x')
+        inner_frame.pack(padx=150, fill="x")
 
         # store listbox for data load reference
         self._branch_listbox = listbox
