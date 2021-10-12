@@ -20,7 +20,9 @@ class HeaderController(Controller):
 
     def return_home(self):
         if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController,LoginController):
-            tk.messagebox.askquestion(title='Confirmation', message='Return to Home Page and Discard Changes?')
+            confirmation = tk.messagebox.askyesno(title='Confirmation', message='Return to Home Page and Discard Changes?')
+            if not confirmation:
+                return 
             if self.MPMS.login is not None:
                 if self.MPMS.get_login().is_patient():
                     self._master.load_controller(PatientHomeController) 
@@ -34,7 +36,7 @@ class HeaderController(Controller):
 
     def logout(self):
         if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController,LoginController):
-            confirmation = tk.messagebox.askquestion(title='Confirmation', message='Return to Login Page and Discard Changes?')
+            confirmation = tk.messagebox.askyesno(title='Confirmation', message='Return to Login Page and Discard Changes?')
             if not confirmation:
                 return
         self._master.load_controller(LoginController)
