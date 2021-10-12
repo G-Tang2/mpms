@@ -27,7 +27,7 @@ class AppointmentDetailView(tk.Frame):
         # patient status
         statue_frame = tk.Frame(outer_frame, width=200, bg="white")
         statue_frame.pack(pady=10)
-        tk.Label(statue_frame, text='Please choose your status', bg="white").pack(side='top')
+        tk.Label(statue_frame, text='Please choose your status', font=('Roboto', 15), bg="white").pack(side='top')
         var = tk.StringVar()
         var.set('None')
         tk.Radiobutton(statue_frame, text='New patient', variable=var, value='True', bg="white").pack(side='left')
@@ -36,7 +36,7 @@ class AppointmentDetailView(tk.Frame):
         # appointment reason
         reason_frame = tk.Frame(outer_frame, width=200, bg="white")
         reason_frame.pack(pady=10)
-        tk.Label(reason_frame, text='Please choose your reason for appointment', bg="white").pack()
+        tk.Label(reason_frame, text='Please choose your reason for appointment', font=('Roboto', 15), bg="white").pack()
         rea = tk.StringVar()
         rea.set('Select one reason for seeing GP')
         reason_box = ttk.Combobox(reason_frame, textvariable=rea, width=30)
