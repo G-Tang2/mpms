@@ -16,6 +16,7 @@ class AppointmentDetailView(tk.Frame):
 
         outer_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
         inner_frame = tk.LabelFrame(outer_frame, relief="flat", bg="white")
+        
 
         tk.Label(outer_frame, text="Appointment Detail", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
@@ -65,11 +66,15 @@ class AppointmentDetailView(tk.Frame):
 
         # button to the next page
         tk.Button(inner_frame, text='Next', 
-            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get(), tm.get())).pack(side = 'right')
-        tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=20)
+            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get(), tm.get())).pack(side = 'right',padx = (20,0))
+        tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=20, padx = (0,20))
 
-        outer_frame.pack(padx=100, pady=120, fill="x", ipady=30, ipadx=30)
-        inner_frame.pack(padx=50, fill="x")
+        #outer_frame.pack(padx=100, pady=120, fill="x", ipady=30, ipadx=30)
+        #inner_frame.pack(padx=50, fill="x")
+
+        outer_frame.pack(pady=50)
+        inner_frame.pack(padx=150, fill="x")
+        
         # self.__show_date()
 
     def reload_values(self):
