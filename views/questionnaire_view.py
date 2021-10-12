@@ -71,7 +71,7 @@ class QuestionnaireView(tk.Frame):
                                                     + branch + '\n\nGP: ' + appointment_data[0] +
                                                     '\n\nReason: ' + appointment_data[1]
                                                     + '\n\nNew patient: ' + appointment_data[2] +
-                                                    '\n\nDate: ' + appointment_data[3].strftime('%y-%m-%d') +
+                                                    '\n\nDate: ' + appointment_data[3] +
                                                     '\nTime: ' + appointment_data[4])
 
         if confirm:

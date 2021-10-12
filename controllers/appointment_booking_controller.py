@@ -199,9 +199,9 @@ class AppointmentBookingController(Controller):
         appointment_gp = self.find_gp(self.gp)
         appointment_reason = self.find_reason(self.reason)
         # date = self.date.strftime('%y-%m-%d')
-        date = self.date.strftime("%Y-%m-%d")
+        # date = self.date.strftime("%Y-%m-%d")
         # appointment_date = datetime.datetime(year=int(date[0:2])+2000, month=int(date[3:5]), day=int(date[6:8]), hour=int(self.time[0:2]), minute=int(self.time[3:5]))
-        appointment_date = datetime.datetime.strptime(date + 'T' + self.time, "%Y-%m-%dT%H:%M")
+        appointment_date = datetime.datetime.strptime(self.date + 'T' + self.time, "%d/%m/%YT%H:%M")
         new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
                                       appointment_reason, self.MPMS.get_questionnaire())
 

@@ -65,7 +65,7 @@ class AppointmentDetailView(tk.Frame):
 
         # button to the next page
         tk.Button(inner_frame, text='Next', 
-            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get_date(), tm.get())).pack(side = 'right')
+            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get(), tm.get())).pack(side = 'right')
         tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=20)
 
         outer_frame.pack(padx=100, pady=120, fill="x", ipady=30, ipadx=30)
@@ -97,7 +97,13 @@ class AppointmentDetailView(tk.Frame):
             tk.messagebox.showerror(title='Patient status Error', message='please select one patient status')
             return
 
-        if date < datetime.date.today():
+        try:
+            date_check = datetime.datetime.strptime(date, '%d/%m/%Y')
+        except ValueError:
+            self.display_input_error("Incorrect date format input \n(Use dd/mm/YYYY)")
+            return
+
+        if datetime.datetime.strptime(date, '%d/%m/%Y').date() < datetime.date.today():
             tk.messagebox.showerror(title='Date Error', message='please choose a date after today')
             return
 
@@ -106,3 +112,6 @@ class AppointmentDetailView(tk.Frame):
             return
 
         self.controller.display_questionnaire_view(master, gp, reason, patient_status, date, time)
+
+    def display_input_error(self, err_str):
+        tk.messagebox.showerror(title='date error', message=err_str)
