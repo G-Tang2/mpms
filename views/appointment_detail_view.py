@@ -12,7 +12,7 @@ class AppointmentDetailView(tk.Frame):
         self.controller = controller
         self.time_show = False
 
-    def render_view(self, master: tk.Tk, list_of_gps) -> None:
+    def render_view(self, master: tk.Tk, list_of_gps, reasons) -> None:
 
         outer_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
         inner_frame = tk.LabelFrame(outer_frame, relief="flat", bg="white")
@@ -35,7 +35,6 @@ class AppointmentDetailView(tk.Frame):
         rea = tk.StringVar()
         rea.set('Select one reason for seeing GP')
         reason_box = ttk.Combobox(reason_frame, textvariable=rea, width=30)
-        reasons = self.controller.get_reason_list()
         reason_box['value'] = reasons
         reason_box.bind('<<ComboboxSelected>>', self.callback)
         reason_box.pack()
