@@ -12,34 +12,19 @@ class Header(tk.Frame):
         # header
         self.header_frame = tk.Frame(self,bg='white')
         tk.Button(self.header_frame, text="   Monash Clinic", relief = 'flat',borderwidth= 0, highlightthickness = 0 , font=('Roboto',38, "bold"), anchor="w", bg="white",
-            command = lambda: master.header_controller.return_home()).pack(side = "left", ipady=5)      
+            command = lambda: master.header_controller.return_home()).pack(side = "left", ipady=5)
+        self.logout_btn = tk.Button(self.header_frame, image = self.logout_image, relief = 'flat', 
+            command = lambda: self.master.header_controller.logout(),borderwidth= 0, highlightthickness = 0 , height = 5, anchor="w", bg="#99d2f2")
         self.header_frame.pack(fill = 'x')
 
         # divider
         tk.Frame(self, bg="black", height=2).pack(side = "bottom", fill="x")
     
     def display_logout_btn(self):
-        
-        self.pack(fill='x')
-        self.header_frame.destroy()
-        self.header_frame = tk.Frame(self,bg='white')
-
-        tk.Button(self.header_frame, text="   Monash Clinic", relief = 'flat',borderwidth= 0, highlightthickness = 0 , font=('Roboto',38, "bold"), anchor="w", bg="white",
-            command = lambda: self.master.header_controller.return_home()).pack(fill = 'x', side = "left", ipady=5)
-        tk.Button(self.header_frame, image = self.logout_image, relief = 'flat', 
-            command = lambda: self.master.header_controller.logout(),borderwidth= 0, highlightthickness = 0 , height = 5, anchor="w", bg="#99d2f2").pack(fill = 'x',side = "right", ipady=5, padx = 10) 
-
-        self.header_frame.pack(fill = 'x')
+        self.logout_btn.pack(fill = 'x',side = "right", ipady=5, padx = 10) 
     
     def hide_logout_btn(self):
-        self.pack(fill='x')
-        self.header_frame.destroy()
-        self.header_frame = tk.Frame(self,bg='white')
-
-        tk.Button(self.header_frame, text="   Monash Clinic", relief = 'flat',borderwidth= 0, highlightthickness = 0 , font=('Roboto',38, "bold"), anchor="w", bg="white",
-            command = lambda: self.master.header_controller.return_home()).pack(fill = 'x', side = "left", ipady=5)
-        
-        self.header_frame.pack(fill = 'x')
+        self.logout_btn.pack_forget()
 
     def return_confirmation(self):
         confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and Discard Changes?')

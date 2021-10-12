@@ -28,10 +28,8 @@ class HeaderController(Controller):
                         self._master.load_controller(AdminHomeController)
 
     def display_logout(self):
-        self._view.pack_forget()
         self._view.display_logout_btn()
-        self._view.pack()
-
+        
     def logout(self):
         if type(self._master.main_controller) is not LoginController:
             if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController):
