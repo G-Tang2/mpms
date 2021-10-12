@@ -33,11 +33,13 @@ class HeaderController(Controller):
         self._view.pack()
 
     def logout(self):
-        if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController,LoginController):
-            if self._view.return_confirmation():
-                self._master.load_controller(LoginController)
-                self.MPMS.set_login(None)
-                self._view.hide_logout_btn()
+        if type(self._master.main_controller) is not LoginController:
+            if type(self._master.main_controller) not in (AdminHomeController,PatientHomeController):
+                if not self._view.return_confirmation():
+                    return
+            self._master.load_controller(LoginController)
+            self.MPMS.set_login(None)
+            self._view.hide_logout_btn()
         
     def login_status(self):
         self.MPMS = MPMS.get_instance()
