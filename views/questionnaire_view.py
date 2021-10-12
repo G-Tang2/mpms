@@ -6,7 +6,6 @@ class QuestionnaireView(tk.Frame):
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
-        # self.__render_view(master)
 
     def render_view(self, master: tk.Tk, questions, appointment_data, branch) -> None:
         '''
