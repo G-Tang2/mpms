@@ -16,14 +16,18 @@ class LoginController(Controller):
         self.MPMS = MPMS.get_instance()
 
     def login(self, email_address: str, password: str):
+        '''
+        Login function loads controller depending on user status
+        '''
         try:
             self.MPMS.set_login(Login(email_address, password))
+            # Displays logout button when user logs in
             self._master.header_controller.display_logout()
+            # Checks user status, loads controllers depending on admin or patient
             if self.MPMS.get_login().is_patient():
                 self._master.load_controller(PatientHomeController)
             else:
-                self._master.load_controller(AdminHomeController)
-                
+                self._master.load_controller(AdminHomeController)    
         except ValueError as m:
             self._view.display_email_error(m)
 
