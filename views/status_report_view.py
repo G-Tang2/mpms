@@ -22,11 +22,6 @@ class StatusReportView(tk.Frame):
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
         date_label_frame = tk.LabelFrame(inner_label_frame, relief="flat", bg="white")
         
-        # Current Date
-        today = date.today()
-        print(type(today.year), today.month)
-        #year = today.year , month = today.month, day = today.day,
-        
         # 'Start' Date
         tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
