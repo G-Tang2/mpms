@@ -25,8 +25,8 @@ class QuestionnaireView(tk.Frame):
         ans_1.set('None')
         q1_frame = tk.Frame(outer_label_frame, bg="white")
         q1_frame.pack()
-        tk.Radiobutton(q1_frame, text='Yes', variable=ans_1, value='Yes').pack(side='left')
-        tk.Radiobutton(q1_frame, text='No', variable=ans_1, value='No').pack(side='right')
+        tk.Radiobutton(q1_frame, text='Yes', variable=ans_1, value='Yes').pack(side='left', bg="white")
+        tk.Radiobutton(q1_frame, text='No', variable=ans_1, value='No').pack(side='right', bg="white")
 
         # question 2
         tk.Label(outer_label_frame, text=questions[1].get_question(), width=120, height=5, bg="white", justify='left', wraplength=800).pack()
@@ -34,8 +34,8 @@ class QuestionnaireView(tk.Frame):
         ans_2.set('None')
         q2_frame = tk.Frame(outer_label_frame, bg="white")
         q2_frame.pack()
-        tk.Radiobutton(q2_frame, text='Yes', variable=ans_2, value='Yes').pack(side='left')
-        tk.Radiobutton(q2_frame, text='No', variable=ans_2, value='No').pack(side='right')
+        tk.Radiobutton(q2_frame, text='Yes', variable=ans_2, value='Yes').pack(side='left', bg="white")
+        tk.Radiobutton(q2_frame, text='No', variable=ans_2, value='No').pack(side='right', bg="white")
 
         # question 3
         tk.Label(outer_label_frame, text=questions[2].get_question(), justify='left', wraplength=800, width=120, height=5, bg="white").pack()
@@ -43,8 +43,8 @@ class QuestionnaireView(tk.Frame):
         ans_3.set('None')
         q3_frame = tk.Frame(outer_label_frame, bg="white")
         q3_frame.pack()
-        tk.Radiobutton(q3_frame, text='Yes', variable=ans_3, value='Yes').pack(side='left')
-        tk.Radiobutton(q3_frame, text='No', variable=ans_3, value='No').pack(side='left')
+        tk.Radiobutton(q3_frame, text='Yes', variable=ans_3, value='Yes').pack(side='left', bg="white")
+        tk.Radiobutton(q3_frame, text='No', variable=ans_3, value='No').pack(side='left', bg="white")
 
         # Buttons
         tk.Button(inner_label_frame, text='Confirm',command=lambda: self.check_question(ans_1.get(), ans_2.get(), ans_3.get(), appointment_data, branch)).pack(side = 'right' ,pady=30, padx=150)

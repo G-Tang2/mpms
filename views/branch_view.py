@@ -22,7 +22,7 @@ class BranchView(tk.Frame):
         tk.Label(outer_frame, text="Branches", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
         # selecting a clinic
-        tk.Label(outer_frame, text='Please select a branch', font=('Roboto', 20)).pack(pady=10)
+        tk.Label(outer_frame, text='Please select a branch', font=('Roboto', 20), bg="white").pack(pady=10)
         listbox = tk.Listbox(outer_frame)
         for branch in list_of_branches:
             listbox.insert('end', branch)
