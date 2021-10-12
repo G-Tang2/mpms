@@ -41,6 +41,10 @@ class Header(tk.Frame):
         
         self.header_frame.pack(fill = 'x')
 
+    def return_confirmation(self):
+        confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and Discard Changes?')
+        return confirmation
+
         #self.header_frame.pack_forget()
         #tk.Button(self.header_frame, image = self.logout_image, relief = 'flat', 
          #   command = lambda: self.master.header_controller.logout(),borderwidth= 0, highlightthickness = 0 , height = 5, anchor="w", bg="#99d2f2").pack(side = "right", ipady=5)
