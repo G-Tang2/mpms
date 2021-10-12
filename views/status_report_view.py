@@ -44,7 +44,7 @@ class StatusReportView(tk.Frame):
         report_type = tk.StringVar()
         report_type.set(report_options[0])
 
-        tk.Label(inner_label_frame, text = "Report Type", width=18, height=1, bg="white").pack()
+        tk.Label(inner_label_frame, text = "Report Type", width=18, height=1, bg="white", pady = 5).pack(pady=(8,0))
         tk.OptionMenu(inner_label_frame,report_type,*report_options).pack()
 
         tk.Button(inner_label_frame,text="Generate Report", height = 4, width = 20,
