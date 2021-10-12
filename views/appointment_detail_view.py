@@ -69,7 +69,6 @@ class AppointmentDetailView(tk.Frame):
 
         outer_frame.pack(padx=100, pady=120, fill="x", ipady=30, ipadx=30)
         inner_frame.pack(padx=50, fill="x")
-        # self.__show_date()
 
     def reload_values(self):
         pass
