@@ -164,7 +164,7 @@ class AppointmentBookingController(Controller):
             now_str = open_hour.strftime('%H:%M')
             times.append(now_str)
 
-        return times
+        self._view.set_time_list(times)
 
     def get_reason_list(self):
         '''

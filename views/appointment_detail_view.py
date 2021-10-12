@@ -89,9 +89,11 @@ class AppointmentDetailView(tk.Frame):
             self.time_list['state'] = tk.NORMAL
 
             # display the time list based on the reason
-            times = self.controller.get_time(e.widget.get())
-            self.time_list['value'] = times
-            self.time_show = True
+            self.controller.get_time(e.widget.get())
+
+    def set_time_list(self, times):
+        self.time_list['value'] = times
+        self.time_show = True
 
     def next(self, master, gp, reason, patient_status, date, time):
         '''
