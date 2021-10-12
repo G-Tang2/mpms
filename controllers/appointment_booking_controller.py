@@ -67,7 +67,7 @@ class AppointmentBookingController(Controller):
             sorted_branches.append(branch.get_name())
 
         # sort branches
-        sorted_branches.sort()
+        sorted_branches.sort()  # List of str
 
         return sorted_branches
 
@@ -84,8 +84,8 @@ class AppointmentBookingController(Controller):
         self.views_stack.append(view)
 
         # get data from the MPMS instance
-        self.appointments = self.MPMS.get_branch(branch).get_appointments()
-        self.list_of_gps = self.MPMS.get_branch(branch).get_gps()
+        self.appointments = self.MPMS.get_branch(branch).get_appointments()  # AppointmentList
+        self.list_of_gps = self.MPMS.get_branch(branch).get_gps()  # GPList
 
         # display the detail view
         view.render_view(self.container_frame, self.list_of_gps, self.get_reason_list())
@@ -136,7 +136,7 @@ class AppointmentBookingController(Controller):
 
         # sorted the dict and get the first key
         sorted_gp = sorted(gp_dict.items(), key=lambda item: item[1])
-        gp_name = sorted_gp[0][0]
+        gp_name = sorted_gp[0][0]  # str
 
         return gp_name
 
@@ -152,9 +152,9 @@ class AppointmentBookingController(Controller):
                 duration = each_reason.get_duration()
 
         # create open_hour and close_hour
-        minute = timedelta(minutes=int(duration))
-        open_hour = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)
-        close_hour = datetime.datetime(year=2021, month=1, day=1, hour=17, minute=0, second=0)
+        minute = timedelta(minutes=int(duration))  # timedelta
+        open_hour = datetime.datetime(year=2021, month=1, day=1, hour=9, minute=0, second=0)  # datetime
+        close_hour = datetime.datetime(year=2021, month=1, day=1, hour=17, minute=0, second=0)  # datetime
         open_hour = open_hour - minute
         times = []
 
@@ -184,11 +184,11 @@ class AppointmentBookingController(Controller):
         '''
 
         # store the details from the detail view
-        self.gp = gp
-        self.reason = reason
-        self.patient_status = patient_status
-        self.date = date
-        self.time = time
+        self.gp = gp   # str
+        self.reason = reason    # str
+        self.patient_status = patient_status   # str
+        self.date = date   # str
+        self.time = time   # str
 
         # create questionnaire view
         view = QuestionnaireView(self.container_frame, self)
@@ -220,13 +220,13 @@ class AppointmentBookingController(Controller):
                 break
 
         # get the obj based on the str
-        appointment_gp = self.find_gp(self.gp)
-        appointment_reason = self.find_reason(self.reason)
-        appointment_date = datetime.datetime.strptime(self.date + 'T' + self.time, "%d/%m/%YT%H:%M")
+        appointment_gp = self.find_gp(self.gp)   # GP
+        appointment_reason = self.find_reason(self.reason)   # AppointmentReason
+        appointment_date = datetime.datetime.strptime(self.date + 'T' + self.time, "%d/%m/%YT%H:%M")    # datetime
 
         # create a new appointment with the data
-        new_appointment = Appointment(self.patient_status, appointment_date, self.patient, appointment_gp,
-                                      appointment_reason, self.MPMS.get_questionnaire())
+        new_appointment = Appointment(bool(self.patient_status), appointment_date, self.patient, appointment_gp,
+                                      appointment_reason, self.MPMS.get_questionnaire())  # Appointment
 
         # add new appointment to the list
         self.appointments.add_appointment(new_appointment)
