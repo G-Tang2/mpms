@@ -23,7 +23,6 @@ class LoginController(Controller):
                 self._master.load_controller(PatientHomeController)
             else:
                 self._master.load_controller(AdminHomeController)
-                self._master.header.update()
                 
         except ValueError as m:
             self._view.display_email_error(m)
