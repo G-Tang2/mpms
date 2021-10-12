@@ -31,15 +31,14 @@ class MPMS:
     def get_list_of_reasons(self):
         return self.list_of_reasons
     
-    def calculate_reason_statistic(self, start_date, end_date, report_type, info = None):
-        self.statistic = {}
-
     def get_branch(self, branch_name):
         for branch in self.get_list_of_branches().get_branch_list():
             if branch_name == branch.get_name():
                 return branch
 
-        
+    def calculate_reason_statistic(self, start_date, end_date, report_type, info = None):
+        self.statistic = {}
+
         list_of_branches = self.list_of_branches.get_branch_list()
 
         if report_type.lower() == "reason":
