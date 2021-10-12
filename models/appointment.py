@@ -6,6 +6,7 @@ from models.patient import Patient
 from models.questionnaire import Questionnaire
 from utils.json import JSON
 import copy
+import json
 
 class Appointment():
     def __init__(self, new_patient: bool, date_time: datetime, patient: Patient, gp: GP,
@@ -44,4 +45,5 @@ class Appointment():
         gp = GP.create_from_json(json_info["gp"])
         appointment_reason = AppointmentReason.create_from_json(json_info["appointment_reason"])
         questionnaire = Questionnaire.create_from_json(json_info["questionnaire"])
+        # questionnaire = Questionnaire.create_from_json(json.loads(json_info["question"]))
         return Appointment(new_patient, date_time, patient, gp, appointment_reason, questionnaire)
