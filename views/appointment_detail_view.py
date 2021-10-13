@@ -8,7 +8,7 @@ class AppointmentDetailView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
-        self.time_list = ''
+        self.time_list = None
         self.controller = controller
         self.time_show = False
 
@@ -28,8 +28,7 @@ class AppointmentDetailView(tk.Frame):
         statue_frame = tk.Frame(outer_frame, width=200, bg="white")
         statue_frame.pack(pady=10)
         tk.Label(statue_frame, text='Please choose your status', font=('Roboto', 15), bg="white").pack(side='top')
-        var = tk.StringVar()
-        var.set('None')
+        var = tk.StringVar(value="None")
         tk.Radiobutton(statue_frame, text='New patient', variable=var, value='True', bg="white").pack(side='left')
         tk.Radiobutton(statue_frame, text='Existing patient', variable=var, value='False', bg="white").pack(side='right')
 
@@ -38,7 +37,6 @@ class AppointmentDetailView(tk.Frame):
         reason_frame.pack(pady=10)
         tk.Label(reason_frame, text='Please choose your reason for appointment', font=('Roboto', 15), bg="white").pack()
         rea = tk.StringVar()
-        rea.set('Select one reason for seeing GP')
         reason_box = ttk.Combobox(reason_frame, textvariable=rea, width=30)
         reason_box['value'] = reasons
         reason_box.bind('<<ComboboxSelected>>', self.callback)
@@ -51,15 +49,13 @@ class AppointmentDetailView(tk.Frame):
         app_date.pack(side='left')
 
         tm = tk.StringVar()
-        tm.set('Time')
         self.time_list = ttk.Combobox(dt_frame, textvariable=tm, state='disabled', width=15)
         self.time_list.pack(side='right')
 
         # GP
         gp_frame = tk.Frame(outer_frame, width=200, bg="white")
         gp_frame.pack(pady=10)
-        gp = tk.StringVar()
-        gp.set('please choose a GP(optional)')
+        gp = tk.StringVar(value='None')
         gp_box = ttk.Combobox(gp_frame, textvariable=gp, width=30)
         gps = ['None']
         for each_gp in list_of_gps.get_gps():
@@ -83,7 +79,7 @@ class AppointmentDetailView(tk.Frame):
         '''
         define what will happen when patient change the reason
         '''
-        if e.widget.get() == 'Select one reason for seeing GP':
+        if e.widget.get() == '':
             self.time_list['state'] = tk.DISABLED
         else:
             self.time_list['state'] = tk.NORMAL
@@ -93,7 +89,6 @@ class AppointmentDetailView(tk.Frame):
 
     def set_time_list(self, times):
         self.time_list['value'] = times
-        self.time_show = True
 
     def next(self, master, gp, reason, patient_status, date, time):
         '''
@@ -102,11 +97,11 @@ class AppointmentDetailView(tk.Frame):
         '''
 
         # check the gp box status
-        if gp == 'None' or gp == 'please choose a GP(optional)':
+        if gp == 'None':
             gp = self.controller.find_gp_with_least_appointment()
 
         # check the reason box status
-        if reason == 'Select one reason for seeing GP':
+        if reason == '':
             tk.messagebox.showerror(title='Reason for appointment Error', message='please select one reason for seeing GP')
             return
 
@@ -117,23 +112,26 @@ class AppointmentDetailView(tk.Frame):
 
         # check the date format
         try:
-            date_check = datetime.datetime.strptime(date, '%d/%m/%Y')
+            date_datetime = datetime.datetime.strptime(date, '%d/%m/%Y')
         except ValueError:
-            self.display_input_error("Incorrect date format input \n(Use dd/mm/YYYY)")
+            self.display_input_error("Incorrect date format input \n(Use DD/MM/YYYY)")
             return
 
         # check if the date is in the past
-        if datetime.datetime.strptime(date, '%d/%m/%Y').date() < datetime.date.today():
-            tk.messagebox.showerror(title='Date Error', message='please choose a date after today')
+        if date_datetime.date() < datetime.date.today():
+            tk.messagebox.showerror(title='Date Error', message='Please choose a date after today')
             return
 
         # check the time box status
-        if time == 'Time':
+        if time == '':
             tk.messagebox.showerror(title='Time Error', message='please choose a time')
             return
 
+        # save user input
+        self.controller.save_values(gp, reason, patient_status, date_datetime, time)
+
         # display the next view
-        self.controller.display_questionnaire_view(master, gp, reason, patient_status, date, time)
+        self.controller.display_questionnaire_view()
 
     def display_input_error(self, err_str):
         '''

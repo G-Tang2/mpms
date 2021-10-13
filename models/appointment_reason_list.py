@@ -7,7 +7,7 @@ class AppointmentReasonList():
     def __init__(self, reasons: List[AppointmentReason]):
         self.reasons = reasons
 
-    def get_resaon_list(self):
+    def get_reason_list(self):
         return self.reasons
 
     @staticmethod

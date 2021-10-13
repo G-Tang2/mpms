@@ -8,6 +8,11 @@ class GPList():
 
     def get_gps(self) -> List[GP]:
         return self.gps
+    
+    def get_gp(self, gp_name:str) -> GP:
+        for gp in self.gps:
+            if gp_name == gp.get_full_name():
+                return gp
 
     @staticmethod
     def create_from_json(json_info):

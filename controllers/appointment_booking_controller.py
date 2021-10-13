@@ -148,7 +148,7 @@ class AppointmentBookingController(Controller):
 
         # sorted the dict and get the first key
         sorted_gp = sorted(gp_dict.items(), key=lambda item: item[1])
-        gp_name = sorted_gp[0][0]  # str
+        gp_name, _ = sorted_gp[0]  # str
 
         return gp_name
 
@@ -178,24 +178,24 @@ class AppointmentBookingController(Controller):
 
         self._view.set_time_list(times)
 
-    def display_questionnaire_view(self, master: tk.Tk, gp, reason, patient_status, date, time) -> None:
+    def save_values(self, gp: str, reason: str, patient_status: str, date: datetime, time: str):
+        # store the details from the detail view
+        self.gp = gp
+        self.reason = reason 
+        self.patient_status = patient_status
+        self.date = date
+        self.time = time
+
+    def display_questionnaire_view(self) -> None:
         '''
         display the questionnaire view
         '''
-
-        # store the details from the detail view
-        self.gp = gp   # str
-        self.reason = reason    # str
-        self.patient_status = patient_status   # str
-        self.date = date   # str
-        self.time = time   # str
-
         # create questionnaire view
         view = QuestionnaireView(self.container_frame, self)
         self.views_stack.append(view)
 
         # display the questionnaire view
-        view.render_view(self.container_frame, self.MPMS.get_questionnaire().get_question_list(), self.get_data(), self.branch_name)
+        view.render_view(self.MPMS.get_questionnaire().get_question_list(), self.branch_name)
         view.grid(row=0, column=1, sticky="ns")
         # put the new view on the top of the previous one
         view.tkraise()
@@ -212,7 +212,7 @@ class AppointmentBookingController(Controller):
         write new appointment to the file
         '''
 
-        branch_id = 0
+        branch_id = None
         # get the branch id
         for branch in self.MPMS.get_list_of_branches().get_branch_list():
             if self.branch_name == branch.get_name():
@@ -220,9 +220,9 @@ class AppointmentBookingController(Controller):
                 break
 
         # get the obj based on the str
-        appointment_gp = self.find_gp(self.gp)   # GP
+        appointment_gp = self.list_of_gps.get_gp(self.gp)   # GP
         appointment_reason = self.find_reason(self.reason)   # AppointmentReason
-        appointment_date = datetime.datetime.strptime(self.date + 'T' + self.time, "%d/%m/%YT%H:%M")    # datetime
+        appointment_date = datetime.datetime.strptime(self.date.strftime("%d/%m/%Y") + 'T' + self.time, "%d/%m/%YT%H:%M")    # datetime
 
         # create a new appointment with the data
         new_appointment = Appointment(bool(self.patient_status), appointment_date, self.patient, appointment_gp,
@@ -240,14 +240,6 @@ class AppointmentBookingController(Controller):
         # dt.to_csv("./app_data/test.csv", index=False)
 
     ######################  Controller  #########################
-    def find_gp(self, gp):
-        '''
-        get the gp obj based on the gp_full name
-        '''
-
-        for each_gp in self.list_of_gps.get_gps():
-            if gp == each_gp.get_full_name():
-                return each_gp
 
     def find_reason(self, reason):
         '''
