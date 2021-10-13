@@ -14,7 +14,6 @@ class StatusReportView(tk.Frame):
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
-       
 
     def render_view(self) -> None:        
         # Container frames for status report input 
@@ -41,8 +40,7 @@ class StatusReportView(tk.Frame):
         
         # Report Type Variables 
         report_options = ['Reason']
-        report_type = tk.StringVar()
-        report_type.set(report_options[0])
+        report_type = tk.StringVar(value=report_options[0])
 
         # 'Report Type' Entry Option Menu Widget
         tk.Label(inner_label_frame, text = "Report Type", width=18, height=1, bg="white", pady = 5).pack(pady=(8,0))
