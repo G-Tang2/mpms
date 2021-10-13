@@ -20,6 +20,7 @@ class App(tk.Tk):
         # body frame
         self.body_frame = None
         # default controller
+        self.main_controller = None
         self.load_controller(LoginController)
 
     def __center_window(self):
