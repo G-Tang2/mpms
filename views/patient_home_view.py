@@ -7,7 +7,7 @@ class PatientHomeView(tk.Frame):
         self.controller = controller
         
 
-    def render_view(self) -> None:
+    def render_view(self, user_name: str) -> None:
         '''
         decide how the patient homepage is displayed
         '''
@@ -17,7 +17,7 @@ class PatientHomeView(tk.Frame):
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
         
         # 'Book Appointment' Button
-        tk.Label(outer_label_frame, text="Welcome", font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
+        tk.Label(outer_label_frame, text="Welcome, {}".format(user_name), font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
         tk.Button(inner_label_frame, text = "Book Appointment", width=20, height=5,
                   command=self.controller.book_appointment).pack(padx=50, pady=30)
 

@@ -47,3 +47,6 @@ class Login():
 
     def get_user(self):
         return self.user
+
+    def get_user_name(self):
+        return str(self.user)

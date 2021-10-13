@@ -14,6 +14,9 @@ class Patient(User):
         self.gender = gender
         self.list_of_favourites = list_of_favourites
 
+    def __str__(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
     def serialise_copy(self):
         tmp = copy.deepcopy(self)
         tmp.date_of_birth = tmp.date_of_birth.strftime("%Y-%m-%dT%H:%M:%S")
