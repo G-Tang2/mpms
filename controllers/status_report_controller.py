@@ -1,16 +1,6 @@
 from controllers.controller import Controller
-from models.apppointment_list import AppointmentList
-import tkinter as tk
 from models.MPMS import MPMS
 from views.status_report_view import StatusReportView
-from models.report import Report
-
-from tkinter import Toplevel, ttk
-from tkinter.constants import E, NO, W
-
-from matplotlib import pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
 from datetime import datetime
 import datetime
 
