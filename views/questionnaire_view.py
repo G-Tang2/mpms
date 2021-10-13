@@ -39,8 +39,10 @@ class QuestionnaireView(tk.Frame):
             tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right')
 
         # Buttons
-        tk.Button(inner_label_frame, text='Confirm',command=lambda: self.check_question(ans, self.controller.get_data(), branch)).pack(side = 'right' ,pady=30, padx=150)
-        tk.Button(inner_label_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=30, padx = 150)
+        tk.Button(inner_label_frame, text='Confirm', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
+            command=lambda: self.check_question(ans, self.controller.get_data(), branch)).pack(side = 'right', ipadx=10 ,pady=30, padx=150)
+        tk.Button(inner_label_frame, text='Back', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0", 
+            command=self.controller.back).pack(side = 'left',ipadx=10, pady=30, padx = 150)
 
         # pack the background frames
         outer_label_frame.pack(pady=50)

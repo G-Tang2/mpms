@@ -28,7 +28,7 @@ class App(tk.Tk):
 
     def __setup_styling(self):
         # default font
-        self.option_add("*Font", "Roboto 12")
+        self.option_add("*Font", "Roboto 14")
 
     def load_controller(self, controller: Controller) -> None:
         self.main_controller = controller(self)

@@ -64,9 +64,10 @@ class AppointmentDetailView(tk.Frame):
         gp_box.pack()
 
         # button to the next page
-        tk.Button(inner_frame, text='Next', 
-            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get(), tm.get())).pack(side = 'right')
-        tk.Button(inner_frame, text='Back', command=self.controller.back).pack(side = 'left', pady=20)
+        tk.Button(inner_frame, text='Next', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
+            command=lambda: self.next(master, gp.get(), rea.get(), var.get(), app_date.get(), tm.get())).pack(side = 'right', ipadx=10)
+        tk.Button(inner_frame, text='Back', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
+            command=self.controller.back).pack(side = 'left',ipadx=10, pady=20)
 
         # pack the buttons
         outer_frame.pack(pady=50, fill="x", ipady=30, ipadx=30)

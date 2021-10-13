@@ -47,8 +47,8 @@ class StatusReportView(tk.Frame):
         tk.OptionMenu(inner_label_frame,report_type,*report_options).pack()
 
         # 'Generate Report' Button (Gets input from previous widgets and calls StatusReportController 'get_reason_report' function)
-        tk.Button(inner_label_frame,text="Generate Report", height = 4, width = 20,
-            command = lambda: self.controller.get_reason_report(start_cal.get(),end_cal.get(),report_type.get())).pack(pady = 40)
+        tk.Button(inner_label_frame,text="Generate Report", borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
+            command = lambda: self.controller.get_reason_report(start_cal.get(),end_cal.get(),report_type.get())).pack(ipadx=10, pady = 40)
     
         inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
