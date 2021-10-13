@@ -6,7 +6,7 @@ class HeaderView(tk.Frame):
         self.logout_image = tk.PhotoImage(file = 'images/download.png')
         # header
         self.header_frame = tk.Frame(self,bg='white')
-        tk.Button(self.header_frame, text="   Monash Clinic", relief = 'flat',borderwidth= 0, highlightthickness = 0 , font=('Roboto',38, "bold"), anchor="w", bg="white",
+        tk.Button(self.header_frame, text="   Monash Clinic", relief = 'flat',borderwidth= 0, highlightthickness = 0 , font=('Roboto',38, "bold"), anchor="w", bg="white", activebackground="white",
             command = lambda: master.header_controller.return_home()).pack(side = "left", ipady=5)
         self.header_frame.pack(fill = 'x')
 
