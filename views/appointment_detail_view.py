@@ -27,7 +27,7 @@ class AppointmentDetailView(tk.Frame):
         # patient status
         statue_frame = tk.Frame(outer_frame, width=200, bg="white")
         statue_frame.pack(pady=10)
-        tk.Label(statue_frame, text='Please choose your status', font=('Roboto', 15), bg="white").pack(side='top')
+        tk.Label(statue_frame, text='Please choose your status', bg="white").pack(side='top')
         var = tk.StringVar(value="None")
         tk.Radiobutton(statue_frame, text='New patient', variable=var, value='True', bg="white").pack(side='left')
         tk.Radiobutton(statue_frame, text='Existing patient', variable=var, value='False', bg="white").pack(side='right')
