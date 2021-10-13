@@ -74,7 +74,7 @@ class AppointmentDetailView(tk.Frame):
 
         # pack the buttons
         outer_frame.pack(pady=50, fill="x", ipady=30, ipadx=30)
-        inner_frame.pack(padx=150, fill="x")
+        inner_frame.pack(padx=200, fill="x")
 
     def reload_values(self):
         pass
