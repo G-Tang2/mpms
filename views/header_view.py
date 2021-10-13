@@ -1,8 +1,4 @@
 import tkinter as tk
-from models.MPMS import MPMS
-from controllers.patient_home_controller import PatientHomeController
-from controllers.admin_home_controller import AdminHomeController
-from controllers.login_controller import LoginController
 
 class Header(tk.Frame):
     def __init__(self, master: tk.Tk):
@@ -30,10 +26,3 @@ class Header(tk.Frame):
     def return_confirmation(self):
         confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and Discard Changes?')
         return confirmation
-
-        #self.header_frame.pack_forget()
-        #tk.Button(self.header_frame, image = self.logout_image, relief = 'flat', 
-         #   command = lambda: self.master.header_controller.logout(),borderwidth= 0, highlightthickness = 0 , height = 5, anchor="w", bg="#99d2f2").pack(side = "right", ipady=5)
-        #self.header_frame.pack(fill = 'x')
-
-    
