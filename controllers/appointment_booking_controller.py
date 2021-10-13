@@ -19,6 +19,7 @@ class AppointmentBookingController(Controller):
         self.MPMS = MPMS.get_instance()
         # get user from the login
         self.patient = self.MPMS.get_login().get_user()
+        self.master = master
 
         # create initial data
         self.branch = 'None'
@@ -257,3 +258,6 @@ class AppointmentBookingController(Controller):
         for each_reason in self.MPMS.get_list_of_reasons().get_resaon_list():
             if reason == each_reason.get_reason():
                 return each_reason
+
+    def return_home(self):
+        self.master.header_controller.return_home_patient()

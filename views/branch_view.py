@@ -32,7 +32,7 @@ class BranchView(tk.Frame):
         button_frame = tk.Frame(outer_frame, bg='white')
         button_frame.pack(pady=20)
         tk.Button(button_frame, text='Show Info', command=lambda: self.show_info(listbox)).pack(side='left', padx=10)
-        tk.Button(button_frame, text='next', command=lambda: self.next(master, listbox)).pack(side='right', padx=10)
+        tk.Button(button_frame, text='Next', command=lambda: self.next(master, listbox)).pack(side='right', padx=10)
 
         # pack the frames
         outer_frame.pack(pady=50, fill='x', ipadx=30, ipady=30)

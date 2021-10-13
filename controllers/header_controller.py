@@ -42,3 +42,6 @@ class HeaderController(Controller):
     def login_status(self):
         self.MPMS = MPMS.get_instance()
         return self.MPMS.get_login()
+
+    def return_home_patient(self):
+        self._master.load_controller(PatientHomeController)

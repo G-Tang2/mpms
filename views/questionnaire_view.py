@@ -26,7 +26,7 @@ class QuestionnaireView(tk.Frame):
 
         # create the variable and frames based on the count of the questions
         for _ in range(question_count):
-            ans.append(tk.StringVar())
+            ans.append(tk.StringVar(value='None'))
             frames.append(tk.Frame(outer_label_frame, bg="white"))
 
         # display all the questions and radiobuttons
@@ -34,8 +34,6 @@ class QuestionnaireView(tk.Frame):
             tk.Label(outer_label_frame, text=questions[question_index].get_question(), justify='left', wraplength=800, width=120,
                      height=5, bg="white").pack()
             frames[question_index].pack()
-            # set the default value to None
-            ans[question_index].set('None')
             tk.Radiobutton(frames[question_index], text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left')
             tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right')
 
@@ -90,3 +88,5 @@ class QuestionnaireView(tk.Frame):
             self.controller.write_appointment()
             tk.messagebox.showinfo(title='Successfully',
                                    message='You have made an appointment \nPlease attend on time')
+
+            self.controller.return_home()
