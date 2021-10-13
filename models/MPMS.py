@@ -69,7 +69,7 @@ class MPMS:
         dt = pd.read_csv("./app_data/branches.csv")
         # change the appointment list value and write to the file
         dt.loc[int(branch_id) - 1, ('appointments')] = appointment_list.to_JSON()
-        dt.to_csv("./app_data/test.csv", index=False)
+        dt.to_csv("./app_data/branches.csv", index=False)
 
 
     @staticmethod
