@@ -50,18 +50,18 @@ class BranchView(tk.Frame):
             self._branch_listbox.select_set(self._selected_clinic_index)
 
 
-    def next(self, master: tk.Tk, listbox):
+    def next(self, listbox):
         '''
         check if the listbox is selected, if yes, display the next view, if not, show the message to remind patient
         '''
 
         if listbox.curselection():
-            value = listbox.get('active')
+            branch_name = listbox.get('active')
             # save index of selected branch
             self._selected_clinic_index = listbox.curselection()
-            self.controller.display_detail_view(master, value)
+            self.controller.display_detail_view(branch_name)
         else:
-            tk.messagebox.showerror(title='no branch', message='please select a branch')
+            tk.messagebox.showerror(title='No branch selected', message='Please select a branch')
 
     def show_info(self, listbox):
         '''
@@ -79,4 +79,4 @@ class BranchView(tk.Frame):
         '''
         show the information of the selected branch
         '''
-        tk.messagebox.showinfo(title='branch info', message=branch.get_info())
+        tk.messagebox.showinfo(title='Branch info', message=branch.get_info())
