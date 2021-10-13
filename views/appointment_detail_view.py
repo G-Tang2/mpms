@@ -22,7 +22,7 @@ class AppointmentDetailView(tk.Frame):
         inner_frame = tk.LabelFrame(outer_frame, relief="flat", bg="white")
 
         # page title
-        tk.Label(outer_frame, text="Appointment Detail", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
+        tk.Label(outer_frame, text="Appointment Details", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
         # patient status
         statue_frame = tk.Frame(outer_frame, width=200, bg="white")

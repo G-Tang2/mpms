@@ -35,3 +35,6 @@ class HeaderController(Controller):
             self._master.load_controller(LoginController)
             self.MPMS.set_login(None)
             self._view.hide_logout_btn()
+
+    def return_home_patient(self):
+        self._master.load_controller(PatientHomeController)

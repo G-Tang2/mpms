@@ -22,12 +22,12 @@ class Questionnaire:
 
         return Questionnaire(question_list)
 
-    @staticmethod
-    def create_from_json(json_info):
-        pass
     # @staticmethod
     # def create_from_json(json_info):
-    #     questionnaire = []
-    #     for question_json in json_info["questions"]:
-    #         questionnaire.append(Question.create_from_json(question_json))
-    #     return Questionnaire(questionnaire)
+    #     pass
+    @staticmethod
+    def create_from_json(json_info):
+        questionnaire = []
+        for question_json in json_info["questions"]:
+            questionnaire.append(Question.create_from_json(question_json))
+        return Questionnaire(questionnaire)
