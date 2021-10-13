@@ -1,6 +1,6 @@
 import tkinter as tk
 
-class Header(tk.Frame):
+class HeaderView(tk.Frame):
     def __init__(self, master: tk.Tk):
         tk.Frame.__init__(self, master)
         self.logout_image = tk.PhotoImage(file = 'images/download.png')

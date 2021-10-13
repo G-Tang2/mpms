@@ -2,7 +2,6 @@ import tkinter as tk
 from controllers.controller import Controller
 from controllers.header_controller import HeaderController
 from controllers.login_controller import LoginController
-from views.header_view import Header
 
 class App(tk.Tk):
     def __init__(self):

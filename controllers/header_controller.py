@@ -2,13 +2,13 @@ from controllers.controller import Controller
 from controllers.patient_home_controller import PatientHomeController
 from controllers.admin_home_controller import AdminHomeController
 from models.MPMS import MPMS
-from views.header_view import Header
+from views.header_view import HeaderView
 from controllers.login_controller import LoginController
 
 class HeaderController(Controller):
     def __init__(self, master):
         super().__init__(master)
-        self._view = Header(master)
+        self._view = HeaderView(master)
         self._load_view()
         self.MPMS = MPMS.get_instance()
     
