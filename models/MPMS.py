@@ -50,7 +50,7 @@ class MPMS:
             for appointment in appointment_list:
                 # Filter between time periods
                 appointment_date = appointment.get_appointment_datetime()
-                if start_date <  appointment_date < end_date:
+                if start_date.date() <=  appointment_date.date() <= end_date.date():
                     total_reasons += 1
                     appointment_reason_object = appointment.get_appointment_reason()
                     appointment_reason = appointment_reason_object.get_reason()
