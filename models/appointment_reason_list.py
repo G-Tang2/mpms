@@ -10,6 +10,11 @@ class AppointmentReasonList():
     def get_reason_list(self):
         return self.reasons
 
+    def get_reason(self, reason):
+        for each_reason in self.reasons:
+            if reason == each_reason.get_reason():
+                return each_reason
+
     @staticmethod
     def create_from_csv():
         reason_list = []

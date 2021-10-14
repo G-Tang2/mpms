@@ -212,16 +212,13 @@ class AppointmentBookingController(Controller):
         write new appointment to the file
         '''
 
-        branch_id = None
         # get the branch id
-        for branch in self.MPMS.get_list_of_branches().get_branch_list():
-            if self.branch_name == branch.get_name():
-                branch_id = branch.get_id()
-                break
+        branch_id = self.MPMS.get_branch(self.branch_name).get_id()
+
 
         # get the obj based on the str
         appointment_gp = self.list_of_gps.get_gp(self.gp)   # GP
-        appointment_reason = self.find_reason(self.reason)   # AppointmentReason
+        appointment_reason = self.MPMS.get_list_of_reasons().get_reason(self.reason)   # AppointmentReason
         appointment_date = datetime.datetime.strptime(self.date.strftime("%d/%m/%Y") + 'T' + self.time, "%d/%m/%YT%H:%M")    # datetime
 
         # create a new appointment with the data
@@ -233,21 +230,9 @@ class AppointmentBookingController(Controller):
 
         self.MPMS.write_appointment(branch_id, self.appointments)
 
-        # # read file from file
-        # dt = pd.read_csv("./app_data/branches.csv")
-        # # change the appointment list value and write to the file
-        # dt.loc[int(branch_id) - 1, ('appointments')] = self.appointments.to_JSON()
-        # dt.to_csv("./app_data/test.csv", index=False)
-
-    ######################  Controller  #########################
-
-    def find_reason(self, reason):
-        '''
-        get the reason obj based on the reason str
-        '''
-        for each_reason in self.MPMS.get_list_of_reasons().get_reason_list():
-            if reason == each_reason.get_reason():
-                return each_reason
 
     def return_home(self):
+        '''
+        return to patient homepage
+        '''
         self.master.header_controller.return_home_patient()
