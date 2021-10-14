@@ -7,7 +7,7 @@ class HeaderView(tk.Frame):
         
         #
         icon_logout = Image.open("images/icon_logout.png")
-        resized = icon_logout.resize((70,50), Image.ANTIALIAS)
+        resized = icon_logout.resize((58,72), Image.ANTIALIAS)
         self.logout_image = ImageTk.PhotoImage(resized)
 
         # header
@@ -24,7 +24,7 @@ class HeaderView(tk.Frame):
             command = lambda: master.header_controller.logout(),borderwidth= 0, highlightthickness = 0, anchor="w", bg="#99d2f2")
     
     def display_logout_btn(self):
-        self.logout_btn.pack(fill = 'x',side = "right", ipady=5, padx = 10) 
+        self.logout_btn.pack(fill = 'x',side = "right", padx = 40, pady=10) 
     
     def hide_logout_btn(self):
         self.logout_btn.pack_forget()
