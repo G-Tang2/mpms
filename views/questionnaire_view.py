@@ -14,7 +14,8 @@ class QuestionnaireView(tk.Frame):
         '''
 
         # background Frame
-        outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
+        outer_label_frame = tk.LabelFrame(self, relief="solid", width=900, borderwidth=2, bg="white")
+        outer_label_frame.grid_propagate(0)
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         # title
@@ -32,8 +33,7 @@ class QuestionnaireView(tk.Frame):
 
         # display all the questions and radiobuttons
         for question_index in range(question_count):
-            tk.Label(outer_label_frame, text=questions[question_index].get_question(), justify='left', wraplength=800, width=120,
-                     height=5, bg="white").pack()
+            tk.Label(outer_label_frame, text=questions[question_index].get_question(), justify='center', wraplength=700, bg="white").pack()
             frames[question_index].pack()
             tk.Radiobutton(frames[question_index], text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left')
             tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right')
