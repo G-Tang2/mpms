@@ -24,7 +24,7 @@ class PatientHomeView(tk.Frame):
         tk.Label(outer_label_frame, text="Welcome, {}".format(user_name), font=('Roboto',28, "bold"), bg="white").pack(pady=50)
         tk.Button(outer_label_frame, image = self.book_appointment_icon, bg="white", borderwidth= 0,
                   command=self.controller.book_appointment).pack()
-        tk.Label(outer_label_frame, text = "Book \nAppointment", font=('Roboto',16), bg="white").pack(pady = (0, 40))
+        
 
         # pack the frames
         outer_label_frame.pack(padx=350, pady=50, fill="x")
