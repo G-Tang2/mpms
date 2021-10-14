@@ -54,13 +54,13 @@ class StatusReportView(tk.Frame):
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
 
-    def display_input_error(self, message):
+    def display_input_error(self, message: str):
         '''
         Displays error message about report input depending on controller validation
         '''
         tk.messagebox.showerror("Error", message)
     
-    def display_reason_report(self, reason_dict, start_date, end_date):
+    def display_reason_report(self, reason_dict: dict, start_date: str, end_date: str):
         '''
         Creates window for reason report statistics
         '''
