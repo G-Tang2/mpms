@@ -30,5 +30,5 @@ class HeaderView(tk.Frame):
         self.logout_btn.pack_forget()
 
     def return_confirmation(self):
-        confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and Discard Changes?')
+        confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and discard changes?')
         return confirmation
