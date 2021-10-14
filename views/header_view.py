@@ -7,7 +7,7 @@ class HeaderView(tk.Frame):
         
         #
         icon_logout = Image.open("images/icon_logout.png")
-        resized = icon_logout.resize((55,50), Image.ANTIALIAS)
+        resized = icon_logout.resize((70,50), Image.ANTIALIAS)
         self.logout_image = ImageTk.PhotoImage(resized)
 
         # header
