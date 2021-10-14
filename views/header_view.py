@@ -9,7 +9,7 @@ class HeaderView(tk.Frame):
         '''
         # Create image and assign to reference variable
         icon_logout = Image.open("images/icon_logout.png")
-        resized = icon_logout.resize((55,50), Image.ANTIALIAS)
+        resized = icon_logout.resize((58,72), Image.ANTIALIAS)
         self.logout_image = ImageTk.PhotoImage(resized)
 
         # Create header frame to contain the header
@@ -26,10 +26,7 @@ class HeaderView(tk.Frame):
             command = lambda: master.header_controller.logout(),borderwidth= 0, highlightthickness = 0, anchor="w", bg="#99d2f2")
     
     def display_logout_btn(self):
-        '''
-        Display the logout button from view
-        '''
-        self.logout_btn.pack(fill = 'x',side = "right", ipady=5, padx = 10) 
+        self.logout_btn.pack(fill = 'x',side = "right", padx = 40, pady=10) 
     
     def hide_logout_btn(self):
         '''
@@ -38,8 +35,5 @@ class HeaderView(tk.Frame):
         self.logout_btn.pack_forget()
 
     def return_confirmation(self):
-        '''
-        Asks confirmation when returning to home page or logging out
-        '''
-        confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and Discard Changes?')
+        confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and discard changes?')
         return confirmation
