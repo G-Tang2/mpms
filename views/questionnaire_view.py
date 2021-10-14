@@ -19,7 +19,7 @@ class QuestionnaireView(tk.Frame):
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         # title
-        tk.Label(outer_label_frame, text="Questionnaire", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
+        tk.Label(outer_label_frame, text="COVID Questionnaire", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
         # get how many questions in the question
         question_count = len(questions)
