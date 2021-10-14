@@ -1,12 +1,15 @@
 import tkinter as tk
+from PIL import ImageTk, Image
 
 class AdminHomeView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # Initialise frame and set controller
         tk.Frame.__init__(self, master,bg="#c1e4f7")
         self.controller = controller
-        self.status_report_icon = tk.PhotoImage(file = 'images/icon_status_report.png')
-        self.status_report_icon = self.status_report_icon .subsample(4,4)
+        
+        icon_report = Image.open("images/icon_status_report.png")
+        resized = icon_report.resize((110,120), Image.ANTIALIAS)
+        self.status_report_icon  = ImageTk.PhotoImage(resized)
 
     def render_view(self, user_name: str) -> None:
         # container for login details

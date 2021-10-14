@@ -1,15 +1,17 @@
 import tkinter as tk
+from PIL import ImageTk, Image
 
 class PatientHomeView(tk.Frame):
     def __init__(self, master: tk.Tk, controller) -> None:
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
-        self.book_appointment_icon = tk.PhotoImage(file='images/icon_book_appointment.png')
+        # Assisgn image to variable and resize
+        icon_booking = Image.open("images/icon_book_appointment.png")
+        resized = icon_booking.resize((100,120), Image.ANTIALIAS)
+        self.book_appointment_icon  = ImageTk.PhotoImage(resized)
         
-        self.book_appointment_icon = self.book_appointment_icon.subsample(4, 4)
         
-
     def render_view(self, user_name: str) -> None:
         '''
         decide how the patient homepage is displayed
