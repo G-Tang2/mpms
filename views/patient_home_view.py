@@ -17,16 +17,14 @@ class PatientHomeView(tk.Frame):
 
         # background frame
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
-        inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
         
         # 'Book Appointment' Button
-        tk.Label(outer_label_frame, text="Welcome, {}".format(user_name), font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
+        tk.Label(outer_label_frame, text="Welcome, {}".format(user_name), font=('Roboto',28, "bold"), bg="white").pack(pady=50)
         tk.Button(outer_label_frame, image = self.book_appointment_icon, bg="white", borderwidth= 0,
                   command=self.controller.book_appointment).pack()
         tk.Label(outer_label_frame, text = "Book \nAppointment", font=('Roboto',16), bg="white").pack(pady = (0, 40))
 
         # pack the frames
-        inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
 
         

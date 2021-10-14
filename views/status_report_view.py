@@ -22,7 +22,7 @@ class StatusReportView(tk.Frame):
         date_label_frame = tk.LabelFrame(inner_label_frame, relief="flat", bg="white")
         
         # 'Start' Date Entry widget
-        tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
+        tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(50,30))
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(start_date_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
         start_cal = DateEntry(start_date_label_frame, date_pattern='dd/mm/y', selectmode = 'day', showweeknumbers = False)
