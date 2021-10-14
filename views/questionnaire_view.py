@@ -34,15 +34,15 @@ class QuestionnaireView(tk.Frame):
         # display all the questions and radiobuttons
         for question_index in range(question_count):
             tk.Label(outer_label_frame, text=questions[question_index].get_question(), justify='center', wraplength=700, bg="white").pack()
-            frames[question_index].pack()
-            tk.Radiobutton(frames[question_index], text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left')
-            tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right')
+            frames[question_index].pack(padx=20,pady=10)
+            tk.Radiobutton(frames[question_index], text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left',padx=80)
+            tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right',padx=80)
 
         # Buttons
         tk.Button(inner_label_frame, text='Confirm', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
-            command=lambda: self.check_question(ans, self.controller.get_data(), branch)).pack(side = 'right', ipadx=10 ,pady=30, padx=150)
+            command=lambda: self.check_question(ans, self.controller.get_data(), branch)).pack(side = 'right', ipadx=10 ,pady=30, padx=100)
         tk.Button(inner_label_frame, text='Back', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0", 
-            command=self.controller.back).pack(side = 'left',ipadx=10, pady=30, padx = 150)
+            command=self.controller.back).pack(side = 'left',ipadx=10, pady=30, padx = 100)
 
         # pack the background frames
         outer_label_frame.pack(pady=50)
@@ -56,11 +56,11 @@ class QuestionnaireView(tk.Frame):
         # if some of the question is not complete, display the message to patient
         for each_answer in ans:
             if each_answer.get() == 'None':
-                tk.messagebox.showerror(title='Incomplete questionnaire', message='Please complete all the questions')
+                tk.messagebox.showerror(title='Incomplete Questionnaire', message='Please complete all the questions.')
                 return
             elif each_answer.get() == 'Yes':
-                tk.messagebox.showerror(title='Requirement not meet',
-                                                  message='"Please search on health.gov.au and attend a free COVID-19 respiratory clinic"')
+                tk.messagebox.showerror(title='Requirement Not Meet',
+                                                  message='Please search on health.gov.au and attend a free COVID-19 respiratory clinic')
                 return
 
         # if the questionnaire part id ok, to display the confirming message box
@@ -81,12 +81,12 @@ class QuestionnaireView(tk.Frame):
                                                     '\n\nReason: ' + appointment_data[1]
                                                     + '\n\nNew patient: ' + appointment_data[2] +
                                                     '\n\nDate: ' + appointment_data[3].strftime("%d/%m/%Y") +
-                                                    '\nTime: ' + appointment_data[4])
+                                                    '     Time: ' + appointment_data[4])
 
         # if the patient click ok, display the appointment done message and write the details to the file
         if confirm:
             self.controller.write_appointment()
             tk.messagebox.showinfo(title='Successfully',
-                                   message='You have made an appointment \nPlease attend on time')
+                                   message='You have made an appointment. \nPlease attend on time.')
 
             self.controller.return_home()
