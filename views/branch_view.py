@@ -22,11 +22,11 @@ class BranchView(tk.Frame):
         tk.Label(outer_frame, text="Branches", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
 
         # selecting a clinic
-        tk.Label(outer_frame, text='Please select a branch', bg="white").pack(pady=10)
-        listbox = tk.Listbox(outer_frame)
+        tk.Label(outer_frame, text='Please select a branch:', font=('Roboto',12), anchor="w", bg="white").pack(padx=100, pady=10, fill='x')
+        listbox = tk.Listbox(outer_frame, font=('Roboto',15))
         for branch in list_of_branches:
             listbox.insert('end', branch)
-        listbox.pack(padx=100)
+        listbox.pack(padx=100, fill='x')
 
         # Buttons
         button_frame = tk.Frame(outer_frame, bg='white')
@@ -75,7 +75,7 @@ class BranchView(tk.Frame):
             value = listbox.get('active')
             self.controller.show_info(value)
         else:
-            tk.messagebox.showerror(title='no branch', message='please select a branch')
+            tk.messagebox.showerror(title='No branch selected', message='Please select a branch')
 
     def show_branch_info(self, branch):
         '''
