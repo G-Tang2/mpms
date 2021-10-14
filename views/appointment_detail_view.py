@@ -26,27 +26,29 @@ class AppointmentDetailView(tk.Frame):
 
         # patient status
         statue_frame = tk.Frame(outer_frame, width=200, bg="white")
-        statue_frame.pack(pady=10)
-        tk.Label(statue_frame, text='Please choose your status', bg="white").pack(side='top')
+        statue_frame.pack(pady=15)
+        tk.Label(statue_frame, text='Please choose your status:', font=('Roboto',12), anchor="w", bg="white").pack(side='top', padx=30, fill='x')
         var = tk.StringVar(value="None")
-        tk.Radiobutton(statue_frame, text='New patient', variable=var, value='True', bg="white").pack(side='left')
-        tk.Radiobutton(statue_frame, text='Existing patient', variable=var, value='False', bg="white").pack(side='right')
+        tk.Radiobutton(statue_frame, text='New patient', variable=var, value='True', bg="white").pack(side='left', padx=30, fill='x')
+        tk.Radiobutton(statue_frame, text='Existing patient', variable=var, value='False', bg="white").pack(side='right',padx=30, fill='x')
 
         # appointment reason
         reason_frame = tk.Frame(outer_frame, width=200, bg="white")
-        reason_frame.pack(pady=10)
-        tk.Label(reason_frame, text='Please choose your reason for appointment', font=('Roboto', 15), bg="white").pack()
+        reason_frame.pack(pady=15)
+        tk.Label(reason_frame, text='Please choose the reason for appointment:', font=('Roboto', 12), anchor="w", bg="white").pack(side='top', padx=30, fill='x')
         rea = tk.StringVar()
         reason_box = ttk.Combobox(reason_frame, textvariable=rea, width=30)
         reason_box['value'] = reasons
         reason_box.bind('<<ComboboxSelected>>', self.callback)
-        reason_box.pack()
+        reason_box.pack(padx=30, fill='x')
 
         # date and time
         dt_frame = tk.Frame(outer_frame, width=200, bg="white")
-        dt_frame.pack(pady=10)
+        dt_frame.pack(pady=15)
+        tk.Label(dt_frame, text='Please choose the date and time:', font=('Roboto', 12), anchor="w",
+                 bg="white").pack(side='top', fill='x')
         app_date = DateEntry(dt_frame, date_pattern='dd/mm/y', selectmode='day', showweeknumbers=False)
-        app_date.pack(side='left')
+        app_date.pack(side='left', fill='x')
 
         tm = tk.StringVar()
         self.time_list = ttk.Combobox(dt_frame, textvariable=tm, state='disabled', width=15)
@@ -54,14 +56,16 @@ class AppointmentDetailView(tk.Frame):
 
         # GP
         gp_frame = tk.Frame(outer_frame, width=200, bg="white")
-        gp_frame.pack(pady=10)
+        gp_frame.pack(pady=15)
+        tk.Label(gp_frame, text='Please choose the GP (Optiaonal):', font=('Roboto', 12), anchor="w",
+                 bg="white").pack(side='top', padx=30, fill='x')
         gp = tk.StringVar(value='None')
         gp_box = ttk.Combobox(gp_frame, textvariable=gp, width=30)
         gps = ['None']
         for each_gp in list_of_gps.get_gps():
             gps.append(each_gp.get_full_name())
         gp_box['value'] = gps
-        gp_box.pack()
+        gp_box.pack(padx=30, fill='x')
 
         # button to the next page
         tk.Button(inner_frame, text='Next', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
@@ -101,31 +105,32 @@ class AppointmentDetailView(tk.Frame):
         if gp == 'None':
             gp = self.controller.find_gp_with_least_appointment()
 
-        # check the reason box status
-        if reason == '':
-            tk.messagebox.showerror(title='Reason for appointment Error', message='please select one reason for seeing GP')
-            return
-
         # check the patient status
         if patient_status == 'None':
-            tk.messagebox.showerror(title='Patient status Error', message='please select one patient status')
+            tk.messagebox.showerror(title='Patient Status Incomplete', message='Please select one patient status.')
+            return
+
+        # check the reason box status
+        if reason == '':
+            tk.messagebox.showerror(title='Reason For Appointment Incompleted',
+                                    message='Please select one reason for appointment.')
             return
 
         # check the date format
         try:
             date_datetime = datetime.datetime.strptime(date, '%d/%m/%Y')
         except ValueError:
-            self.display_input_error("Incorrect date format input \n(Use DD/MM/YYYY)")
+            self.display_input_error("Incorrect date format input \n(Use DD/MM/YYYY)\nE.g. 01/03/2021 for 2021 March 1st")
             return
 
         # check if the date is in the past
         if date_datetime.date() < datetime.date.today():
-            tk.messagebox.showerror(title='Date Error', message='Please choose a date after today')
+            tk.messagebox.showerror(title='Date Error', message='Please choose a date after today.')
             return
 
         # check the time box status
         if time == '':
-            tk.messagebox.showerror(title='Time Error', message='please choose a time')
+            tk.messagebox.showerror(title='Time Incompleted', message='Please choose a time.')
             return
 
         # save user input
@@ -138,4 +143,4 @@ class AppointmentDetailView(tk.Frame):
         '''
         display the error message for the wrong date format
         '''
-        tk.messagebox.showerror(title='date error', message=err_str)
+        tk.messagebox.showerror(title='Date Format Error', message=err_str)
