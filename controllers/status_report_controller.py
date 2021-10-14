@@ -37,4 +37,4 @@ class StatusReportController(Controller):
             self._view.display_input_error("No appointments within this period")
             return
         # Calls view function to display reason report
-        self._view.display_reason_report(reason_dict)
+        self._view.display_reason_report(reason_dict, start_date, end_date)
