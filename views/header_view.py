@@ -26,6 +26,9 @@ class HeaderView(tk.Frame):
             command = lambda: master.header_controller.logout(),borderwidth= 0, highlightthickness = 0, anchor="w", bg="#99d2f2")
     
     def display_logout_btn(self):
+        '''
+        Displays the logout button 
+        '''
         self.logout_btn.pack(fill = 'x',side = "right", padx = 40, pady=10) 
     
     def hide_logout_btn(self):
@@ -35,5 +38,8 @@ class HeaderView(tk.Frame):
         self.logout_btn.pack_forget()
 
     def return_confirmation(self):
+        '''
+        Returns boolean depending if user confirms leaving page
+        '''
         confirmation = tk.messagebox.askyesno(title='Confirmation', message='Leave and discard changes?')
         return confirmation

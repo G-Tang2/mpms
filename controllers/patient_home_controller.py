@@ -18,5 +18,8 @@ class PatientHomeController(Controller):
         self._view.render_view(user_name)
 
     def book_appointment(self):
+        '''
+        Loads appointment booking view and controls
+        '''
         self._master.load_controller(AppointmentBookingController)
         
