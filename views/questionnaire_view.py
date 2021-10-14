@@ -32,13 +32,13 @@ class QuestionnaireView(tk.Frame):
             frames.append(tk.Frame(outer_label_frame, bg="white"))
 
         # display all the questions and radiobuttons
-        for question_index in range(question_count):
-            tk.Label(frames[question_index], text=questions[question_index].get_question(), justify='center', wraplength=700, bg="white").pack()
-            radio_frame = tk.Frame(frames[question_index], bg="white")
-            tk.Radiobutton(radio_frame, text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left',padx=(0, 30), pady=5)
-            tk.Radiobutton(radio_frame, text='No', variable=ans[question_index], value='No', bg="white").pack(side='right',padx=(30, 0), pady=5)
+        for i in range(question_count):
+            tk.Label(frames[i], text="{}. {}".format(i+1, questions[i].get_question()), justify='center', wraplength=700, bg="white").pack()
+            radio_frame = tk.Frame(frames[i], bg="white")
+            tk.Radiobutton(radio_frame, text='Yes', variable=ans[i], value='Yes', bg="white").pack(side='left',padx=(0, 30), pady=5)
+            tk.Radiobutton(radio_frame, text='No', variable=ans[i], value='No', bg="white").pack(side='right',padx=(30, 0), pady=5)
             radio_frame.pack()
-            frames[question_index].pack(padx=20,pady=10)
+            frames[i].pack(padx=20,pady=10)
             tk.Frame(outer_label_frame, bg="black", height=1).pack(padx=50, fill="x")
 
         # Buttons
