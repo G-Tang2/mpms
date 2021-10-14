@@ -1,5 +1,5 @@
-import datetime
 import tkinter as tk
+from tkinter import ttk
 
 
 class QuestionnaireView(tk.Frame):
@@ -14,12 +14,12 @@ class QuestionnaireView(tk.Frame):
         '''
 
         # background Frame
-        outer_label_frame = tk.LabelFrame(self, relief="solid", width=900, borderwidth=2, bg="white")
+        outer_label_frame = tk.LabelFrame(self, relief="solid", width=1100, borderwidth=2, bg="white")
         outer_label_frame.grid_propagate(0)
         inner_label_frame = tk.LabelFrame(outer_label_frame, relief="flat", bg="white")
 
         # title
-        tk.Label(outer_label_frame, text="Questionnaire", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 30))
+        tk.Label(outer_label_frame, text="Questionnaire", font=('Roboto', 28, "bold"), bg="white").pack(pady=(50, 20))
 
         # get how many questions in the question
         question_count = len(questions)
@@ -33,20 +33,23 @@ class QuestionnaireView(tk.Frame):
 
         # display all the questions and radiobuttons
         for question_index in range(question_count):
-            tk.Label(outer_label_frame, text=questions[question_index].get_question(), justify='center', wraplength=700, bg="white").pack()
+            tk.Label(frames[question_index], text=questions[question_index].get_question(), justify='center', wraplength=700, bg="white").pack()
+            radio_frame = tk.Frame(frames[question_index], bg="white")
+            tk.Radiobutton(radio_frame, text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left',padx=(0, 30), pady=5)
+            tk.Radiobutton(radio_frame, text='No', variable=ans[question_index], value='No', bg="white").pack(side='right',padx=(30, 0), pady=5)
+            radio_frame.pack()
             frames[question_index].pack(padx=20,pady=10)
-            tk.Radiobutton(frames[question_index], text='Yes', variable=ans[question_index], value='Yes', bg="white").pack(side='left',padx=80)
-            tk.Radiobutton(frames[question_index], text='No', variable=ans[question_index], value='No', bg="white").pack(side='right',padx=80)
+            tk.Frame(outer_label_frame, bg="black", height=1).pack(padx=50, fill="x")
 
         # Buttons
         tk.Button(inner_label_frame, text='Confirm', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0",
-            command=lambda: self.check_question(ans, self.controller.get_data(), branch)).pack(side = 'right', ipadx=10 ,pady=30, padx=100)
+            command=lambda: self.check_question(ans, self.controller.get_data(), branch)).pack(side = 'right', ipadx=10 ,pady=30, padx=(0,170))
         tk.Button(inner_label_frame, text='Back', borderwidth=2, relief="solid", bg="#99d2f2", activebackground="#81c8f0", 
-            command=self.controller.back).pack(side = 'left',ipadx=10, pady=30, padx = 100)
+            command=self.controller.back).pack(side = 'left',ipadx=10, pady=30, padx = (170,0))
 
         # pack the background frames
-        outer_label_frame.pack(pady=50)
-        inner_label_frame.pack(padx=50, fill="x")
+        outer_label_frame.pack(pady=50, ipadx=30)
+        inner_label_frame.pack(padx=100, fill="x")
 
     def check_question(self, ans, appointment_data, branch):
         '''
