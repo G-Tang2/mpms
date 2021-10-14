@@ -23,7 +23,7 @@ class PatientHomeView(tk.Frame):
         tk.Label(outer_label_frame, text="Welcome, {}".format(user_name), font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
         tk.Button(outer_label_frame, image = self.book_appointment_icon, bg="white", borderwidth= 0,
                   command=self.controller.book_appointment).pack()
-        tk.Label(outer_label_frame, text = "Book \nAppointment", font=('Roboto',18, "bold")).pack(pady = 20)
+        tk.Label(outer_label_frame, text = "Book \nAppointment", font=('Roboto',16), bg="white").pack(pady = (0, 40))
 
         # pack the frames
         inner_label_frame.pack(padx=50, fill="x")
