@@ -5,6 +5,8 @@ class PatientHomeView(tk.Frame):
         # Initialise frame and set controller
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
+        self.book_appointment_icon = tk.PhotoImage(file='images/icon_book_appointment.png')
+        self.book_appointment_icon = self.book_appointment_icon.subsample(4, 4)
         
 
     def render_view(self, user_name: str) -> None:
@@ -18,8 +20,8 @@ class PatientHomeView(tk.Frame):
         
         # 'Book Appointment' Button
         tk.Label(outer_label_frame, text="Welcome, {}".format(user_name), font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
-        tk.Button(inner_label_frame, text = "Book Appointment", width=20, height=5,
-                  command=self.controller.book_appointment).pack(padx=50, pady=30)
+        tk.Button(outer_label_frame, image = self.book_appointment_icon, bg="white", borderwidth= 0,
+                  command=self.controller.book_appointment).pack(pady=50)
 
         # pack the frames
         inner_label_frame.pack(padx=50, fill="x")
