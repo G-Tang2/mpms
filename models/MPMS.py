@@ -38,10 +38,13 @@ class MPMS:
                 return branch
 
     def calculate_reason_statistic(self, start_date: datetime, end_date: datetime) -> dict:
+        '''
+        Calculate appointment reason count of all apointments within a time period
+        '''
         statistic = {}
 
         list_of_branches = self.list_of_branches.get_branch_list()
-
+        # Count total reasons
         total_reasons = 0
         for branch in list_of_branches:
             appointment_list = branch.get_appointments()
@@ -54,11 +57,12 @@ class MPMS:
                     total_reasons += 1
                     appointment_reason_object = appointment.get_appointment_reason()
                     appointment_reason = appointment_reason_object.get_reason()
+                    # Dictionary of reasons with corresponding reason count
                     if appointment_reason not in statistic:
                         statistic[appointment_reason] = 1
                     else:
                         statistic[appointment_reason] += 1
-
+        # Convert count into percentage 
         for key,value in statistic.items():
             statistic[key] = (value/total_reasons) * 100
         return statistic
