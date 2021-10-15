@@ -1,18 +1,19 @@
 import tkinter as tk
 
+from controllers.login_controller import LoginController
+
 class LoginView(tk.Frame):
-    def __init__(self, master: tk.Tk, controller) -> None:
-        # initialise frame and set controller
+    def __init__(self, master: tk.Tk, controller: LoginController) -> None:
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
 
     def render_view(self) -> None:
+        '''
+        Create UI components to be displayed
+        '''
         # declare variables
         email_address = tk.StringVar()
         password = tk.StringVar()
-
-        email_address.set("admin@monash.edu")
-        password.set("Monash1234")
 
         # container for login details
         outer_label_frame = tk.LabelFrame(self, relief="solid", borderwidth=2, bg="white")
@@ -38,5 +39,8 @@ class LoginView(tk.Frame):
         inner_label_frame.pack(padx=50, fill="x")
         outer_label_frame.pack(padx=350, pady=50, fill="x")
 
-    def display_email_error(self, message: str):
+    def display_email_error(self, message: str) -> None:
+        '''
+        Displays error message
+        '''
         tk.messagebox.showerror("Error", message)
