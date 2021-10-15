@@ -65,11 +65,12 @@ class StatusReportView(tk.Frame):
         Creates window for reason report statistics
         '''
         # Create new window for reason report
-        report = Toplevel(self)
+        report = Toplevel(self, bg = 'white')
         report.title("Reason Report")
         report.geometry("800x700")
-        tk.Label(report,text = "Reason Report", font=('Roboto',28, "bold")).pack(pady=(20,0))
-        tk.Label(report,text = start_date + "-" + end_date).pack()
+        tk.Label(report,text = "Reason Report", font=('Roboto',28, "bold"), bg ='white').pack(pady=(20,0))
+        tk.Label(report,text = start_date + "-" + end_date, bg ='white').pack()
+        tk.LabelFrame(report, bg="black", height=2).pack(pady=(10,0),fill="x")
 
         # Create figure to hold pie-chart
         f = Figure(figsize=(5,4), dpi= 100)
@@ -95,10 +96,10 @@ class StatusReportView(tk.Frame):
         reason_table.heading("Occurences", text = 'Occurence Percentage (%)', anchor=E)
         # Style headings
         style = ttk.Style()
-        style.configure("Treeview.Heading", font=(None, 16))
+        style.configure("Treeview.Heading", font=(None, 12))
         # Iterates through reason statistic, adding each reason to the table
         table_iid = 0
         for key,value in reason_dict.items():
-            reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
+            reason_table.insert(parent='',index='end',iid=table_iid,text="",values=("     " + key,round(value,2)))
             table_iid += 1
         reason_table.pack(fill=tk.BOTH)
