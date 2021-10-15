@@ -27,6 +27,9 @@ class Patient(User):
 
     @staticmethod
     def create_from_json(json_info):
+        '''
+        Create a patient instance based on json input
+        '''
         email_address = json_info["email_address"]
         password = json_info["password"]
         first_name = json_info["first_name"]
