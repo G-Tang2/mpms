@@ -8,22 +8,22 @@ from models.login import Login
 
 
 class LoginController(Controller):
-    def __init__(self, master):
+    def __init__(self, master: tk.Tk) -> None:
         super().__init__(master)
         self._view = LoginView(master, self)
         self._view.render_view()
         self._load_view()
         self.MPMS = MPMS.get_instance()
 
-    def login(self, email_address: str, password: str):
+    def login(self, email_address: str, password: str) -> None:
         '''
-        Login function loads controller depending on user status
+        Login function loads controller depending on user type
         '''
         try:
             self.MPMS.set_login(Login(email_address, password))
             # Displays logout button when user logs in
             self._master.header_controller.display_logout()
-            # Checks user status, loads controllers depending on admin or patient
+            # Checks user status and loads controllers depending on admin or patient
             if self.MPMS.get_login().is_patient():
                 self._master.load_controller(PatientHomeController)
             else:
