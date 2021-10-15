@@ -1,6 +1,6 @@
 import csv
 import json
-from datetime import datetime
+from typing import Tuple
 from models.user import User
 from models.patient import Patient
 from models.admin import Admin
@@ -10,6 +10,9 @@ class Login():
         self.user = self._load_user(email_address, password)
         
     def _load_user(self, email_address: str, password: str) -> User:
+        '''
+        Creates user instance from email address and password input
+        '''
         is_valid_user, account_type, account_details = self._valid_credentials(email_address, password)
         if is_valid_user:
             if account_type == "administrator":
@@ -21,15 +24,19 @@ class Login():
         else:
             raise ValueError("Invalid email address or password.")
 
-    def _valid_credentials(self, email_address: str, password: str) -> bool:
+    def _valid_credentials(self, email_address: str, password: str) -> Tuple[bool, str, dict]:
+        '''
+        Validates user email address and password
+        '''
         # default values
-        is_valid_user = False
-        account_type = None
-        account_details = None
+        is_valid_user, account_type, account_details = False, None, None
+
         with open("./app_data/accounts.csv", "r", encoding='utf-8-sig') as f:
             f_reader = csv.DictReader(f)
             for user in f_reader:
+                # checks if user credentials exists in csv file
                 if user["email_address"] == email_address and user["password"] == password:
+                    # set user information
                     is_valid_user = True
                     account_type = user["type"]
                     account_user_detail = user["user_details"]
@@ -42,11 +49,11 @@ class Login():
             
             return is_valid_user, account_type, account_details
 
-    def is_patient(self):
+    def is_patient(self) -> bool:
         return isinstance(self.user, Patient)
 
-    def get_user(self):
+    def get_user(self) -> User:
         return self.user
 
-    def get_user_name(self):
+    def get_user_name(self) -> str:
         return str(self.user)
