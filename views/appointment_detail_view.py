@@ -1,7 +1,9 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Event, ttk
+from typing import List
 from tkcalendar import *
 import datetime
+from models.gp_list import GPList
 
 
 class AppointmentDetailView(tk.Frame):
@@ -12,7 +14,7 @@ class AppointmentDetailView(tk.Frame):
         self.controller = controller
         self.time_show = False
 
-    def render_view(self, master: tk.Tk, list_of_gps, reasons) -> None:
+    def render_view(self, master: tk.Tk, list_of_gps: GPList, reasons: List[str]) -> None:
         '''
         decide how the appointment detail view is displayed
         '''
@@ -80,7 +82,7 @@ class AppointmentDetailView(tk.Frame):
     def reload_values(self):
         pass
 
-    def callback(self, e):
+    def callback(self, e: Event) -> None:
         '''
         define what will happen when patient change the reason
         '''
@@ -92,10 +94,10 @@ class AppointmentDetailView(tk.Frame):
             # display the time list based on the reason
             self.controller.get_time(e.widget.get())
 
-    def set_time_list(self, times):
+    def set_time_list(self, times: List[str]) -> None:
         self.time_list['value'] = times
 
-    def next(self, master, gp, reason, patient_status, date, time):
+    def next(self, master, gp: str, reason: str, patient_status: str, date: str, time: str) -> None:
         '''
         check if the details is well completed
         :return:
@@ -139,7 +141,7 @@ class AppointmentDetailView(tk.Frame):
         # display the next view
         self.controller.display_questionnaire_view()
 
-    def display_input_error(self, err_str):
+    def display_input_error(self, err_str: str) -> None:
         '''
         display the error message for the wrong date format
         '''
