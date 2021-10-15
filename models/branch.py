@@ -8,7 +8,7 @@ import json
 class Branch():
     def __init__(self, id: str, name: str, address: str, open_hour: str, close_hour: str,
             phone_number: str, unavailable_days: List[datetime], 
-            appointments: AppointmentList, gps: GPList, queue = Queue()):
+            appointments: AppointmentList, gps: GPList, queue = Queue()) -> None:
         self.id = id
         self.name = name
         self.address = address
@@ -23,7 +23,7 @@ class Branch():
     def get_name(self) -> str:
         return self.name
 
-    def get_id(self):
+    def get_id(self) -> str:
         return self.id
 
     def get_appointments(self) -> AppointmentList:
@@ -32,15 +32,21 @@ class Branch():
     def get_gps(self) -> GPList:
         return self.gps
 
-    def get_open_hours(self):
+    def get_open_hours(self) -> str:
         return self.open_hour
 
-    def get_info(self):
+    def get_info(self) -> str:
+        '''
+        Return a formatted string containing all branch information
+        '''
         return 'Name: ' + self.name + '\nAddress: ' + self.address + \
                '\nOpening hours: ' + self.open_hour + ' - ' + self.close_hour + '\nPhone: ' + self.phone_number
 
     @staticmethod
     def create_from_json(json_info):
+        '''
+        Create a BranchList instance based on json input
+        '''
         id = json_info["id"]
         name = json_info["name"]
         address = json_info["address"]
