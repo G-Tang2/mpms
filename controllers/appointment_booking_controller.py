@@ -1,6 +1,6 @@
 import datetime
 import tkinter as tk
-from typing import List
+from typing import List, Tuple
 from models.branch_list import BranchList
 import pandas as pd
 from models.MPMS import MPMS
@@ -33,7 +33,7 @@ class AppointmentBookingController(Controller):
         self.display_branch_view(master)
 
         ##################  Branch View  #######################
-    def display_branch_view(self, master):
+    def display_branch_view(self, master: tk.Tk) -> None:
         '''
         display branch view
         '''
@@ -96,13 +96,13 @@ class AppointmentBookingController(Controller):
         view.tkraise()
         self._view = view
 
-    def show_info(self, branch):
+    def show_info(self, branch: str) -> None:
         '''
         show information of branch
         '''
         self._view.show_branch_info(self.MPMS.get_branch(branch))
 
-    def get_reason_list(self):
+    def get_reason_list(self) -> List[str]:
         '''
         offer reason list to appointment detail view
         '''
@@ -114,7 +114,7 @@ class AppointmentBookingController(Controller):
         return reasons
 
     ###################  Appointment Detail View  ##################
-    def back(self):
+    def back(self) -> None:
         '''
         back to the previous view
         '''
@@ -152,7 +152,7 @@ class AppointmentBookingController(Controller):
 
         return gp_name
 
-    def get_time(self, reason):
+    def get_time(self, reason: str) -> None:
         '''
         offer time list to the time box based on the reason
         '''
@@ -178,7 +178,7 @@ class AppointmentBookingController(Controller):
 
         self._view.set_time_list(times)
 
-    def save_values(self, gp: str, reason: str, patient_status: str, date: datetime, time: str):
+    def save_values(self, gp: str, reason: str, patient_status: str, date: datetime, time: str) -> None:
         # store the details from the detail view
         self.gp = gp
         self.reason = reason 
@@ -200,14 +200,14 @@ class AppointmentBookingController(Controller):
         # put the new view on the top of the previous one
         view.tkraise()
 
-    def get_data(self):
+    def get_data(self) -> Tuple[str, str, str, datetime.datetime, str]:
         '''
         return the data for the appointment to a list
         '''
         return [self.gp, self.reason, self.patient_status, self.date, self.time]
 
     ##########################  Questionnaire  #######################
-    def write_appointment(self):
+    def write_appointment(self) -> None:
         '''
         write new appointment to the file
         '''
@@ -231,7 +231,7 @@ class AppointmentBookingController(Controller):
         self.MPMS.write_appointment(branch_id, self.appointments)
 
 
-    def return_home(self):
+    def return_home(self) -> None:
         '''
         return to patient homepage
         '''
