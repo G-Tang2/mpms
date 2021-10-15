@@ -1,7 +1,6 @@
 from models.branch import Branch
 from models.branch_list import BranchList
 from models.appointment_reason_list import AppointmentReasonList
-from models.question import Question
 from models.questionnaire import Questionnaire
 from models.login import Login
 from datetime import datetime
@@ -44,12 +43,12 @@ class MPMS:
 
     def calculate_reason_statistic(self, start_date: datetime, end_date: datetime) -> dict:
         '''
-        Returns appointment percentage for each appointment visitation reason in the specified date
+        Calculate appointment reason count of all apointments within a time period
         '''
         statistic = {}
 
         list_of_branches = self.list_of_branches.get_branch_list()
-
+        # Count total reasons
         total_reasons = 0
         for branch in list_of_branches:
             appointment_list = branch.get_appointments()
@@ -62,11 +61,12 @@ class MPMS:
                     total_reasons += 1
                     appointment_reason_object = appointment.get_appointment_reason()
                     appointment_reason = appointment_reason_object.get_reason()
+                    # Dictionary of reasons with corresponding reason count
                     if appointment_reason not in statistic:
                         statistic[appointment_reason] = 1
                     else:
                         statistic[appointment_reason] += 1
-
+        # Convert count into percentage 
         for key,value in statistic.items():
             statistic[key] = (value/total_reasons) * 100
         return statistic
