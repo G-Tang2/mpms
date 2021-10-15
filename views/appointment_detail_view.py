@@ -124,7 +124,7 @@ class AppointmentDetailView(tk.Frame):
             return
 
         # check if the date is in the past
-        if date_datetime.date() < datetime.date.today():
+        if date_datetime.date() <= datetime.date.today():
             tk.messagebox.showerror(title='Date Error', message='Please choose a date after today.')
             return
 
