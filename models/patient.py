@@ -18,6 +18,9 @@ class Patient(User):
         return "{} {}".format(self.first_name, self.last_name)
 
     def serialise_copy(self):
+        '''
+        Return a serialisable version of this patient instance
+        '''
         tmp = copy.deepcopy(self)
         tmp.date_of_birth = tmp.date_of_birth.strftime("%Y-%m-%dT%H:%M:%S")
         return tmp
