@@ -18,7 +18,7 @@ class HeaderController(Controller):
         '''
         self._view.pack(fill="x")   
 
-    def return_home(self):
+    def return_home(self) -> None:
         '''
         Return to home page function
         '''
@@ -33,13 +33,13 @@ class HeaderController(Controller):
                     else:
                         self._master.load_controller(AdminHomeController)
 
-    def display_logout(self):
+    def display_logout(self) -> None:
         '''
         Display logout button
         '''
         self._view.display_logout_btn()
         
-    def logout(self):
+    def logout(self) -> None:
         '''
         Logout from account function
         '''
@@ -55,5 +55,5 @@ class HeaderController(Controller):
             # Call view function to hide logout button
             self._view.hide_logout_btn()
 
-    def return_home_patient(self):
+    def return_home_patient(self) -> None:
         self._master.load_controller(PatientHomeController)
