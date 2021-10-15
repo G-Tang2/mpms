@@ -4,19 +4,25 @@ import csv
 
 
 class AppointmentReasonList():
-    def __init__(self, reasons: List[AppointmentReason]):
-        self.reasons = reasons
+    def __init__(self, appointment_reasons: List[AppointmentReason]) -> None:
+        self.appointment_reasons = appointment_reasons
 
-    def get_reason_list(self):
-        return self.reasons
+    def get_reason_list(self) -> List[AppointmentReason]:
+        return self.appointment_reasons
 
-    def get_reason(self, reason):
-        for each_reason in self.reasons:
-            if reason == each_reason.get_reason():
-                return each_reason
+    def get_reason(self, reason: str) -> AppointmentReason:
+        '''
+        Find AppointmentReason with the given reason
+        '''
+        for appointment_reason in self.appointment_reasons:
+            if reason == appointment_reason.get_reason():
+                return appointment_reason
 
     @staticmethod
     def create_from_csv():
+        '''
+        Create an AppointmentReasonList instance based on a json input
+        '''
         reason_list = []
 
         with open("./app_data/appointment_resaon.csv", "r", encoding='utf-8-sig') as f:

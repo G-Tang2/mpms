@@ -1,9 +1,7 @@
 import tkinter as tk
 
-from controllers.login_controller import LoginController
-
 class LoginView(tk.Frame):
-    def __init__(self, master: tk.Tk, controller: LoginController) -> None:
+    def __init__(self, master: tk.Tk, controller) -> None:
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
 
