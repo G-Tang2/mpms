@@ -1,4 +1,5 @@
 import tkinter as tk
+from typing import List
 
 
 class BranchView(tk.Frame):
@@ -9,7 +10,7 @@ class BranchView(tk.Frame):
         self._branch_listbox = None
         self._selected_clinic_index = 0
 
-    def render_view(self, master: tk.Tk, list_of_branches) -> None:
+    def render_view(self, master: tk.Tk, list_of_branches: List[str]) -> None:
         '''
         decide how the branch view is
         '''
@@ -41,7 +42,7 @@ class BranchView(tk.Frame):
         # store listbox for data load reference
         self._branch_listbox = listbox
 
-    def reload_values(self):
+    def reload_values(self) -> None:
         '''
         reload branch selection
         '''
@@ -50,7 +51,7 @@ class BranchView(tk.Frame):
             self._branch_listbox.select_set(self._selected_clinic_index)
 
 
-    def next(self, listbox):
+    def next(self, listbox) -> None:
         '''
         check if the listbox is selected, if yes, display the next view, if not, show the message to remind patient
         '''
@@ -63,7 +64,7 @@ class BranchView(tk.Frame):
         else:
             tk.messagebox.showerror(title='No Branch Selected', message='Please select a branch.')
 
-    def show_info(self, listbox):
+    def show_info(self, listbox) -> None:
         '''
         check if the listbox is selected, if yes, show the information of the selected branch,
         if not, show the message to remind patient
@@ -75,7 +76,7 @@ class BranchView(tk.Frame):
         else:
             tk.messagebox.showerror(title='No Branch Selected', message='Please select a branch.')
 
-    def show_branch_info(self, branch):
+    def show_branch_info(self, branch) -> None:
         '''
         show the information of the selected branch
         '''
