@@ -66,7 +66,7 @@ class QuestionnaireView(tk.Frame):
                                                   message='Please search on health.gov.au and attend a free COVID-19 respiratory clinic')
                 return
 
-        # if the questionnaire part id ok, to display the confirming message box
+        # if the questionnaire part is ok, to display the confirming message box
         self.make_appointment(appointment_data, branch)
 
     def reload_values(self):
