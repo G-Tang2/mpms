@@ -1,5 +1,6 @@
+from datetime import datetime
 import tkinter as tk
-from typing import List
+from typing import List, Tuple
 
 from models.question import Question
 
@@ -53,7 +54,7 @@ class QuestionnaireView(tk.Frame):
         outer_label_frame.pack(pady=50, ipadx=30)
         inner_label_frame.pack(padx=100, fill="x")
 
-    def check_question(self, ans, appointment_data, branch):
+    def check_question(self, ans: List[tk.StringVar], appointment_data: Tuple[str, str, str, datetime, str], branch: str) -> bool:
         '''
         to check if the question is complete and if the patient meet the requirement
         '''
@@ -62,19 +63,19 @@ class QuestionnaireView(tk.Frame):
         for each_answer in ans:
             if each_answer.get() == 'None':
                 tk.messagebox.showerror(title='Incomplete Questionnaire', message='Please complete all the questions.')
-                return
+                return False
             elif each_answer.get() == 'Yes':
                 tk.messagebox.showerror(title='Requirement Not Meet',
                                                   message='Please search on health.gov.au and attend a free COVID-19 respiratory clinic')
-                return
+                return False
 
         # if the questionnaire part is ok, to display the confirming message box
-        self.make_appointment(appointment_data, branch)
+        return self.make_appointment(appointment_data, branch)
 
     def reload_values(self):
         pass
 
-    def make_appointment(self, appointment_data, branch):
+    def make_appointment(self, appointment_data: Tuple[str, str, str, datetime, str], branch: str) -> bool:
         '''
         display the confirmation message and write to the file
         '''
@@ -95,3 +96,6 @@ class QuestionnaireView(tk.Frame):
                                    message='You have made an appointment. \nPlease attend on time.')
 
             self.controller.return_home()
+            return True
+        else:
+            return False
