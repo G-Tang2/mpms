@@ -1,5 +1,7 @@
 import tkinter as tk
-from tkinter import ttk
+from typing import List
+
+from models.question import Question
 
 
 class QuestionnaireView(tk.Frame):
@@ -8,7 +10,7 @@ class QuestionnaireView(tk.Frame):
         tk.Frame.__init__(self, master, bg="#c1e4f7")
         self.controller = controller
 
-    def render_view(self, questions, branch) -> None:
+    def render_view(self, questions: List[Question], branch: str) -> None:
         '''
         decide how the questionnaire is displayed
         '''
