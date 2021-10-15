@@ -2,7 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 class HeaderView(tk.Frame):
-    def __init__(self, master: tk.Tk):
+    def __init__(self, master: tk.Tk) -> None:
         tk.Frame.__init__(self, master)
         '''
         Generates the header 
@@ -25,19 +25,19 @@ class HeaderView(tk.Frame):
         self.logout_btn = tk.Button(self.header_frame, image = self.logout_image, relief = 'flat', 
             command = lambda: master.header_controller.logout(),borderwidth= 0, highlightthickness = 0, anchor="w", bg="#99d2f2")
     
-    def display_logout_btn(self):
+    def display_logout_btn(self) -> None:
         '''
         Displays the logout button 
         '''
         self.logout_btn.pack(fill = 'x',side = "right", padx = 40, pady=10) 
     
-    def hide_logout_btn(self):
+    def hide_logout_btn(self) -> None:
         '''
         Hides the logout button from view
         '''
         self.logout_btn.pack_forget()
 
-    def return_confirmation(self):
+    def return_confirmation(self) -> bool:
         '''
         Returns boolean depending if user confirms leaving page
         '''
