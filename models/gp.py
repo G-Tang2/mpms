@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from typing import List
 from utils.json import JSON
 
@@ -11,14 +12,23 @@ class GP():
         self.area_of_interests = area_of_interests
         self.unavailable_days = unavailable_days
         
-    def get_full_name(self):
+    def get_full_name(self) -> str:
+        '''
+        Returns gp's full name
+        '''
         return "{} {}".format(self.first_name, self.last_name)
 
-    def to_JSON(self):
+    def to_JSON(self) -> json:
+        '''
+        Returns a json object from this AppointmentList instance
+        '''
         return JSON.to_JSON(self)
 
     @staticmethod
     def create_from_json(json_info):
+        '''
+        Create a GP instance based on json input
+        '''
         first_name = json_info["first_name"]
         last_name = json_info["last_name"]
         phone_number = json_info["phone_number"]
