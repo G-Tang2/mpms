@@ -102,4 +102,4 @@ class StatusReportView(tk.Frame):
         for key,value in reason_dict.items():
             reason_table.insert(parent='',index='end',iid=table_iid,text="",values=("     " + key,round(value,2)))
             table_iid += 1
-        reason_table.pack(fill=tk.BOTH)
+        reason_table.pack(fill=tk.BOTH, padx= (30,30))
