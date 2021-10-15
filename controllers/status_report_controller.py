@@ -1,3 +1,4 @@
+import tkinter as tk
 from controllers.controller import Controller
 from models.MPMS import MPMS
 from views.status_report_view import StatusReportView
@@ -5,14 +6,14 @@ from datetime import datetime
 import datetime
 
 class StatusReportController(Controller):
-    def __init__(self,master):
+    def __init__(self,master: tk.Tk) -> None:
         super().__init__(master)
         self._view = StatusReportView(master, self)
         self._view.render_view()
         self._load_view()
         self.MPMS = MPMS.get_instance() 
 
-    def get_reason_report(self, start_date: str, end_date: str, report_type: str):
+    def get_reason_report(self, start_date: str, end_date: str, report_type: str) -> None:
         '''
         Validates the status-report view input. Returns errors message if invalid.
         Calls view function to display the reason report
@@ -23,7 +24,6 @@ class StatusReportController(Controller):
         if (not start_check.isnumeric()) or (not end_check.isnumeric()):
             self._view.display_input_error("Use numerical values! \nNo character inputs.")
             return
-
 
         # Validate the format of date input
         try:
