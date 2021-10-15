@@ -17,6 +17,14 @@ class StatusReportController(Controller):
         Validates the status-report view input. Returns errors message if invalid.
         Calls view function to display the reason report
         '''
+        # Input characters validation
+        start_check = start_date.replace("/","")
+        end_check = end_date.replace("/","")
+        if (not start_check.isnumeric()) or (not end_check.isnumeric()):
+            self._view.display_input_error("Use numerical values! \nNo character inputs.")
+            return
+
+
         # Validate the format of date input
         try:
             start_datetime = datetime.datetime.strptime(start_date, '%d/%m/%Y')
@@ -37,4 +45,4 @@ class StatusReportController(Controller):
             self._view.display_input_error("No appointments within this period")
             return
         # Calls view function to display reason report
-        self._view.display_reason_report(reason_dict)
+        self._view.display_reason_report(reason_dict, start_date, end_date)

@@ -23,7 +23,7 @@ class App(tk.Tk):
 
     def __center_window(self):
         display_w, display_h = self.winfo_screenwidth(), self.winfo_screenheight()
-        window_w, window_h = 1200, 800
+        window_w, window_h = 1200, 850
         self.geometry("%dx%d+%d+%d" % (window_w, window_h, display_w/2 - window_w/2, display_h/2 - window_h/2))
 
     def __setup_styling(self):

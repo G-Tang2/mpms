@@ -47,17 +47,17 @@ class AppointmentDetailView(tk.Frame):
         dt_frame.pack(pady=15)
         tk.Label(dt_frame, text='Please choose the date and time:', font=('Roboto', 12), anchor="w",
                  bg="white").pack(side='top', fill='x')
-        app_date = DateEntry(dt_frame, date_pattern='dd/mm/y', selectmode='day', showweeknumbers=False)
+        app_date = DateEntry(dt_frame, date_pattern='dd/mm/y', selectmode='day', showweeknumbers=False, width=14)
         app_date.pack(side='left', fill='x')
 
         tm = tk.StringVar()
-        self.time_list = ttk.Combobox(dt_frame, textvariable=tm, state='disabled', width=15)
+        self.time_list = ttk.Combobox(dt_frame, textvariable=tm, state='disabled', width=14)
         self.time_list.pack(side='right')
 
         # GP
         gp_frame = tk.Frame(outer_frame, width=200, bg="white")
         gp_frame.pack(pady=15)
-        tk.Label(gp_frame, text='GP preference (Optiaonal):', font=('Roboto', 12), anchor="w",
+        tk.Label(gp_frame, text='GP preference (Optional):', font=('Roboto', 12), anchor="w",
                  bg="white").pack(side='top', padx=30, fill='x')
         gp = tk.StringVar(value='None')
         gp_box = ttk.Combobox(gp_frame, textvariable=gp, width=30)

@@ -11,7 +11,7 @@ class LoginView(tk.Frame):
         email_address = tk.StringVar()
         password = tk.StringVar()
 
-        email_address.set("patient@monash.edu")
+        email_address.set("admin@monash.edu")
         password.set("Monash1234")
 
         # container for login details

@@ -22,7 +22,7 @@ class StatusReportView(tk.Frame):
         date_label_frame = tk.LabelFrame(inner_label_frame, relief="flat", bg="white")
         
         # 'Start' Date Entry widget
-        tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(30, 30))
+        tk.Label(outer_label_frame, text="Status Report", font=('Roboto',28, "bold"), bg="white").pack(pady=(50,30))
         start_date_label_frame = tk.LabelFrame(date_label_frame, relief="flat", bg="white")
         tk.Label(start_date_label_frame, text = "Start Date", width=18, height=1, bg="white").pack()
         start_cal = DateEntry(start_date_label_frame, date_pattern='dd/mm/y', selectmode = 'day', showweeknumbers = False)
@@ -54,21 +54,22 @@ class StatusReportView(tk.Frame):
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
 
-    def display_input_error(self, message):
+    def display_input_error(self, message: str):
         '''
         Displays error message about report input depending on controller validation
         '''
         tk.messagebox.showerror("Error", message)
     
-    def display_reason_report(self, reason_dict):
+    def display_reason_report(self, reason_dict: dict, start_date: str, end_date: str):
         '''
         Creates window for reason report statistics
         '''
         # Create new window for reason report
         report = Toplevel(self)
         report.title("Reason Report")
-        report.geometry("700x700")
-        tk.Label(report,text = "Reason Pie Chart").pack()
+        report.geometry("800x700")
+        tk.Label(report,text = "Reason Report", font=('Roboto',28, "bold")).pack(pady=(20,0))
+        tk.Label(report,text = start_date + "-" + end_date).pack()
 
         # Create figure to hold pie-chart
         f = Figure(figsize=(5,4), dpi= 100)
@@ -92,6 +93,9 @@ class StatusReportView(tk.Frame):
         reason_table.heading("#0", text = '', anchor=W)
         reason_table.heading("Reason", text = 'Reason', anchor=W)
         reason_table.heading("Occurences", text = 'Occurence Percentage (%)', anchor=E)
+        # Style headings
+        style = ttk.Style()
+        style.configure("Treeview.Heading", font=(None, 16))
         # Iterates through reason statistic, adding each reason to the table
         table_iid = 0
         for key,value in reason_dict.items():
