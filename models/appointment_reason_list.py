@@ -21,7 +21,7 @@ class AppointmentReasonList():
     @staticmethod
     def create_from_csv():
         '''
-        Create an AppointmentReasonList instance based on a json input
+        Create an AppointmentReasonList instance based on a csv file
         '''
         reason_list = []
 
