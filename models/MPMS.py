@@ -1,5 +1,7 @@
+from models.branch import Branch
 from models.branch_list import BranchList
 from models.appointment_reason_list import AppointmentReasonList
+from models.question import Question
 from models.questionnaire import Questionnaire
 from models.login import Login
 from datetime import datetime
@@ -23,21 +25,27 @@ class MPMS:
         self.login = login
         return True
 
-    def get_list_of_branches(self):
+    def get_list_of_branches(self) -> BranchList:
         return self.list_of_branches
 
-    def get_questionnaire(self):
+    def get_questionnaire(self) -> Questionnaire:
         return self.questionnaire
 
-    def get_list_of_reasons(self):
+    def get_list_of_reasons(self) -> AppointmentReasonList:
         return self.list_of_reasons
     
-    def get_branch(self, branch_name):
+    def get_branch(self, branch_name) -> Branch:
+        '''
+        Returns a branch instance with branch name that matches branch_name
+        '''
         for branch in self.get_list_of_branches().get_branch_list():
             if branch_name == branch.get_name():
                 return branch
 
     def calculate_reason_statistic(self, start_date: datetime, end_date: datetime) -> dict:
+        '''
+        Returns appointment percentage for each appointment visitation reason in the specified date
+        '''
         statistic = {}
 
         list_of_branches = self.list_of_branches.get_branch_list()
@@ -65,6 +73,9 @@ class MPMS:
 
     @staticmethod
     def write_appointment(branch_id, appointment_list):
+        '''
+        Writes the appointment into the branches.csv file
+        '''
         # read file from file
         dt = pd.read_csv("./app_data/branches.csv")
         # change the appointment list value and write to the file
@@ -74,6 +85,9 @@ class MPMS:
 
     @staticmethod
     def get_instance():
+        '''
+        Returns the MPMS instance, if it doesn't exist, creates one
+        '''
         if MPMS._instance is None:
             MPMS._instance = MPMS()
         return MPMS._instance
