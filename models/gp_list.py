@@ -10,12 +10,18 @@ class GPList():
         return self.gps
     
     def get_gp(self, gp_name:str) -> GP:
+        '''
+        Returns GP instance that has first name that matches gp_name
+        '''
         for gp in self.gps:
             if gp_name == gp.get_full_name():
                 return gp
 
     @staticmethod
     def create_from_json(json_info):
+        '''
+        Create a GPList instance based on json input
+        '''
         gp_list = []
         for gp_json in json_info["gps"]:
             gp_list.append(GP.create_from_json(gp_json))

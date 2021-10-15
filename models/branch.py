@@ -45,7 +45,7 @@ class Branch():
     @staticmethod
     def create_from_json(json_info):
         '''
-        Create a BranchList instance based on json input
+        Create a Branch instance based on json input
         '''
         id = json_info["id"]
         name = json_info["name"]
