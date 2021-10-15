@@ -65,11 +65,17 @@ class StatusReportView(tk.Frame):
         Creates window for reason report statistics
         '''
         # Create new window for reason report
-        report = Toplevel(self)
+        report = Toplevel(self, bg = 'white')
         report.title("Reason Report")
         report.geometry("800x700")
-        tk.Label(report,text = "Reason Report", font=('Roboto',28, "bold")).pack(pady=(20,0))
-        tk.Label(report,text = start_date + "-" + end_date).pack()
+        tk.Label(report,text = "Reason Report", font=('Roboto',28, "bold"), bg ='white').pack(pady=(20,0))
+        tk.Label(report,text = start_date + "-" + end_date, bg ='white').pack()
+        tk.LabelFrame(report, bg="black", height=2).pack(pady=(10,0),fill="x")
+
+        # Centre 'report' window
+        display_w, display_h = report.winfo_screenwidth(), report.winfo_screenheight()
+        window_w, window_h = 800,600
+        report.geometry("%dx%d+%d+%d" % (window_w, window_h, display_w/2 - window_w/2, display_h/2 - window_h/2))
 
         # Create figure to hold pie-chart
         f = Figure(figsize=(5,4), dpi= 100)
@@ -92,13 +98,13 @@ class StatusReportView(tk.Frame):
         # Give headers to reason table
         reason_table.heading("#0", text = '', anchor=W)
         reason_table.heading("Reason", text = 'Reason', anchor=W)
-        reason_table.heading("Occurences", text = 'Occurence Percentage (%)', anchor=E)
+        reason_table.heading("Occurences", text = 'Occurrence(%)', anchor=E)
         # Style headings
         style = ttk.Style()
-        style.configure("Treeview.Heading", font=(None, 16))
+        style.configure("Treeview.Heading", font=(None, 14,"bold" ))
         # Iterates through reason statistic, adding each reason to the table
         table_iid = 0
         for key,value in reason_dict.items():
             reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
             table_iid += 1
-        reason_table.pack(fill=tk.BOTH)
+        reason_table.pack(fill=tk.BOTH, padx= (30,30))
