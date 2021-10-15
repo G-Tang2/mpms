@@ -3,14 +3,17 @@ from models.branch import Branch
 import csv
 
 class BranchList():
-    def __init__(self, branches: List[Branch]):
+    def __init__(self, branches: List[Branch]) -> None:
         self.branches = branches
 
-    def get_branch_list(self):
+    def get_branch_list(self) -> List[Branch]:
         return self.branches
 
     @staticmethod
     def create_from_csv():
+        '''
+        Create a BranchList instance based on csv file
+        '''
         branch_list = []
 
         with open("./app_data/branches.csv", "r", encoding='utf-8-sig') as f:
