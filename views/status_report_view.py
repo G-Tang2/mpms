@@ -3,9 +3,6 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from tkinter.constants import E, NO, W
 from tkcalendar import *
-from datetime import date
-
-from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
@@ -54,13 +51,13 @@ class StatusReportView(tk.Frame):
         outer_label_frame.pack(padx=350, pady=50, fill="x")
         
 
-    def display_input_error(self, message: str):
+    def display_input_error(self, message: str) -> None:
         '''
         Displays error message about report input depending on controller validation
         '''
         tk.messagebox.showerror("Error", message)
     
-    def display_reason_report(self, reason_dict: dict, start_date: str, end_date: str):
+    def display_reason_report(self, reason_dict: dict, start_date: str, end_date: str) -> bool:
         '''
         Creates window for reason report statistics
         '''
@@ -108,3 +105,4 @@ class StatusReportView(tk.Frame):
             reason_table.insert(parent='',index='end',iid=table_iid,text="",values=(key,round(value,2)))
             table_iid += 1
         reason_table.pack(fill=tk.BOTH, padx= (30,30))
+        return True
